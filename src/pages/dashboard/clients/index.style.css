@@ -1,0 +1,104 @@
+.title-empresa {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.fa-plus {
+  font-size: 1rem;
+  color: #fff;
+}
+.btn-criar-empresa {
+  background: #218838 0% 0% no-repeat padding-box !important;
+  border-radius: 5px !important;
+  border-color: #218838 !important;
+  display: flex;
+  height: 37px;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+.btn-criar-empresa:hover {
+
+  color: white;
+}
+
+
+.header-empresa {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 5vh;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(307px, 1fr));
+  grid-column-gap: 6px;
+  grid-row-gap: 6px;
+}
+
+.area-cards-empresas {
+  margin-top: 3rem;
+  margin-right: 5vh;
+  margin-left: 5vh;
+  overflow-y: auto;
+}
+
+.buttonSearch {
+  color: #007bff;
+}
+
+#menu {
+  flex-grow: 1;
+}
+#conteudo {
+  flex-grow: 4;
+  flex-direction: column;
+}
+
+#cabecalho {
+  flex-grow: 1;
+  background-color: red;
+}
+#content {
+  flex-grow: 5;
+  background-color: green;
+  overflow-y: auto;
+}
+#footer {
+  flex-grow: 1;
+  background-color: blue;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
+.custom-file-button input[type=file] {
+  margin-left: -2px !important;
+}
+
+.custom-file-button input[type=file]::-webkit-file-upload-button {
+  display: none;
+}
+
+.custom-file-button input[type=file]::file-selector-button {
+  display: none;
+}
+
+.custom-file-button:hover label {
+  background-color: #dde0e3;
+  cursor: pointer;
+}
+

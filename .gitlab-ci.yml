@@ -1,0 +1,31 @@
+image: ubuntu:20.4
+
+before_script:
+  - apt-get update -qy
+  - apt-get install -y lftp
+
+
+job-desenvolvimento
+  stage: desenvolvimento
+  script:
+    - lftp -c "set ftp:ssl-allow no; open $FTP_SERVER; user $FTP_USERNAME $FTP_PASSWORD; mirror --ignore-time --parallel=10 --exclude README.md --exclude .git/ --exclude .gitignore --reverse --verbose ./ ./monitor/frontend/producao/; bye"
+
+  only:
+    - feature/*
+
+job-homologacao
+  stage: homologacao
+  script:
+    - lftp -c "set ftp:ssl-allow no; open $FTP_SERVER; user $FTP_USERNAME $FTP_PASSWORD; mirror --ignore-time --parallel=10 --exclude README.md --exclude .git/ --exclude .gitignore --reverse --verbose ./ ./monitor/frontend/producao/; bye"
+
+  only:
+    - homologacao
+
+
+job-producao
+  stage: producao
+  script:
+    - lftp -c "set ftp:ssl-allow no; open $FTP_SERVER; user $FTP_USERNAME $FTP_PASSWORD; mirror --ignore-time --parallel=10 --exclude README.md --exclude .git/ --exclude .gitignore --reverse --verbose ./ ./monitor/frontend/producao/; bye"
+
+  only:
+    - master

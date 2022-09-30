@@ -1,0 +1,60 @@
+.half-login {
+  background: #1aa0e6 0% 0% no-repeat padding-box !important;
+  border: 1px solid #707070 !important;
+  opacity: 1 !important;
+}
+
+.container-init .row-login {
+  margin: 0;
+}
+
+
+.full-height {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-login {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+
+.text-danger {
+  text-align: left;
+  letter-spacing: 0px;
+  color: #ce1050;
+}
+
+.footer-form-login {
+  display: flex;
+  justify-content: space-between;
+}
+.line {
+  width: 9rem;
+  opacity: 1;
+}
+.footer-login {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: #ababab;
+  text-align: center;
+}
+
+.form {
+  width: 90%;
+}
+
+.half-login {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+.link {
+  color: #868d96;
+}

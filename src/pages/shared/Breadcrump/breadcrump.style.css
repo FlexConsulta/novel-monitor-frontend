@@ -1,0 +1,17 @@
+.bradcrumb {
+  background: #e9ecef 0% 0% no-repeat padding-box  !important;
+  border-radius: 4px;
+  opacity: 1;
+  padding: 2vh;
+  display: flex;
+  align-items: center;
+  
+}
+.bradcrumb ol{
+  margin: 0;
+
+}
+.breadcrumb-item a{
+  color:#007BFF !important;
+  text-decoration: none !important;
+}
