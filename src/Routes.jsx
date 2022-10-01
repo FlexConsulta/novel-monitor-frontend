@@ -24,7 +24,6 @@ export default function AppRoutes() {
     <Router>
       <AuthContext>
         <Routes>
-          {/* Page acess app */}
           <Route exact path="/" element={<LoginComponent />} />
           <Route
             exact
