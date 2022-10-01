@@ -15,5 +15,5 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: "./"
-          server-dir: "/var/group-apis/monitor/frontend/producao/"
+          server-dir: "/monitor/frontend/producao/"
           git-ftp-args: "--changed-only"
