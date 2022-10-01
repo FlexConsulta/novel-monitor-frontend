@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// Login
 import LoginComponent from "./pages/login";
 import RecoveryPasswordComponent from "./pages/login/recovery.password";
 import ChangePasswordComponent from "./pages/login/change.password";
@@ -25,7 +24,6 @@ export default function AppRoutes() {
     <Router>
       <AuthContext>
         <Routes>
-          {/* Page acess app */}
           <Route exact path="/" element={<LoginComponent />} />
           <Route
             exact
