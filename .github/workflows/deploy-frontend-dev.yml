@@ -1,9 +1,10 @@
-name: Deploy stage
+name: Deploy dev
 on:
   push:
     branches:
       - "*"
       - "!master"
+      - "!main"
       - "!homologacao"
 jobs:
   deploy:
