@@ -1,7 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginComponent from "./pages/login";
+
 import RecoveryPasswordComponent from "./pages/login/recovery.password";
+
 import ChangePasswordComponent from "./pages/login/change.password";
 import PageNotFoundComponent from "./pages/shared/page.not.found";
 import Unauthorized from "./pages/shared/unauthorized";
