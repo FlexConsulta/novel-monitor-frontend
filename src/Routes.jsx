@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// Login
 import LoginComponent from "./pages/login";
 import RecoveryPasswordComponent from "./pages/login/recovery.password";
 import ChangePasswordComponent from "./pages/login/change.password";
