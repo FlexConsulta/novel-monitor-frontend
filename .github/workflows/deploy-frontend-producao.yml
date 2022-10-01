@@ -2,6 +2,8 @@ name: Deploy production
 on:
   pull_request:
     types: [closed]
+  branches:
+    - "main"
 jobs:
   deploy:
     name: Deploy producao
