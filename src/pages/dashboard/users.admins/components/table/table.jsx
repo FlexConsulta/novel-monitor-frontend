@@ -72,7 +72,7 @@ export default function TableComponent(props) {
                     <Form.Control
                       type="text"
                       style={{ height: "40px" }}
-                      placeholder="Enter email"
+                      placeholder="Email"
                       onChange={(e) =>
                         setSearch((state) => [
                           ...state.filter((item) => item.prop !== "email"),

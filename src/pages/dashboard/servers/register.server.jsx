@@ -40,7 +40,13 @@ export default function CadastroServer() {
             throw new Error(error?.response?.data);
           });
         }
-        SweetAlert.mixin({ icon: "success", title: "Servidor cadastrado!" });
+        SweetAlert.mixin({
+          icon: "success",
+          title: `Servidor ${
+            location?.state?.server_id ? "alterado" : "cadastrado"
+          } com sucesso!`,
+        });
+        navigator("/servidores");
       } else {
         SweetAlert.mixin({ icon: "error", title: "Ocorreu um erro!" });
       }

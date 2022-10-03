@@ -94,9 +94,12 @@ export default function RegisterDatabase() {
         }
         SweetAlert.mixin({
           icon: "success",
-          title: "Empresa Cadastrada com sucesso!",
+          title: `Usuário ${
+            location?.state?.user_id ? "alterado" : "cadastrado"
+          } com sucesso!`,
         });
       }
+      navigator("/usuarios-admin");
     } catch (e) {
       if (e instanceof Error) {
         SweetAlert.mixin({ icon: "error", title: e.message });
@@ -147,7 +150,7 @@ export default function RegisterDatabase() {
                 onChange={(e) => setAtivarUser(!ativarUser)}
                 type="switch"
                 id="ativarUser"
-                label="Ativar / desativar usuário"
+                label="Desativar / Ativar usuário"
               />
             </FormGroup>
           </Col>

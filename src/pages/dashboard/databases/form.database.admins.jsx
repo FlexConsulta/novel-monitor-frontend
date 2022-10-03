@@ -142,7 +142,7 @@ export default function FormDatabase(props) {
                 </Form.Label>
                 <Form.Control
                   required
-                  type="text"
+                  type="password"
                   name="password_database"
                   onFocus={Frm.neutro}
                   value={database?.password_default}
@@ -187,7 +187,7 @@ export default function FormDatabase(props) {
                   }
                   type="switch"
                   id="sincronizacao-bd"
-                  label="Ativar / desativar sincronização"
+                  label="Desativar / Ativar sincronização"
                 />
               </FormGroup>
             </Form>
@@ -219,11 +219,8 @@ export default function FormDatabase(props) {
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="col-12 mt-2">
-                <Form.Label>
-                  Servidor alternativo<span className="text-danger">*</span>
-                </Form.Label>
+                <Form.Label>Servidor alternativo</Form.Label>
                 <Form.Control
-                  required
                   type="text"
                   name="alternative_hostname_client"
                   onFocus={Frm.neutro}
@@ -281,7 +278,7 @@ export default function FormDatabase(props) {
                 </Form.Label>
                 <Form.Control
                   required
-                  type="text"
+                  type="password"
                   name="password_client"
                   onFocus={Frm.neutro}
                   value={database?.password_client}

@@ -12,8 +12,7 @@ export default function TableComponent(props) {
   const [descricao, setDescricao] = useState("");
 
   //Adicionar função da requisição
-  useEffect(() => {
-  }, [data, descricao, status]);
+  useEffect(() => {}, [data, descricao, status]);
   const { headCells, RowTable } = props;
   const obj = [
     { data: "11/01/2022", status: true, descricao: "serviço" },
@@ -28,10 +27,7 @@ export default function TableComponent(props) {
   return (
     <Row>
       <Col className="table-container" style={{ marginBottom: "5px" }}>
-        <table
-
-          className="table table-hover bordered table-striped"
-        >
+        <table className="table table-hover bordered table-striped">
           <thead>
             <tr>
               <th>
@@ -39,12 +35,11 @@ export default function TableComponent(props) {
                   <Form.Control
                     type="date"
                     style={{ height: "40px" }}
-                    placeholder="Enter email"
+                    placeholder="Data"
                     onChange={(e) => setData(e.target.value)}
                   />
                 ) : (
                   <span>Data</span>
-
                 )}
               </th>
               <th>
@@ -54,14 +49,15 @@ export default function TableComponent(props) {
                     /*as="aaaaaa"*/
                     onChange={(e) => setStatus(e.target.value)}
                   >
-                    <option disabled value="">{'Selecione o status...'}</option>
+                    <option disabled value="">
+                      {"Selecione o status..."}
+                    </option>
                     <option value={"ativo/inativo"}>Ativo/Inativo</option>
                     <option value={"ativo"}>Ativo</option>
                     <option value={"inativo"}>Inativo</option>
                   </Form.Select>
                 ) : (
                   <span>status</span>
-
                 )}{" "}
               </th>
               <th

@@ -69,7 +69,7 @@ export default function FormServer(props) {
                 }
                 type="switch"
                 id="userAtivo"
-                label="Ativar / desativar server"
+                label="Desativar / Ativar server"
               />
             </Form.Group>
           </Card.Body>

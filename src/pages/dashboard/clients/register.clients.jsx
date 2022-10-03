@@ -45,7 +45,13 @@ export default function EditClients() {
             throw new Error(error?.response?.data);
           });
         }
-        SweetAlert.mixin({ icon: "success", title: "Cliente cadastrado!" });
+        SweetAlert.mixin({
+          icon: "success",
+          title: `Cliente ${
+            location?.state?.client_id ? "alterado" : "cadastrado"
+          } com sucesso!`,
+        });
+        navigator(`/empresas`);
       } else {
         SweetAlert.mixin({ icon: "error", title: "Ocorreu um erro!" });
       }
@@ -93,7 +99,7 @@ export default function EditClients() {
             </Button>
             <Button
               onClick={() => {
-                navigator(`/logs-conexoes`);
+                navigator(`/empresas`);
               }}
               variant="secondary"
               className="mx-3 "
