@@ -8,6 +8,14 @@ jobs:
     name: Deploy homologacao
     runs-on: ubuntu-latest
     steps:
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.17
+      - name: install dependences
+        run: yarn install
+      - name: build
+        run: yarn build
       - uses: actions/checkout@v2
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
@@ -15,6 +23,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: "./"
+          local-dir: "./build"
           server-dir: "/monitor/frontend/homologacao/"
           git-ftp-args: "--changed-only"
