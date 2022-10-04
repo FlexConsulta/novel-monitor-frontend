@@ -31,7 +31,7 @@ jobs:
         run: yarn install
 
       - name: build
-        working-directory: ./
+        #working-directory: ./
         run: yarn build
 
       - name: FTP-Deploy-Action
