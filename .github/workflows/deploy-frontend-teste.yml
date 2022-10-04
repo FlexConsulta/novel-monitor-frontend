@@ -15,6 +15,7 @@ jobs:
       - name: install dependences
         run: yarn install
       - name: build
+        working-directory: ./
         run: yarn build
       - uses: actions/checkout@v2
       - name: FTP-Deploy-Action
