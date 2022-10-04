@@ -40,6 +40,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: "./build"
-          server-dir: "/monitor/frontend/homologacao/build"
+          local-dir: "./build/"
+          server-dir: "/monitor/frontend/homologacao/build/"
           git-ftp-args: "--changed-only"
