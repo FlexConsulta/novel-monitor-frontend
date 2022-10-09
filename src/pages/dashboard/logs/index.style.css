@@ -9,8 +9,7 @@
 .title-log-empresa div {
   margin-top: 3vh;
 }
-.logs-page {
-  /*height: 100%;*/
+.card-logs {
+  width: 300px;
+  margin-bottom: 16px;
 }
-
-

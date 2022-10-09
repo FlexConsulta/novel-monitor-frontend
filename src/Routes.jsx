@@ -147,7 +147,7 @@ export default function AppRoutes() {
           />
           <Route
             exact
-            path="/logs-conexoes/:id"
+            path="/logs-conexoes"
             element={
               <PrivateRoute route={"logs-conexoes"}>
                 <LogsDatabasesComponent />
