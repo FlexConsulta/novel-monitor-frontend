@@ -38,7 +38,7 @@ export default function LogsDatabasesComponent() {
           setTotalPages(data?.pages);
         })
         .catch((error) => {
-          alert("error");
+          console.log(error);
         });
     } else {
       if (client_id) {
@@ -48,7 +48,7 @@ export default function LogsDatabasesComponent() {
             setTotalPages(data?.pages);
           })
           .catch((error) => {
-            alert("error");
+            console.log(error);
           });
       }
     }
@@ -78,7 +78,7 @@ export default function LogsDatabasesComponent() {
             <Breadcrump
               way={[
                 { label: "Pagina Incial", rota: "./dashboard" },
-                { label: "lista de Clientes", rota: "/empresas" },
+                { label: "Configuracoes", rota: "/configuracoes" },
                 { label: "Cliente", rota: "/logs-conexoes" },
               ]}
             />
