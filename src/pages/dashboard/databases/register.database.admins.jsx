@@ -53,8 +53,11 @@ export default function RegisterDatabase() {
         }
         SweetAlert.mixin({
           icon: "success",
-          title: "Empresa Cadastrada com sucesso!",
+          title: `Banco de dados ${
+            location?.state?.database_id ? "alterado" : "cadastrado"
+          } com sucesso!`,
         });
+        navigator("/banco-dados");
       }
     } catch (error) {
       if (error instanceof Error) {

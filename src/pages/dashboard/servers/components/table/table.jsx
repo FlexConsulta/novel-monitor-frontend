@@ -6,8 +6,10 @@ import PaginationComponent from "../../../../../components/pagination/pagination
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsFillPencilFill } from "react-icons/bs";
+import { SiGraylog } from "react-icons/si";
 import DeleteRecord from "../delete";
 import Api from "../../../../../utils/axios";
+import { useCallback } from "react";
 
 export default function TableComponent(props) {
   const [search, setSearch] = useState([]);
@@ -39,6 +41,7 @@ export default function TableComponent(props) {
       setFilterData([...props.data]);
     }
   }, [showSearch]);
+
   return (
     <>
       <Row>
@@ -138,9 +141,19 @@ export default function TableComponent(props) {
                   <td>{server.url}</td>
                   <td>{server.ativo ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ width: "90px" }}>
+                    <div
+                      style={{ width: "135px", display: "flex", gap: "3px" }}
+                    >
                       <Button
-                        style={{ marginRight: "3px" }}
+                        onClick={() =>
+                          navigate("/logs-conexoes", {
+                            state: { server_id: server.id },
+                          })
+                        }
+                      >
+                        <SiGraylog size={16} />
+                      </Button>
+                      <Button
                         onClick={() =>
                           navigate("/edit-servidores", {
                             state: { server_id: server.id },

@@ -1,210 +1,213 @@
-import React from "react";
-import { Col, Row, Table, Card, Button } from "react-bootstrap";
+import React, { useContext } from "react";
+import { Col, Row, Card, Badge } from "react-bootstrap";
 import "./index.style.css";
-import { IconDataBase, IconUsers } from "../../../assets/Icons";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Api from "../../../utils/axios";
-// Pages
+import { AuthContext } from "../../shared/AuthContext";
 import MenuOptionsComponents from "../../shared/menu.options";
-import TableComponent from "../../../components/table/table";
-import { useMemo } from "react";
 import Breadcrump from "../../shared/Breadcrump/Breadcrump";
 import { useEffect } from "react";
 import { useState } from "react";
-import SweetAlert from "../../../utils/sweetalert";
+import PaginationComponent from "../../../components/pagination/pagination";
+import ReactLoading from "react-loading";
+
 export default function LogsDatabasesComponent() {
-  const [listEmpresas, setListEmpresas] = useState();
-  const [reload, setReload] = useState(false);
+  const { authenticateUser } = useContext(AuthContext);
+  const { client_id } = authenticateUser;
+  const location = useLocation();
+  const server_id = location?.state?.server_id;
+  const [logList, setLogList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [database, setDataBase] = useState([]);
-  let { id } = useParams();
-  const history = useNavigate();
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
 
   useEffect(() => {
-    setReload(true);
-    Api.get(`clients/${id}`)
-      .then(({ data }) => {
-        setListEmpresas(data);
-      })
-      .catch((error) => {
-        alert("error");
-      });
-    Api.get(`databases/${id}`).then(({ data }) => setDataBase(data));
-    setReload(false);
-  }, [id]);
+    fetchDataPaged();
+  }, [page]);
 
-  function onDeleteEmpesa() {
-    function confrmDelete() {
-      setLoading(true);
-      Api.delete(`clients/${id}`)
-        .then(() => {
-          SweetAlert.mixin({
-            icon: "success",
-            title: "Empresa Excluída com sucesso!",
-          });
-          history("/empresas");
+  const fetchDataPaged = async () => {
+    setLoading(true);
+    const params = {
+      page,
+      paginate: process.env.REACT_APP_DEFAULT_PAGINATE,
+    };
+    if (server_id) {
+      Api.get(`logs/server?serverid=${server_id}`)
+        .then(({ data }) => {
+          setLogList(data.docs);
+          setTotalPages(data?.pages);
         })
-        .catch((error) =>
-          SweetAlert.mixin({ icon: "error", title: error.response.data })
-        );
-      setLoading(false);
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      if (client_id) {
+        Api.get(`logs/customer?customerid=${client_id}`)
+          .then(({ data }) => {
+            setLogList(data.docs);
+            setTotalPages(data?.pages);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     }
-    SweetAlert.default({
-      title: "Deseja continuar ?",
-      text: "Esta operação irá excluir a empresa da base de dados!",
-      icon: "warning",
-      showBtnCancel: "Cancelar",
-      confirmButtonText: "Confirmar",
-      callback: confrmDelete,
-    });
-  }
-  const headCells = [
-    {
-      id: "data",
-      label: "data",
-      type: "date",
-    },
-    {
-      id: "Status",
-      label: "Status",
-      type: "text",
-    },
 
-    {
-      id: "Descrição",
-      label: "Descrição",
-      type: "",
-    },
-    {
-      id: "Descrição",
-      label: "Descrição",
-    },
-    {
-      id: "Descrição",
-      label: "Descrição",
-    },
-    {
-      id: "Descrição",
-      label: "Descrição",
-    },
-    {
-      id: "Descrição",
-      label: "Descrição",
-    },
-  ];
+    setLoading(false);
+  };
 
-  const RowTable = useMemo(() => {
-    return headCells.map((item, idx) => (
-      <tr key={idx}>
-        <td>a</td>
-        <td>a</td>
-        <td>a</td>
-        <td>a</td>
-        <td>a</td>
-        <td>a</td>
-        <td>a</td>
-      </tr>
-    ));
-  });
+  useEffect(() => {
+    fetchDataPaged();
+  }, []);
 
   return (
-    <>
-      <Row className="h-100 w-100">
-        <Col className="col-2 ps-0">
-          <MenuOptionsComponents />
-        </Col>
-        <Col className="col-10 d-flex flex-column justify-content-between h-100 ">
-          <Row className="mt-1 flex-grow-1 ">
-            <Col
-              className={
-                "col-8 col-md-10 d-flex justify-content-between align-items-center"
-              }
-            >
-              <div>
-                <h1>{listEmpresas?.name}</h1>
-              </div>
-              <div>
-                <Button
-                  onClick={() => history(`/edit-empresas/${id}`)}
-                  variant="outline-secondary"
-                  className="h-75 mx-1"
+    <Row className="h-100 w-100">
+      <Col className="col-2 ps-0">
+        <MenuOptionsComponents />
+      </Col>
+      <Col md={10} className="col-10 pt-5 d-flex flex-column   h-100">
+        <Row className="d-flex flex-row  align-items-center ">
+          <Col className={"col-12 col-md-8"}>
+            <div className="title-empresa mb-2 mb-md-0">
+              <h1>Log</h1>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="col-12">
+            <Breadcrump
+              way={[
+                { label: "Pagina Incial", rota: "./dashboard" },
+                { label: "Configuracoes", rota: "/configuracoes" },
+                { label: "Cliente", rota: "/logs-conexoes" },
+              ]}
+            />
+          </Col>
+        </Row>
+        {loading ? (
+          <Row
+            style={{
+              minHeight: "160px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ReactLoading
+              type={"bars"}
+              color={"#1aa0e6"}
+              height={10}
+              width={50}
+            />
+          </Row>
+        ) : (
+          <Row
+            className="mt-4 flex-grow-1"
+            style={{ maxHeight: "460px", overflowY: "scroll" }}
+          >
+            {logList?.length > 0 &&
+              logList.map((log) => (
+                <Col
+                  className="col-3"
+                  key={log.id}
+                  style={{ minWidth: "330px" }}
                 >
-                  Editar Empresa
-                </Button>
-                <Button
-                  onClick={onDeleteEmpesa}
-                  variant="outline-danger"
-                  className="h-75"
-                >
-                  Deletar Empresa
-                </Button>
-              </div>
-            </Col>
+                  <Card className="card-logs">
+                    <Card.Header style={{ paddingBottom: "0px" }}>
+                      <Row>
+                        <Col>{log?.databasis?.name_default}</Col>
+                        <Col>
+                          <Badge
+                            bg={
+                              log?.status_connection == 200
+                                ? "success"
+                                : "danger"
+                            }
+                            text="white"
+                          >
+                            {new Date(log?.created_at).toLocaleString()}
+                          </Badge>
+                        </Col>
+                      </Row>
+                      <Row style={{ paddingTop: "10px" }}>
+                        <Col></Col>
+                        <Col>Local</Col>
+                        <Col>Cliente </Col>
+                      </Row>
+                    </Card.Header>
+                    <Card.Body className="pb-1 px-1">
+                      <Row>
+                        <Col>Viagens:</Col>
+                        <Col>
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.travelsLocal ==
+                              "Erro"
+                                ? "danger"
+                                : "success"
+                            }
+                            text="white"
+                          >
+                            {JSON.parse(log.description)?.travelsLocal}
+                          </Badge>
+                        </Col>
+                        <Col>
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.travelsCustomer ==
+                              "Erro"
+                                ? "danger"
+                                : "success"
+                            }
+                            text="white"
+                          >
+                            {JSON.parse(log.description)?.travelsCustomer}
+                          </Badge>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>Notas:</Col>
+                        <Col>
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.incoicesLocal ||
+                              0 == "Erro"
+                                ? "danger"
+                                : "success"
+                            }
+                            text="white"
+                          >
+                            {JSON.parse(log.description)?.incoicesLocal || 0}
+                          </Badge>
+                        </Col>
+                        <Col>
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.invoicesCustomer ||
+                              0 == "Erro"
+                                ? "danger"
+                                : "success"
+                            }
+                            text="white"
+                          >
+                            {JSON.parse(log.description)?.invoicesCustomer || 0}
+                          </Badge>
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
           </Row>
-          <Row>
-            <Col className="col-12">
-              <Breadcrump
-                way={[
-                  { label: "Pagina Incial", rota: "./dashboard" },
-                  { label: "lista de Clientes", rota: "/empresas" },
-                  { label: "Cliente", rota: "/logs-conexoes" },
-                ]}
-              />
-            </Col>
-          </Row>
-          <Row className="mt-4 flex-grow-1 ">
-            <Col className="col-8 col-sm-5 col-md-4 col-lg-2">
-              <Card className="card-logs">
-                <Card.Header>
-                  <IconUsers />
-                  <span className={"desc-card-empresas"}>Usuários</span>
-                </Card.Header>
-                <Card.Body className="pb-1 px-1">
-                  <div className="text-center card-empresa pb-3">
-                    <span>10</span>
-                  </div>
-                  <Button
-                    onClick={() => history("/usuarios-empresas")}
-                    className="w-100"
-                  >
-                    Detalhes
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col className="col-8 col-sm-5 col-md-4 col-lg-2">
-              <Card className="card-logs">
-                <Card.Header>
-                  <IconUsers />
-                  <span className={"desc-card-empresas"}>Banco de Dados</span>
-                </Card.Header>
-                <Card.Body className="pb-1 px-1">
-                  <div className="text-center card-empresa pb-3">
-                    <span>{database.length}</span>
-                  </div>
-                  <Button
-                    className="w-100"
-                    onClick={() => {
-                      history(`/banco-dados/${id}`);
-                    }}
-                  >
-                    Detalhes
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          <Row className="mt-4  h-100  mb-3 mx-3">
-            <Col className="col-8 col-md-10 p-0">
-              <TableComponent
-                headCells={headCells}
-                RowTable={RowTable}
-              ></TableComponent>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-    </>
+        )}
+        {/* <Row>
+          <PaginationComponent
+            page={page}
+            totalPages={totalPages}
+            togglePage={setPage}
+          />
+        </Row> */}
+      </Col>
+    </Row>
   );
 }

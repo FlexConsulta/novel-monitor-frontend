@@ -64,7 +64,7 @@ export default function TableComponent(props) {
                       }
                     />
                   ) : (
-                    <span>Usuário</span>
+                    <span>N. Fantasia</span>
                   )}
                 </th>
                 <th>

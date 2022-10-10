@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import MenuOptionsComponents from "../../shared/menu.options";
 import Api from "../../../utils/axios";
@@ -39,10 +39,6 @@ export default function ClientsComponent() {
     fetchDataPaged();
   }, [page]);
 
-  const togglePage = useCallback((page) => {
-    setPage(page);
-    fetchDataPaged();
-  }, []);
   return (
     <Row className="h-100 w-100">
       <Col className="col-2 ps-0">
@@ -96,7 +92,7 @@ export default function ClientsComponent() {
                 data={data}
                 page={page}
                 totalPages={totalPages}
-                togglePage={togglePage}
+                togglePage={setPage}
                 fetchData={fetchDataPaged}
               />
             </Col>

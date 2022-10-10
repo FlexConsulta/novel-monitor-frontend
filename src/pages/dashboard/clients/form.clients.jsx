@@ -4,7 +4,6 @@ import Frm from "../../../utils/forms.validation";
 import FormsControl from "../../shared/FormsControl";
 
 export default function FormClient(props) {
-
   const { client, setClient } = props;
 
   return (
@@ -22,7 +21,12 @@ export default function FormClient(props) {
                 required={true}
                 onFocus={Frm.neutro}
                 value={client.razaosocial}
-                onChange={(e) => setClient(state => ({ ...state, razaosocial: e.target.value }))}
+                onChange={(e) =>
+                  setClient((state) => ({
+                    ...state,
+                    razaosocial: e.target.value,
+                  }))
+                }
               />
 
               <FormsControl.Text
@@ -33,12 +37,14 @@ export default function FormClient(props) {
                 type="text"
                 onFocus={Frm.neutro}
                 value={client?.name}
-                onChange={(e) => setClient(state => ({ ...state, name: e?.target?.value }))}
+                onChange={(e) =>
+                  setClient((state) => ({ ...state, name: e?.target?.value }))
+                }
               />
               <FormsControl.NumberFormat
                 className={"col-12 mt-2"}
-                id={'cnpj'}
-                name={'cnpj'}
+                id={"cnpj"}
+                name={"cnpj"}
                 label={"CNPJ"}
                 // dataMformat={'cnpj'}
                 placeholder={"Digite o CNPJ..."}
@@ -47,16 +53,23 @@ export default function FormClient(props) {
                 format={"##.###.###/####-##"}
                 value={client?.cnpj}
                 onFocus={Frm.neutro}
-                onValueChange={(e) => setClient(state => ({ ...state, cnpj: e.value }))}
-              // onValueChange={(e) => console.log(e)}
+                onValueChange={(e) =>
+                  setClient((state) => ({ ...state, cnpj: e.value }))
+                }
+                // onValueChange={(e) => console.log(e)}
               />
               <Col className="col-12 mt-2">
                 <Form.Check
                   checked={client?.sincronizacao}
-                  onChange={() => setClient({ ...client, sincronizacao: !client?.sincronizacao })}
+                  onChange={() =>
+                    setClient({
+                      ...client,
+                      sincronizacao: !client?.sincronizacao,
+                    })
+                  }
                   type="switch"
                   id="sincronizacao"
-                  label="Ativar / desativar sincronização"
+                  label="Desativar / Ativar sincronização"
                 />
               </Col>
             </Form>
