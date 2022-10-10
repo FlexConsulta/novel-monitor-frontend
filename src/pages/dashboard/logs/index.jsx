@@ -79,7 +79,7 @@ export default function LogsDatabasesComponent() {
               way={[
                 { label: "Pagina Incial", rota: "./dashboard" },
                 { label: "Configuracoes", rota: "/configuracoes" },
-                { label: "Cliente", rota: "/logs-conexoes" },
+                { label: "Log", rota: "/logs-conexoes" },
               ]}
             />
           </Col>
