@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
-import { Col, Row, Table, Card, Button, Badge } from "react-bootstrap";
+import { Col, Row, Card, Badge } from "react-bootstrap";
 import "./index.style.css";
-import { IconDataBase, IconUsers } from "../../../assets/Icons";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Api from "../../../utils/axios";
 import { AuthContext } from "../../shared/AuthContext";
 import MenuOptionsComponents from "../../shared/menu.options";
 import Breadcrump from "../../shared/Breadcrump/Breadcrump";
 import { useEffect } from "react";
 import { useState } from "react";
+import PaginationComponent from "../../../components/pagination/pagination";
+import ReactLoading from "react-loading";
 
 export default function LogsDatabasesComponent() {
   const { authenticateUser } = useContext(AuthContext);
@@ -17,37 +18,46 @@ export default function LogsDatabasesComponent() {
   const server_id = location?.state?.server_id;
   const [logList, setLogList] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  let { id } = useParams();
-  const history = useNavigate();
-
-  useEffect(() => {
-    console.log(logList);
-  }, [logList]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
 
   useEffect(() => {
-    console.log(client_id);
+    fetchDataPaged();
+  }, [page]);
+
+  const fetchDataPaged = async () => {
     setLoading(true);
-    if (client_id) {
-      Api.get(`logs/customer?customerid=${client_id}`)
-        .then(({ data }) => {
-          setLogList(data.docs);
-        })
-        .catch((error) => {
-          alert("error");
-        });
-    }
+    const params = {
+      page,
+      paginate: process.env.REACT_APP_DEFAULT_PAGINATE,
+    };
     if (server_id) {
-      Api.get(`logs/customer?serverid=${server_id}`)
+      Api.get(`logs/server?serverid=${server_id}`)
         .then(({ data }) => {
           setLogList(data.docs);
+          setTotalPages(data?.pages);
         })
         .catch((error) => {
           alert("error");
         });
+    } else {
+      if (client_id) {
+        Api.get(`logs/customer?customerid=${client_id}`)
+          .then(({ data }) => {
+            setLogList(data.docs);
+            setTotalPages(data?.pages);
+          })
+          .catch((error) => {
+            alert("error");
+          });
+      }
     }
 
     setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchDataPaged();
   }, []);
 
   return (
@@ -74,94 +84,129 @@ export default function LogsDatabasesComponent() {
             />
           </Col>
         </Row>
-        <Row className="mt-4 flex-grow-1">
-          {logList?.length > 0 &&
-            logList.map((log) => (
-              <Col className="col-3" key={log.id} style={{ minWidth: "330px" }}>
-                <Card className="card-logs">
-                  <Card.Header style={{ paddingBottom: "0px" }}>
-                    <Row>
-                      <Col>{log?.databasis?.name_default}</Col>
-                      <Col>
-                        <Badge
-                          bg={
-                            log?.status_connection == 200 ? "success" : "danger"
-                          }
-                          text="white"
-                        >
-                          {new Date(log?.created_at).toLocaleString()}
-                        </Badge>
-                      </Col>
-                    </Row>
-                    <Row style={{ paddingTop: "10px" }}>
-                      <Col></Col>
-                      <Col>Local</Col>
-                      <Col>Cliente </Col>
-                    </Row>
-                  </Card.Header>
-                  <Card.Body className="pb-1 px-1">
-                    <Row>
-                      <Col>Viagens:</Col>
-                      <Col>
-                        <Badge
-                          bg={
-                            JSON.parse(log.description)?.travelsLocal == "Erro"
-                              ? "danger"
-                              : "success"
-                          }
-                          text="white"
-                        >
-                          {JSON.parse(log.description)?.travelsLocal}
-                        </Badge>
-                      </Col>
-                      <Col>
-                        <Badge
-                          bg={
-                            JSON.parse(log.description)?.travelsCustomer ==
-                            "Erro"
-                              ? "danger"
-                              : "success"
-                          }
-                          text="white"
-                        >
-                          {JSON.parse(log.description)?.travelsCustomer}
-                        </Badge>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>Notas:</Col>
-                      <Col>
-                        <Badge
-                          bg={
-                            JSON.parse(log.description)?.incoicesLocal ||
-                            0 == "Erro"
-                              ? "danger"
-                              : "success"
-                          }
-                          text="white"
-                        >
-                          {JSON.parse(log.description)?.incoicesLocal || 0}
-                        </Badge>
-                      </Col>
-                      <Col>
-                        <Badge
-                          bg={
-                            JSON.parse(log.description)?.invoicesCustomer ||
-                            0 == "Erro"
-                              ? "danger"
-                              : "success"
-                          }
-                          text="white"
-                        >
-                          {JSON.parse(log.description)?.invoicesCustomer || 0}
-                        </Badge>
-                      </Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-        </Row>
+        {loading ? (
+          <Row
+            style={{
+              minHeight: "160px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ReactLoading
+              type={"bars"}
+              color={"#1aa0e6"}
+              height={10}
+              width={50}
+            />
+          </Row>
+        ) : (
+          <Row
+            className="mt-4 flex-grow-1"
+            style={{ maxHeight: "460px", overflowY: "scroll" }}
+          >
+            {logList?.length > 0 &&
+              logList.map((log) => (
+                <Col
+                  className="col-3"
+                  key={log.id}
+                  style={{ minWidth: "330px" }}
+                >
+                  <Card className="card-logs">
+                    <Card.Header style={{ paddingBottom: "0px" }}>
+                      <Row>
+                        <Col>{log?.databasis?.name_default}</Col>
+                        <Col>
+                          <Badge
+                            bg={
+                              log?.status_connection == 200
+                                ? "success"
+                                : "danger"
+                            }
+                            text="white"
+                          >
+                            {new Date(log?.created_at).toLocaleString()}
+                          </Badge>
+                        </Col>
+                      </Row>
+                      <Row style={{ paddingTop: "10px" }}>
+                        <Col></Col>
+                        <Col>Local</Col>
+                        <Col>Cliente </Col>
+                      </Row>
+                    </Card.Header>
+                    <Card.Body className="pb-1 px-1">
+                      <Row>
+                        <Col>Viagens:</Col>
+                        <Col>
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.travelsLocal ==
+                              "Erro"
+                                ? "danger"
+                                : "success"
+                            }
+                            text="white"
+                          >
+                            {JSON.parse(log.description)?.travelsLocal}
+                          </Badge>
+                        </Col>
+                        <Col>
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.travelsCustomer ==
+                              "Erro"
+                                ? "danger"
+                                : "success"
+                            }
+                            text="white"
+                          >
+                            {JSON.parse(log.description)?.travelsCustomer}
+                          </Badge>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>Notas:</Col>
+                        <Col>
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.incoicesLocal ||
+                              0 == "Erro"
+                                ? "danger"
+                                : "success"
+                            }
+                            text="white"
+                          >
+                            {JSON.parse(log.description)?.incoicesLocal || 0}
+                          </Badge>
+                        </Col>
+                        <Col>
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.invoicesCustomer ||
+                              0 == "Erro"
+                                ? "danger"
+                                : "success"
+                            }
+                            text="white"
+                          >
+                            {JSON.parse(log.description)?.invoicesCustomer || 0}
+                          </Badge>
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+          </Row>
+        )}
+        {/* <Row>
+          <PaginationComponent
+            page={page}
+            totalPages={totalPages}
+            togglePage={setPage}
+          />
+        </Row> */}
       </Col>
     </Row>
   );

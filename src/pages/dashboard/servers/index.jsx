@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import TableComponent from "./components/table/table";
 import MenuOptionsComponents from "../../shared/menu.options";
@@ -35,11 +35,6 @@ export default function ClientsComponent() {
   useEffect(() => {
     fetchDataPaged();
   }, [page]);
-
-  const togglePage = useCallback((page) => {
-    setPage(page);
-    fetchDataPaged();
-  }, []);
 
   return (
     <Row className="h-100 w-100">
@@ -94,7 +89,7 @@ export default function ClientsComponent() {
                 data={listServers}
                 page={page}
                 totalPages={totalPages}
-                togglePage={togglePage}
+                togglePage={setPage}
                 fetchData={fetchDataPaged}
               />
             </Col>

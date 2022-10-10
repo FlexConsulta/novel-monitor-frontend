@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Api from "../../../utils/axios";
@@ -34,11 +34,6 @@ export default function DatabaseComponent() {
   useEffect(() => {
     fetchDataPaged();
   }, [page]);
-
-  const togglePage = useCallback((page) => {
-    setPage(page);
-    fetchDataPaged();
-  }, []);
 
   return (
     <>
@@ -94,7 +89,7 @@ export default function DatabaseComponent() {
                   data={data}
                   page={page}
                   totalPages={totalPages}
-                  togglePage={togglePage}
+                  togglePage={setPage}
                   fetchData={fetchDataPaged}
                 />
               </Col>

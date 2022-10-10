@@ -1,14 +1,3 @@
-@media only screen and (min-width: 1201px) {
-  .card-empresa {
-    font-size: 1.5rem;
-  }
-}
-.desc-card-empresas {
-  margin-left: 5px;
-}
-.title-log-empresa div {
-  margin-top: 3vh;
-}
 .card-logs {
   width: 300px;
   margin-bottom: 16px;
