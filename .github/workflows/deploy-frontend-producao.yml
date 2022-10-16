@@ -29,5 +29,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /var/group-apis/monitor/frontend/producao
+            source ~/.nvm/nvm.sh
             yarn
             yarn build
