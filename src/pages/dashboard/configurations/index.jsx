@@ -82,7 +82,7 @@ export default function ConfiguracoesComponent() {
           <Col className="col-12">
             <Breadcrump
               way={[
-                { label: "Inicio", rota: "/dashboard" },
+                { label: "Início", rota: "/dashboard" },
                 { label: "Configurações", rota: "/configuracoes" },
               ]}
             />

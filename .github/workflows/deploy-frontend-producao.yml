@@ -20,3 +20,14 @@ jobs:
           local-dir: "./"
           server-dir: "/monitor/frontend/producao/"
           git-ftp-args: "--changed-only"
+
+      - name: Build Application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /var/group-apis/monitor/frontend/producao
+            yarn
+            yarn build
