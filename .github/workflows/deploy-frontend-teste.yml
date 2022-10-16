@@ -28,6 +28,5 @@ jobs:
           script: |
             cd /var/group-apis/monitor/frontend/homologacao
             source ~/.nvm/nvm.sh
-            nvm ls
             yarn
             yarn build

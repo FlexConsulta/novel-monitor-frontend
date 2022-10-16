@@ -51,7 +51,7 @@ export default function ConfiguracoesComponent() {
       },
     },
     {
-      title: "Logs de sincronização",
+      title: "Logs de Sincronização",
       descricao: "Logs de sincronização",
       quantity: data?.logs,
       button: function () {
