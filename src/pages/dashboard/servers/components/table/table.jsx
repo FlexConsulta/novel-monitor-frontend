@@ -9,7 +9,6 @@ import { BsFillPencilFill } from "react-icons/bs";
 import { SiGraylog } from "react-icons/si";
 import DeleteRecord from "../delete";
 import Api from "../../../../../utils/axios";
-import { useCallback } from "react";
 
 export default function TableComponent(props) {
   const [search, setSearch] = useState([]);
@@ -146,7 +145,7 @@ export default function TableComponent(props) {
                     >
                       <Button
                         onClick={() =>
-                          navigate("/logs-conexoes", {
+                          navigate("/logs-server", {
                             state: { server_id: server.id },
                           })
                         }

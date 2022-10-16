@@ -55,7 +55,7 @@ export default function ConfiguracoesComponent() {
       descricao: "Logs de sincronização",
       quantity: data?.logs,
       button: function () {
-        navigate("/logs-conexoes");
+        navigate("/logs-customer");
       },
     },
     {

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { BsFillPencilFill } from "react-icons/bs";
 import DeleteRecord from "../delete";
 import Api from "../../../../../utils/axios";
+import { SiGraylog } from "react-icons/si";
 
 export default function TableComponent(props) {
   const [search, setSearch] = useState([]);
@@ -163,7 +164,18 @@ export default function TableComponent(props) {
                   <td>{database?.server?.name}</td>
                   <td>{database?.sincronizacao ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ width: "90px" }}>
+                    <div
+                      style={{ width: "135px", display: "flex", gap: "3px" }}
+                    >
+                      <Button
+                        onClick={() =>
+                          navigate("/logs-history", {
+                            state: { id_database: database.id },
+                          })
+                        }
+                      >
+                        <SiGraylog size={16} />
+                      </Button>
                       <Button
                         style={{ marginRight: "3px" }}
                         onClick={() =>

@@ -14,6 +14,7 @@ import ServersComponent from "./pages/dashboard/servers";
 import ConfiguracoesComponent from "./pages/dashboard/configurations";
 import DatabasesComponent from "./pages/dashboard/databases";
 import LogsDatabasesComponent from "./pages/dashboard/logs";
+import LogsDatabasesHistory from "./pages/dashboard/logs/history";
 import RegisterDatabase from "./pages/dashboard/databases/register.database.admins";
 import CadastroUserClients from "./pages/dashboard/users.admins/register.users.admins";
 import CadastroServer from "./pages/dashboard/servers/register.server";
@@ -147,10 +148,28 @@ export default function AppRoutes() {
           />
           <Route
             exact
-            path="/logs-conexoes"
+            path="/logs-customer"
             element={
-              <PrivateRoute route={"logs-conexoes"}>
+              <PrivateRoute route={"logs-customer"}>
                 <LogsDatabasesComponent />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/logs-server"
+            element={
+              <PrivateRoute route={"logs-server"}>
+                <LogsDatabasesComponent />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/logs-history"
+            element={
+              <PrivateRoute route={"logs-history"}>
+                <LogsDatabasesHistory />
               </PrivateRoute>
             }
           />

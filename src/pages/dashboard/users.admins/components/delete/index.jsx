@@ -35,7 +35,7 @@ export default function DeleteRecord(props) {
       <ModalConfirm
         setShowModal={setShowModalConfirm}
         showModal={showModalConfirm}
-        textConfirmation={`Confirma exclusão do usuário: ${user.person.name}`}
+        textConfirmation={`Confirma exclusão do usuário: ${user.person.name}?`}
         handleConfirm={handleDeleteRecord}
       />
       <Button onClick={() => setShowModalConfirm(true)}>

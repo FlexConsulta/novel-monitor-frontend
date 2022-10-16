@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Col, Row, Card, Badge, Container } from "react-bootstrap";
+import { Col, Row, Card, Badge, Container, Alert } from "react-bootstrap";
 import "./index.style.css";
 import { useLocation } from "react-router-dom";
 import Api from "../../../utils/axios";
@@ -10,16 +10,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ReactLoading from "react-loading";
 import { dropSeconds } from "../../../utils/dateTimeFormat";
-import { useNavigate } from "react-router-dom";
 
-export default function LogsDatabasesComponent() {
+export default function LogsDatabasesHistoryComponent() {
   const { authenticateUser } = useContext(AuthContext);
-  const { client_id } = authenticateUser;
   const location = useLocation();
-  const server_id = location?.state?.server_id;
+  const id_database = location?.state?.id_database;
   const [logList, setLogList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchDataPaged();
@@ -28,26 +25,14 @@ export default function LogsDatabasesComponent() {
   const fetchDataPaged = async () => {
     setLoading(true);
 
-    if (server_id) {
-      Api.get(`logs/server?id_server=${server_id}`)
+    if (id_database) {
+      Api.get(`logs/database?id_database=${id_database}`)
         .then(({ data }) => {
-          setLogList(data);
-          console.log(JSON.parse(data[1].description));
+          setLogList(data.docs);
         })
         .catch((error) => {
           console.log(error);
         });
-    } else {
-      if (client_id) {
-        Api.get(`logs/customer?id_customer=${client_id}`)
-          .then(({ data }) => {
-            setLogList(data);
-            console.log(JSON.parse(data[1].description));
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
     }
 
     setLoading(false);
@@ -56,12 +41,6 @@ export default function LogsDatabasesComponent() {
   useEffect(() => {
     fetchDataPaged();
   }, []);
-
-  const handleLogDetail = (log) => {
-    navigate("/logs-history", {
-      state: { id_database: log.id_database },
-    });
-  };
 
   return (
     <Row className="h-100 w-100">
@@ -117,10 +96,7 @@ export default function LogsDatabasesComponent() {
                     style={{ minWidth: "420px", minHeight: "160px" }}
                   >
                     <Card className="card-logs" style={{ width: "100%" }}>
-                      <Card.Header
-                        style={{ paddingBottom: "0px", cursor: "pointer" }}
-                        onClick={() => handleLogDetail(log)}
-                      >
+                      <Card.Header style={{ paddingBottom: "0px" }}>
                         <Row>
                           <Col
                             className="col-6"
@@ -208,7 +184,7 @@ export default function LogsDatabasesComponent() {
                             </Badge>
                           </Col>
                         </Row>
-                        <Row col={3}>
+                        <Row col={3} style={{ paddingBottom: "16px" }}>
                           <Col
                             col={4}
                             style={{
@@ -266,6 +242,24 @@ export default function LogsDatabasesComponent() {
                               )}
                             </Badge>
                           </Col>
+                        </Row>
+                        <Row>
+                          {JSON.parse(log.description)?.errorMessageLocal && (
+                            <Alert variant={"danger"}>
+                              {JSON.parse(log.description)?.errorMessageLocal}
+                            </Alert>
+                          )}
+                        </Row>
+                        <Row>
+                          {JSON.parse(log.description)
+                            ?.errorMessageCustomer && (
+                            <Alert variant={"danger"}>
+                              {
+                                JSON.parse(log.description)
+                                  ?.errorMessageCustomer
+                              }
+                            </Alert>
+                          )}
                         </Row>
                       </Card.Body>
                     </Card>

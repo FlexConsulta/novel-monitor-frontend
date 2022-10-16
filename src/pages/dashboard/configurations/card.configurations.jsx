@@ -5,8 +5,25 @@ import ReactLoading from "react-loading";
 export default function CardConfiguration({ elemento, loading }) {
   return (
     <Card className="card-tam ">
-      <Card.Header>
-        <span className="font-card-one" style={{ fontWeight: 450 }}>
+      <Card.Header
+        style={{
+          minHeight: "65px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <span
+          className="font-card-one"
+          style={{
+            fontWeight: 450,
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {elemento.title}
         </span>
       </Card.Header>
