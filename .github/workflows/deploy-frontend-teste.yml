@@ -27,5 +27,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /var/group-apis/monitor/frontend/homologacao
+            nvm ls
             yarn
             yarn build
