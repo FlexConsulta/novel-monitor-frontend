@@ -27,7 +27,7 @@ export default function ConfiguracoesComponent() {
   const navigate = useNavigate();
   const dados = [
     {
-      title: "Usuários administração",
+      title: "Administração de Usuários",
       descricao: "Cadastro de usuários",
       quantity: data?.users,
       button: function () {
