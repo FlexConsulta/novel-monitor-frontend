@@ -30,4 +30,3 @@ jobs:
             source ~/.nvm/nvm.sh
             yarn
             yarn build
-            exit

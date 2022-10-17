@@ -28,6 +28,8 @@ export default function LogsDatabasesComponent() {
   const fetchDataPaged = async () => {
     setLoading(true);
 
+    console.log("server_id", server_id, "customer_id", client_id);
+
     if (server_id) {
       Api.get(`logs/server?id_server=${server_id}`)
         .then(({ data }) => {
@@ -42,7 +44,7 @@ export default function LogsDatabasesComponent() {
         Api.get(`logs/customer?id_customer=${client_id}`)
           .then(({ data }) => {
             setLogList(data);
-            console.log(JSON.parse(data[1].description));
+            console.log("->", data);
           })
           .catch((error) => {
             console.log(error);
