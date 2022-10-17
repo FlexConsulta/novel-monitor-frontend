@@ -27,7 +27,7 @@ export default function ConfiguracoesComponent() {
   const navigate = useNavigate();
   const dados = [
     {
-      title: "Usuários administração",
+      title: "Administração de Usuários",
       descricao: "Cadastro de usuários",
       quantity: data?.users,
       button: function () {
@@ -51,11 +51,11 @@ export default function ConfiguracoesComponent() {
       },
     },
     {
-      title: "Logs de sincronização",
+      title: "Logs de Sincronização",
       descricao: "Logs de sincronização",
       quantity: data?.logs,
       button: function () {
-        navigate("/logs-conexoes");
+        navigate("/logs-customer");
       },
     },
     {
@@ -82,7 +82,7 @@ export default function ConfiguracoesComponent() {
           <Col className="col-12">
             <Breadcrump
               way={[
-                { label: "Inicio", rota: "/dashboard" },
+                { label: "Início", rota: "/dashboard" },
                 { label: "Configurações", rota: "/configuracoes" },
               ]}
             />

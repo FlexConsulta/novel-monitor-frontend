@@ -9,7 +9,6 @@ import { BsFillPencilFill } from "react-icons/bs";
 import { SiGraylog } from "react-icons/si";
 import DeleteRecord from "../delete";
 import Api from "../../../../../utils/axios";
-import { useCallback } from "react";
 
 export default function TableComponent(props) {
   const [search, setSearch] = useState([]);
@@ -45,7 +44,7 @@ export default function TableComponent(props) {
   return (
     <>
       <Row>
-        <Col className="table-container" style={{ minHeight: "350px" }}>
+        <Col className="table-container" style={{ minHeight: "460px" }}>
           <table className="table table-hover bordered table-striped">
             <thead>
               <tr>
@@ -136,7 +135,7 @@ export default function TableComponent(props) {
             </thead>
             <tbody>
               {filterData.map((server, idx) => (
-                <tr key={idx}>
+                <tr key={idx} className={"linhaTabela"}>
                   <td>{server.name}</td>
                   <td>{server.url}</td>
                   <td>{server.ativo ? "Ativo" : "Inativo"}</td>
@@ -146,7 +145,7 @@ export default function TableComponent(props) {
                     >
                       <Button
                         onClick={() =>
-                          navigate("/logs-conexoes", {
+                          navigate("/logs-server", {
                             state: { server_id: server.id },
                           })
                         }

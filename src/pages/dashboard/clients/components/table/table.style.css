@@ -1,11 +1,15 @@
 .table-container {
-    max-height: 340px;
-    overflow-y: auto;
-    border-collapse: collapse;
-  }
-  .table-container thead  {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background-color: white;
-  }
+  max-height: 340px;
+  overflow-y: auto;
+  border-collapse: collapse;
+}
+.table-container thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+}
+
+.linhaTabela > td {
+  padding: 2px !important;
+}
