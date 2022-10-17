@@ -43,7 +43,7 @@ export default function TableComponent(props) {
   return (
     <>
       <Row>
-        <Col className="table-container" style={{ minHeight: "350px" }}>
+        <Col className="table-container" style={{ minHeight: "510px" }}>
           <table className="table table-hover bordered table-striped">
             <thead>
               <tr>
@@ -158,7 +158,7 @@ export default function TableComponent(props) {
             </thead>
             <tbody>
               {filterData.map((client, idx) => (
-                <tr key={idx}>
+                <tr key={idx} className={"linhaTabela"}>
                   <td>{client.name}</td>
                   <td>{client.razaosocial}</td>
                   <td>{client.cnpj}</td>
