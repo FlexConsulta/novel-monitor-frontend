@@ -310,19 +310,6 @@ export default function FormDatabase(props) {
                 />
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
-
-              <Form.Group className="col-12">
-                <Badge
-                  bg={
-                    database?.status_connection?.toUpperCase() == "ATIVO"
-                      ? "success"
-                      : "danger"
-                  }
-                  text="white"
-                >
-                  Status: {database?.status_connection ?? "Indefinido"}
-                </Badge>
-              </Form.Group>
             </Form>
           </Card.Body>
         </Card>
