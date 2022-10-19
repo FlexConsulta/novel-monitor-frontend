@@ -200,29 +200,13 @@ export default function LogsDatabasesHistoryComponent() {
                           }}
                         >
                           {JSON.parse(log.description)?.errorMessageLocal && (
-                            <Badge
-                              bg={
-                                JSON.parse(log.description)?.travelsCustomer ==
-                                "Erro"
-                                  ? "danger"
-                                  : "success"
-                              }
-                              text="white"
-                            >
+                            <Badge bg={"danger"} text="white">
                               {JSON.parse(log.description)?.errorMessageLocal}
                             </Badge>
                           )}
                           {JSON.parse(log.description)
                             ?.errorMessageCustomer && (
-                            <Badge
-                              bg={
-                                JSON.parse(log.description)?.travelsCustomer ==
-                                "Erro"
-                                  ? "danger"
-                                  : "success"
-                              }
-                              text="white"
-                            >
+                            <Badge bg={"danger"} text="white">
                               {
                                 JSON.parse(log.description)
                                   ?.errorMessageCustomer
