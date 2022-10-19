@@ -1,5 +1,5 @@
 .half-login {
-  background: #1aa0e6 0% 0% no-repeat padding-box !important;
+  background: #085ed6 0% 0% no-repeat padding-box !important;
   border: 1px solid #707070 !important;
   opacity: 1 !important;
 }
@@ -50,8 +50,7 @@
 
 .half-login {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  flex-direction: column;
 }
 
 .link {

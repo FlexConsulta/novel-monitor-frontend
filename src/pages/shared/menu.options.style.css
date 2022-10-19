@@ -1,5 +1,5 @@
 .menu-left {
-  background: #1aa0e6 0% 0% no-repeat padding-box;
+  background: #085ed6 0% 0% no-repeat padding-box;
   border: 1px solid #707070;
   opacity: 1;
   text-align: left;
@@ -10,4 +10,8 @@
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
+}
+
+.menu-left a:hover {
+  color: blue;
 }

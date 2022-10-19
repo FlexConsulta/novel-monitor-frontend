@@ -8,9 +8,9 @@
   color: #fff;
 }
 .btn-criar-empresa {
-  background: #218838 0% 0% no-repeat padding-box !important;
+  background: #085ed6 0% 0% no-repeat padding-box !important;
   border-radius: 5px !important;
-  border-color: #218838 !important;
+  border-color: #085ed6 !important;
   display: flex;
   height: 37px;
   justify-content: center;
@@ -19,10 +19,8 @@
   color: white;
 }
 .btn-criar-empresa:hover {
-
   color: white;
 }
-
 
 .header-empresa {
   display: flex;
@@ -68,7 +66,7 @@
 }
 #content {
   flex-grow: 5;
-  background-color: green;
+  background-color: #085ed6;
   overflow-y: auto;
 }
 #footer {
@@ -76,24 +74,21 @@
   background-color: blue;
 }
 
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-
-
-.custom-file-button input[type=file] {
+.custom-file-button input[type="file"] {
   margin-left: -2px !important;
 }
 
-.custom-file-button input[type=file]::-webkit-file-upload-button {
+.custom-file-button input[type="file"]::-webkit-file-upload-button {
   display: none;
 }
 
-.custom-file-button input[type=file]::file-selector-button {
+.custom-file-button input[type="file"]::file-selector-button {
   display: none;
 }
 
@@ -101,4 +96,3 @@ input::-webkit-inner-spin-button {
   background-color: #dde0e3;
   cursor: pointer;
 }
-

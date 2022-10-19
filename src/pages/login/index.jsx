@@ -8,7 +8,6 @@ import SweetAlert from "../../utils/sweetalert";
 import { AuthContext } from "../shared/AuthContext";
 
 export default function LoginComponent() {
-
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [checked, setChecked] = useState(false);
@@ -27,11 +26,9 @@ export default function LoginComponent() {
       };
 
       if (Frm.FormValidation(formsControls)) {
-
         await signIn(data);
 
         setLoader(false);
-
       }
     } catch (err) {
       setLoader(false);
@@ -126,7 +123,17 @@ export default function LoginComponent() {
           </div>
         </Col>
         <Col className="half-login col-12 col-md-6">
-          <footer>
+          <div
+            style={{
+              display: "flex",
+              flexGrow: "3",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img src="/logoNovel.png" alt="Logomarca" />
+          </div>
+          <footer style={{ display: "flex", justifyContent: "end" }}>
             <small className="text-white">Versão 1.0.0</small>
           </footer>
         </Col>

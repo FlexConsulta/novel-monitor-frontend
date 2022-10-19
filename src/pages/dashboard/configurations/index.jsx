@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import CardConfiguration from "./card.configurations";
 import { useNavigate } from "react-router-dom";
+import {
+  FaUserAlt,
+  FaUserTie,
+  FaServer,
+  FaRegFileAlt,
+  FaDatabase,
+} from "react-icons/fa";
 
 // Pages
 import MenuOptionsComponents from "../../shared/menu.options";
@@ -27,8 +34,9 @@ export default function ConfiguracoesComponent() {
   const navigate = useNavigate();
   const dados = [
     {
-      title: "Administração de Usuários",
+      title: "Usuários",
       descricao: "Cadastro de usuários",
+      icon: <FaUserAlt size={60} color={"#085ED6"} />,
       quantity: data?.users,
       button: function () {
         navigate("/usuarios-admin");
@@ -37,6 +45,7 @@ export default function ConfiguracoesComponent() {
     {
       title: "Clientes",
       quantity: data?.clients,
+      icon: <FaUserTie size={60} color={"#085ED6"} />,
       descricao: "Cadastro de clientes",
       button: function () {
         navigate("/empresas");
@@ -46,14 +55,16 @@ export default function ConfiguracoesComponent() {
       title: "Servidores",
       descricao: "Cadastro de Servidores",
       quantity: data?.servers,
+      icon: <FaServer size={60} color={"#085ED6"} />,
       button: function () {
         navigate("/servidores");
       },
     },
     {
-      title: "Logs de Sincronização",
+      title: "Logs",
       descricao: "Logs de sincronização",
       quantity: data?.logs,
+      icon: <FaRegFileAlt size={60} color={"#085ED6"} />,
       button: function () {
         navigate("/logs-customer");
       },
@@ -62,6 +73,7 @@ export default function ConfiguracoesComponent() {
       title: "Banco de dados",
       descricao: "Cadastro de banco de dados",
       quantity: data?.databases,
+      icon: <FaDatabase size={60} color={"#085ED6"} />,
       button: function () {
         navigate("/banco-dados");
       },

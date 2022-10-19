@@ -78,7 +78,7 @@ export default function ClientsComponent() {
             >
               <ReactLoading
                 type={"bars"}
-                color={"#1aa0e6"}
+                color={"#085ED6"}
                 height={10}
                 width={50}
               />

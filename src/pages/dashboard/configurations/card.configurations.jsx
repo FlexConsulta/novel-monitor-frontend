@@ -7,16 +7,19 @@ export default function CardConfiguration({ elemento, loading }) {
     <Card className="card-tam ">
       <Card.Header
         style={{
-          minHeight: "65px",
+          minHeight: "85px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          background: "#085ED6",
         }}
       >
         <span
           className="font-card-one"
           style={{
-            fontWeight: 450,
+            color: "white",
+            fontWeight: 600,
+            fontSize: "22px",
             display: "flex",
             width: "100%",
             height: "100%",
@@ -39,21 +42,34 @@ export default function CardConfiguration({ elemento, loading }) {
         >
           <ReactLoading
             type={"bars"}
-            color={"#1aa0e6"}
+            color={"#085ED6"}
             height={10}
             width={50}
           />
         </Card.Body>
       ) : (
-        <Card.Body style={{ minHeight: "160px" }}>
-          <div className="alinhamento-card" style={{ fontSize: "25px" }}>
-            <div>
-              <span className="font-title-card color-desc">Registros</span>
-            </div>
-            <span className="font-title-total">{elemento.quantity}</span>
+        <Card.Body
+          style={{
+            minHeight: "160px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexGrow: "3",
+            }}
+          >
+            {elemento?.icon}
           </div>
-          <div className="descricao-card color-desc font-10">
-            <span>{elemento.descricao}</span>
+          <div
+            className="descricao-card color-desc font-10"
+            style={{ margin: "0px", padding: "0px", height: "12px" }}
+          >
+            <span>{elemento.quantity} registros</span>
           </div>
         </Card.Body>
       )}
