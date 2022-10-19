@@ -11,6 +11,7 @@ import { useState } from "react";
 import ReactLoading from "react-loading";
 import { dropSeconds } from "../../../utils/dateTimeFormat";
 import { useNavigate } from "react-router-dom";
+import { compareDate } from "../../../utils/compareDate";
 
 export default function LogsDatabasesComponent() {
   const { authenticateUser } = useContext(AuthContext);
@@ -27,8 +28,6 @@ export default function LogsDatabasesComponent() {
 
   const fetchDataPaged = async () => {
     setLoading(true);
-
-    console.log("server_id", server_id, "customer_id", client_id);
 
     if (server_id) {
       Api.get(`logs/server?id_server=${server_id}`)
@@ -100,16 +99,27 @@ export default function LogsDatabasesComponent() {
           >
             <ReactLoading
               type={"bars"}
-              color={"#1aa0e6"}
+              color={"#085ED6"}
               height={10}
               width={50}
             />
           </Row>
         ) : (
-          <Container fluid="md">
+          <Container
+            fluid="md"
+            style={{
+              margin: "0px",
+              padding: "0px",
+            }}
+          >
             <Row
-              className="mt-4 flex-grow-1"
-              style={{ maxHeight: "460px", overflowY: "scroll" }}
+              className="mt-4 flex-grow-2"
+              style={{
+                maxHeight: "550px",
+                overflowY: "auto",
+                margin: "0px",
+                padding: "0px",
+              }}
             >
               {logList?.length > 0 &&
                 logList.map((log) => (
@@ -226,16 +236,14 @@ export default function LogsDatabasesComponent() {
                                 JSON.parse(log.description)
                                   ?.currentDateLocal === "Erro"
                                   ? "danger"
-                                  : dropSeconds(
+                                  : compareDate(
                                       JSON.parse(log.description)
-                                        ?.currentDateLocal
-                                    ) !==
-                                    dropSeconds(
+                                        ?.currentDateLocal,
                                       JSON.parse(log.description)
                                         ?.currentDateCustomer
                                     )
-                                  ? "warning"
-                                  : "success"
+                                  ? "success"
+                                  : "warning"
                               }
                               text="white"
                             >
@@ -248,18 +256,16 @@ export default function LogsDatabasesComponent() {
                             <Badge
                               bg={
                                 JSON.parse(log.description)
-                                  ?.currentDateCustomer === "Erro"
+                                  ?.currentDateLocal === "Erro"
                                   ? "danger"
-                                  : dropSeconds(
+                                  : compareDate(
                                       JSON.parse(log.description)
-                                        ?.currentDateLocal
-                                    ) !==
-                                    dropSeconds(
+                                        ?.currentDateLocal,
                                       JSON.parse(log.description)
                                         ?.currentDateCustomer
                                     )
-                                  ? "warning"
-                                  : "success"
+                                  ? "success"
+                                  : "warning"
                               }
                               text="white"
                             >

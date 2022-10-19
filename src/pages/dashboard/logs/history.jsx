@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ReactLoading from "react-loading";
 import { dropSeconds } from "../../../utils/dateTimeFormat";
+import { compareDate } from "../../../utils/compareDate";
 
 export default function LogsDatabasesHistoryComponent() {
   const { authenticateUser } = useContext(AuthContext);
@@ -77,7 +78,7 @@ export default function LogsDatabasesHistoryComponent() {
           >
             <ReactLoading
               type={"bars"}
-              color={"#1aa0e6"}
+              color={"#085ED6"}
               height={10}
               width={50}
             />
@@ -85,92 +86,120 @@ export default function LogsDatabasesHistoryComponent() {
         ) : (
           <Container fluid="md">
             <Row
-              className="mt-4 flex-grow-1"
-              style={{ maxHeight: "460px", overflowY: "scroll" }}
+              className="mt-4 flex-grow-1 "
+              style={{ maxHeight: "550px", overflowY: "auto" }}
             >
-              {logList?.length > 0 &&
-                logList.map((log) => (
-                  <Col
-                    className="col-4"
-                    key={log.id}
-                    style={{ minWidth: "420px", minHeight: "160px" }}
-                  >
-                    <Card className="card-logs" style={{ width: "100%" }}>
-                      <Card.Header style={{ paddingBottom: "0px" }}>
-                        <Row>
-                          <Col
-                            className="col-6"
-                            style={{ justifyContent: "flex-start" }}
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Viagens</th>
+                    <th>Data Servidor</th>
+                    <th>Erro</th>
+                    <th>Data Sync</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {logList?.length > 0 &&
+                    logList.map((log) => (
+                      <tr key={log.id}>
+                        <td
+                          style={{
+                            width: "120px",
+                            minWidth: "120px",
+                          }}
+                        >
+                          {log?.databasis?.name_default}
+                        </td>
+                        <td
+                          style={{
+                            width: "120px",
+                            minWidth: "120px",
+                          }}
+                        >
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.travelsLocal ==
+                              "Erro"
+                                ? "danger"
+                                : JSON.parse(log.description)?.travelsLocal !=
+                                  JSON.parse(log.description)?.travelsCustomer
+                                ? "warning"
+                                : "success"
+                            }
+                            text="white"
                           >
-                            <span
-                              style={{
-                                fontSize: "20px",
-                                fontWeight: "700",
-                                justifyContent: "flex-start",
-                              }}
-                            >
-                              {log?.databasis?.name_default}
-                            </span>
-                          </Col>
-                          <Col
-                            className="col-6"
-                            style={{
-                              display: "flex",
-                              justifyContent: "flex-end",
-                              alignItems: "center",
-                            }}
+                            {JSON.parse(log.description)?.travelsLocal}
+                          </Badge>
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.travelsLocal ==
+                              "Erro"
+                                ? "danger"
+                                : JSON.parse(log.description)?.travelsLocal !=
+                                  JSON.parse(log.description)?.travelsCustomer
+                                ? "warning"
+                                : "success"
+                            }
+                            text="white"
                           >
-                            <Badge
-                              bg={
-                                log?.status_connection == 200
-                                  ? "success"
-                                  : "danger"
-                              }
-                              text="white"
-                            >
-                              {dropSeconds(
-                                new Date(log?.created_at).toLocaleString()
-                              )}
-                            </Badge>
-                          </Col>
-                        </Row>
-                        <Row style={{ paddingTop: "10px" }}>
-                          <Col
-                            col={4}
-                            style={{
-                              maxWidth: "90px",
-                            }}
-                          ></Col>
-                          <Col col={4}>Local</Col>
-                          <Col col={4}>Cliente </Col>
-                        </Row>
-                      </Card.Header>
-                      <Card.Body className="pb-1 px-1">
-                        <Row>
-                          <Col col={4} style={{ maxWidth: "100px" }}>
-                            Viagens:
-                          </Col>
-                          <Col
-                            col={4}
-                            style={{
-                              display: "flex",
-                              justifyContent: "flex-s",
-                              alignItems: "center",
-                            }}
+                            {JSON.parse(log.description)?.travelsCustomer}
+                          </Badge>
+                        </td>
+                        <td
+                          style={{
+                            width: "250px",
+                            minWidth: "250px",
+                          }}
+                        >
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.currentDateLocal ===
+                              "Erro"
+                                ? "danger"
+                                : compareDate(
+                                    JSON.parse(log.description)
+                                      ?.currentDateLocal,
+                                    JSON.parse(log.description)
+                                      ?.currentDateCustomer
+                                  )
+                                ? "success"
+                                : "warning"
+                            }
+                            text="white"
                           >
-                            <Badge
-                              bg={
-                                JSON.parse(log.description)?.travelsLocal ==
-                                "Erro"
-                                  ? "danger"
-                                  : "success"
-                              }
-                              text="white"
-                            >
-                              {JSON.parse(log.description)?.travelsLocal}
-                            </Badge>
-                          </Col>
-                          <Col col={4}>
+                            {dropSeconds(
+                              JSON.parse(log.description)?.currentDateLocal
+                            )}
+                          </Badge>
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.currentDateLocal ===
+                              "Erro"
+                                ? "danger"
+                                : compareDate(
+                                    JSON.parse(log.description)
+                                      ?.currentDateLocal,
+                                    JSON.parse(log.description)
+                                      ?.currentDateCustomer
+                                  )
+                                ? "success"
+                                : "warning"
+                            }
+                            text="white"
+                          >
+                            {dropSeconds(
+                              JSON.parse(log.description)?.currentDateCustomer
+                            )}
+                          </Badge>
+                        </td>
+                        <td
+                          style={{
+                            width: "100%",
+                            minWidth: "120px",
+                          }}
+                        >
+                          {JSON.parse(log.description)?.errorMessageLocal && (
                             <Badge
                               bg={
                                 JSON.parse(log.description)?.travelsCustomer ==
@@ -180,91 +209,50 @@ export default function LogsDatabasesHistoryComponent() {
                               }
                               text="white"
                             >
-                              {JSON.parse(log.description)?.travelsCustomer}
-                            </Badge>
-                          </Col>
-                        </Row>
-                        <Row col={3} style={{ paddingBottom: "16px" }}>
-                          <Col
-                            col={4}
-                            style={{
-                              maxWidth: "100px",
-                              paddingRight: "0px",
-                            }}
-                          >
-                            Data Hora:
-                          </Col>
-                          <Col col={4}>
-                            <Badge
-                              bg={
-                                JSON.parse(log.description)
-                                  ?.currentDateLocal === "Erro"
-                                  ? "danger"
-                                  : dropSeconds(
-                                      JSON.parse(log.description)
-                                        ?.currentDateLocal
-                                    ) !==
-                                    dropSeconds(
-                                      JSON.parse(log.description)
-                                        ?.currentDateCustomer
-                                    )
-                                  ? "warning"
-                                  : "success"
-                              }
-                              text="white"
-                            >
-                              {dropSeconds(
-                                JSON.parse(log.description)?.currentDateLocal
-                              )}
-                            </Badge>
-                          </Col>
-                          <Col col={4}>
-                            <Badge
-                              bg={
-                                JSON.parse(log.description)
-                                  ?.currentDateCustomer === "Erro"
-                                  ? "danger"
-                                  : dropSeconds(
-                                      JSON.parse(log.description)
-                                        ?.currentDateLocal
-                                    ) !==
-                                    dropSeconds(
-                                      JSON.parse(log.description)
-                                        ?.currentDateCustomer
-                                    )
-                                  ? "warning"
-                                  : "success"
-                              }
-                              text="white"
-                            >
-                              {dropSeconds(
-                                JSON.parse(log.description)?.currentDateCustomer
-                              )}
-                            </Badge>
-                          </Col>
-                        </Row>
-                        <Row>
-                          {JSON.parse(log.description)?.errorMessageLocal && (
-                            <Alert variant={"danger"}>
                               {JSON.parse(log.description)?.errorMessageLocal}
-                            </Alert>
+                            </Badge>
                           )}
-                        </Row>
-                        <Row>
                           {JSON.parse(log.description)
                             ?.errorMessageCustomer && (
-                            <Alert variant={"danger"}>
+                            <Badge
+                              bg={
+                                JSON.parse(log.description)?.travelsCustomer ==
+                                "Erro"
+                                  ? "danger"
+                                  : "success"
+                              }
+                              text="white"
+                            >
                               {
                                 JSON.parse(log.description)
                                   ?.errorMessageCustomer
                               }
-                            </Alert>
+                            </Badge>
                           )}
-                        </Row>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                ))}
+                        </td>
+                        <td
+                          style={{
+                            width: "120px",
+                            minWidth: "120px",
+                          }}
+                        >
+                          <Badge
+                            bg={
+                              log?.status_connection == 200
+                                ? "success"
+                                : "danger"
+                            }
+                            text="white"
+                          >
+                            {dropSeconds(
+                              new Date(log?.created_at).toLocaleString()
+                            )}
+                          </Badge>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
             </Row>
           </Container>
         )}
