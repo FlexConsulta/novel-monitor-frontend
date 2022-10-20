@@ -93,8 +93,8 @@ export default function LogsDatabasesHistoryComponent() {
                 <thead>
                   <tr>
                     <th>Cliente</th>
-                    <th>Viagens Local</th>
-                    <th>Viagens Cliente</th>
+                    <th>CT-e Local</th>
+                    <th>CT-e Cliente</th>
                     <th>Data Local</th>
                     <th>Data Cliente</th>
                     <th>Erro</th>
