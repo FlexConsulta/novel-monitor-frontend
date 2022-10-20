@@ -93,8 +93,10 @@ export default function LogsDatabasesHistoryComponent() {
                 <thead>
                   <tr>
                     <th>Cliente</th>
-                    <th>Viagens</th>
-                    <th>Data Servidor</th>
+                    <th>Viagens Local</th>
+                    <th>Viagens Cliente</th>
+                    <th>Data Local</th>
+                    <th>Data Cliente</th>
                     <th>Erro</th>
                     <th>Data Sync</th>
                   </tr>
@@ -113,8 +115,8 @@ export default function LogsDatabasesHistoryComponent() {
                         </td>
                         <td
                           style={{
-                            width: "120px",
-                            minWidth: "120px",
+                            width: "100px",
+                            minWidth: "100px",
                           }}
                         >
                           <Badge
@@ -131,6 +133,13 @@ export default function LogsDatabasesHistoryComponent() {
                           >
                             {JSON.parse(log.description)?.travelsLocal}
                           </Badge>
+                        </td>
+                        <td
+                          style={{
+                            width: "130px",
+                            minWidth: "130px",
+                          }}
+                        >
                           <Badge
                             bg={
                               JSON.parse(log.description)?.travelsLocal ==
@@ -148,8 +157,8 @@ export default function LogsDatabasesHistoryComponent() {
                         </td>
                         <td
                           style={{
-                            width: "250px",
-                            minWidth: "250px",
+                            width: "125px",
+                            minWidth: "125px",
                           }}
                         >
                           <Badge
@@ -172,6 +181,13 @@ export default function LogsDatabasesHistoryComponent() {
                               JSON.parse(log.description)?.currentDateLocal
                             )}
                           </Badge>
+                        </td>
+                        <td
+                          style={{
+                            width: "120px",
+                            minWidth: "120px",
+                          }}
+                        >
                           <Badge
                             bg={
                               JSON.parse(log.description)?.currentDateLocal ===

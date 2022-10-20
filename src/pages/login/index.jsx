@@ -30,16 +30,24 @@ export default function LoginComponent() {
 
         setLoader(false);
       }
-    } catch (err) {
+    } catch (error) {
       setLoader(false);
-      SweetAlert.mixin({ icon: "error", title: "Ocorreu um erro!" });
+      SweetAlert.mixin({ icon: "error", title: error.response.data });
     }
   }
 
   return (
     <>
       <Row className="row-login h-100">
-        <Col className="full-height col-12 col-md-6">
+        <Col
+          className="full-height col-12 col-md-6"
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          <img
+            src="/logoNovel.png"
+            alt="Logomarca"
+            style={{ width: "150px", height: "auto" }}
+          />
           <div className="card-login">
             <div className="form">
               <h2>Login</h2>
@@ -130,9 +138,7 @@ export default function LoginComponent() {
               justifyContent: "center",
               alignItems: "center",
             }}
-          >
-            <img src="/logoNovel.png" alt="Logomarca" />
-          </div>
+          ></div>
           <footer style={{ display: "flex", justifyContent: "end" }}>
             <small className="text-white">Versão 1.0.0</small>
           </footer>
