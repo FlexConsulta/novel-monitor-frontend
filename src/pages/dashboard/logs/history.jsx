@@ -45,10 +45,10 @@ export default function LogsDatabasesHistoryComponent() {
 
   return (
     <Row className="h-100 w-100">
-      <Col className="col-2 ps-0">
+      <Col className="p-0" style={{ maxWidth: "250px" }}>
         <MenuOptionsComponents />
       </Col>
-      <Col md={10} className="col-10 pt-5 d-flex flex-column   h-100">
+      <Col className="p-0">
         <Row className="d-flex flex-row  align-items-center ">
           <Col className={"col-12 col-md-8"}>
             <div className="title-empresa mb-2 mb-md-0">
@@ -60,7 +60,7 @@ export default function LogsDatabasesHistoryComponent() {
           <Col className="col-12">
             <Breadcrump
               way={[
-                { label: "Pagina Incial", rota: "./dashboard" },
+                { label: "Pagina Inicial", rota: "./dashboard" },
                 { label: "Configuracoes", rota: "/configuracoes" },
                 { label: "Log", rota: "/logs-conexoes" },
               ]}
@@ -86,13 +86,37 @@ export default function LogsDatabasesHistoryComponent() {
         ) : (
           <Container fluid="md">
             <Row
-              className="mt-4 flex-grow-1 "
-              style={{ maxHeight: "550px", overflowY: "auto" }}
+              style={{
+                padding: "0px",
+                margin: "0px",
+                paddingTop: "30px",
+                paddingBottom: "10px",
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+              }}
             >
-              <table>
+              <span>Banco de dados</span>
+              <span style={{ fontWeight: "600", fontSize: "24px" }}>
+                {logList[0]?.databasis?.name_default}
+              </span>
+            </Row>
+            <Row
+              style={{
+                padding: "0px",
+                margin: "0px",
+                paddingTop: "30px",
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                height: "500px",
+                overflowY: "auto",
+                paddingLeft: "12px",
+              }}
+            >
+              <table className="table table-hover bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Cliente</th>
                     <th>CT-e Local</th>
                     <th>CT-e Cliente</th>
                     <th>Data Local</th>
@@ -105,14 +129,6 @@ export default function LogsDatabasesHistoryComponent() {
                   {logList?.length > 0 &&
                     logList.map((log) => (
                       <tr key={log.id}>
-                        <td
-                          style={{
-                            width: "120px",
-                            minWidth: "120px",
-                          }}
-                        >
-                          {log?.databasis?.name_default}
-                        </td>
                         <td
                           style={{
                             width: "100px",

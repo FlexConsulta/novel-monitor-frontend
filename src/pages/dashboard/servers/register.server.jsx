@@ -56,15 +56,15 @@ export default function CadastroServer() {
   }
   return (
     <Row className="h-100 w-100">
-      <Col className="col-2 ps-0">
+      <Col className="p-0" style={{ maxWidth: "250px" }}>
         <MenuOptionsComponents />
       </Col>
-      <Col className="col-10 ">
+      <Col className="p-0">
         <Row>
           <Col className="mt-3 mb-3 col-12 col-md-12  w-100">
             <Breadcrump
               way={[
-                { label: "Pagina Incial", rota: "./../dashboard" },
+                { label: "Pagina Inicial", rota: "./../dashboard" },
                 { label: "Servidores", rota: "/servidores" },
                 { label: "Novo Servidor", rota: "" },
               ]}

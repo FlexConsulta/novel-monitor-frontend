@@ -21,190 +21,193 @@ import CadastroServer from "./pages/dashboard/servers/register.server";
 import RegisterClients from "./pages/dashboard/clients/register.clients";
 import AuthContext from "./pages/shared/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
+import MenuContext from "./pages/shared/MenuContext";
 
 export default function AppRoutes() {
   return (
     <Router>
       <AuthContext>
-        <Routes>
-          <Route exact path="/" element={<LoginComponent />} />
-          <Route
-            exact
-            path="/recuperar-senha"
-            element={
-              <PrivateRoute route={"recuperar-senha"}>
-                <RecoveryPasswordComponent />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/trocar-senha"
-            element={
-              <PrivateRoute route={"trocar-senha"}>
-                <ChangePasswordComponent />
-              </PrivateRoute>
-            }
-          />
-          {/* Page dashbpard */}
-          <Route
-            exact
-            path="/dashboard"
-            element={
-              <PrivateRoute route={"dashboard"}>
-                <DashboardComponent />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/empresas"
-            element={
-              <PrivateRoute route={"empresas"}>
-                <ClientsComponent />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/edit-empresas"
-            element={
-              <PrivateRoute route={"edit-empresas"}>
-                <RegisterClients />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/new-empresas"
-            element={
-              <PrivateRoute route={"new-empresas"}>
-                <RegisterClients />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/usuarios-admin"
-            element={
-              <PrivateRoute route={"usuarios-admin"}>
-                <UsersAdminComponent />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/usuarios-empresas"
-            element={
-              <PrivateRoute route={"usuarios-empresas"}>
-                <CadastroUserClients />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/edit-usuarios-empresas"
-            element={
-              <PrivateRoute route={"edit-usuarios-empresas"}>
-                <CadastroUserClients />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/servidores"
-            element={
-              <PrivateRoute route={"servidores"}>
-                <ServersComponent />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/new-servidores"
-            element={
-              <PrivateRoute route={"new-servidores"}>
-                <CadastroServer />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/edit-servidores"
-            element={
-              <PrivateRoute route={"new-servidores"}>
-                <CadastroServer />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/configuracoes"
-            element={
-              <PrivateRoute route={"configuracoes"}>
-                <ConfiguracoesComponent />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/logs-customer"
-            element={
-              <PrivateRoute route={"logs-customer"}>
-                <LogsDatabasesComponent />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/logs-server"
-            element={
-              <PrivateRoute route={"logs-server"}>
-                <LogsDatabasesComponent />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/logs-history"
-            element={
-              <PrivateRoute route={"logs-history"}>
-                <LogsDatabasesHistory />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/banco-dados"
-            element={
-              <PrivateRoute route={"banco-dados"}>
-                <DatabasesComponent />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/new-banco-dados"
-            element={
-              <PrivateRoute route={"new-banco-dados"}>
-                <RegisterDatabase />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            exact
-            path="/edit-banco-dados"
-            element={
-              <PrivateRoute route={"edit-banco-dados"}>
-                <RegisterDatabase />
-              </PrivateRoute>
-            }
-          />
+        <MenuContext>
+          <Routes>
+            <Route exact path="/" element={<LoginComponent />} />
+            <Route
+              exact
+              path="/recuperar-senha"
+              element={
+                <PrivateRoute route={"recuperar-senha"}>
+                  <RecoveryPasswordComponent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/trocar-senha"
+              element={
+                <PrivateRoute route={"trocar-senha"}>
+                  <ChangePasswordComponent />
+                </PrivateRoute>
+              }
+            />
+            {/* Page dashbpard */}
+            <Route
+              exact
+              path="/dashboard"
+              element={
+                <PrivateRoute route={"dashboard"}>
+                  <DashboardComponent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/empresas"
+              element={
+                <PrivateRoute route={"empresas"}>
+                  <ClientsComponent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/edit-empresas"
+              element={
+                <PrivateRoute route={"edit-empresas"}>
+                  <RegisterClients />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/new-empresas"
+              element={
+                <PrivateRoute route={"new-empresas"}>
+                  <RegisterClients />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/usuarios-admin"
+              element={
+                <PrivateRoute route={"usuarios-admin"}>
+                  <UsersAdminComponent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/usuarios-empresas"
+              element={
+                <PrivateRoute route={"usuarios-empresas"}>
+                  <CadastroUserClients />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/edit-usuarios-empresas"
+              element={
+                <PrivateRoute route={"edit-usuarios-empresas"}>
+                  <CadastroUserClients />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/servidores"
+              element={
+                <PrivateRoute route={"servidores"}>
+                  <ServersComponent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/new-servidores"
+              element={
+                <PrivateRoute route={"new-servidores"}>
+                  <CadastroServer />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/edit-servidores"
+              element={
+                <PrivateRoute route={"new-servidores"}>
+                  <CadastroServer />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/configuracoes"
+              element={
+                <PrivateRoute route={"configuracoes"}>
+                  <ConfiguracoesComponent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/logs-customer"
+              element={
+                <PrivateRoute route={"logs-customer"}>
+                  <LogsDatabasesComponent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/logs-server"
+              element={
+                <PrivateRoute route={"logs-server"}>
+                  <LogsDatabasesComponent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/logs-history"
+              element={
+                <PrivateRoute route={"logs-history"}>
+                  <LogsDatabasesHistory />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/banco-dados"
+              element={
+                <PrivateRoute route={"banco-dados"}>
+                  <DatabasesComponent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/new-banco-dados"
+              element={
+                <PrivateRoute route={"new-banco-dados"}>
+                  <RegisterDatabase />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/edit-banco-dados"
+              element={
+                <PrivateRoute route={"edit-banco-dados"}>
+                  <RegisterDatabase />
+                </PrivateRoute>
+              }
+            />
 
-          {/* Shared */}
-          <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="*" element={<PageNotFoundComponent />} />
-        </Routes>
+            {/* Shared */}
+            <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route path="*" element={<PageNotFoundComponent />} />
+          </Routes>
+        </MenuContext>
       </AuthContext>
     </Router>
   );
