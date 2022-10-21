@@ -38,11 +38,10 @@ export default function DatabaseComponent() {
   return (
     <>
       <Row className="h-100 w-100">
-        <Col className="col-2 ps-0">
+        <Col className="p-0" style={{ maxWidth: "250px" }}>
           <MenuOptionsComponents />
         </Col>
-
-        <Col className="col-10 d-flex flex-column justify-content-top p-0">
+        <Col className="p-0">
           <Row>
             <Col className="mt-3 col-12 d-flex align-items-center">
               <h1>Banco de Dados</h1>
@@ -60,7 +59,7 @@ export default function DatabaseComponent() {
             <Col>
               <Breadcrump
                 way={[
-                  { label: "Pagina Incial", rota: "./../dashboard" },
+                  { label: "Pagina Inicial", rota: "./../dashboard" },
                   { label: "Usuários", rota: "./usuarios-admin" },
                 ]}
               />

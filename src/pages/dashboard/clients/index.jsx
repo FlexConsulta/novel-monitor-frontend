@@ -41,10 +41,10 @@ export default function ClientsComponent() {
 
   return (
     <Row className="h-100 w-100">
-      <Col className="col-2 ps-0">
+      <Col className="p-0" style={{ maxWidth: "250px" }}>
         <MenuOptionsComponents />
       </Col>
-      <Col md={10} className="col-10 pt-5 d-flex flex-column   h-100">
+      <Col className="p-0">
         <Row className="d-flex flex-row  align-items-center ">
           <Col className={"col-12 col-md-8"}>
             <div className="title-empresa mb-2 mb-md-0">
@@ -63,7 +63,7 @@ export default function ClientsComponent() {
           <Col className="col-12">
             <Breadcrump
               way={[
-                { label: "Pagina Incial", rota: "./../dashboard" },
+                { label: "Pagina Inicial", rota: "./../dashboard" },
                 { label: "lista de Clientes", rota: "./empresas" },
               ]}
             />

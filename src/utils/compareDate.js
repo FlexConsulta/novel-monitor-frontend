@@ -1,24 +1,27 @@
-import { dropSeconds } from "./dateTimeFormat";
-
 export const compareDate = (date1, date2) => {
   const tolerance = 3;
 
+  console.log(date1, date2);
+
+  if (!date1.toString().includes(":") || !date2.toString().includes(":"))
+    return false;
+
   const dataConverted1 = new Date(
-    date1.split(" ")[0].split("/")[2],
-    date1.split(" ")[0].split("/")[1],
-    date1.split(" ")[0].split("/")[0],
-    date1.split(" ")[1].split(":")[0],
-    date1.split(" ")[1].split(":")[1],
-    date1.split(" ")[1].split(":")[2],
+    date1.toString().split(" ")[0].split("/")[2],
+    date1.toString().split(" ")[0].split("/")[1],
+    date1.toString().split(" ")[0].split("/")[0],
+    date1.toString().split(" ")[1].split(":")[0],
+    date1.toString().split(" ")[1].split(":")[1],
+    date1.toString().split(" ")[1].split(":")[2],
     0
   );
   const dataConverted2 = new Date(
-    date2.split(" ")[0].split("/")[2],
-    date2.split(" ")[0].split("/")[1],
-    date2.split(" ")[0].split("/")[0],
-    date2.split(" ")[1].split(":")[0],
-    date2.split(" ")[1].split(":")[1],
-    date2.split(" ")[1].split(":")[2],
+    date2.toString().split(" ")[0].split("/")[2],
+    date2.toString().split(" ")[0].split("/")[1],
+    date2.toString().split(" ")[0].split("/")[0],
+    date2.toString().split(" ")[1].split(":")[0],
+    date2.toString().split(" ")[1].split(":")[1],
+    date2.toString().split(" ")[1].split(":")[2],
     0
   );
 

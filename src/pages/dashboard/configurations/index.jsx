@@ -81,10 +81,10 @@ export default function ConfiguracoesComponent() {
   ];
   return (
     <Row className="h-100 w-100">
-      <Col className="col-2 ps-0">
+      <Col className="p-0" style={{ maxWidth: "250px" }}>
         <MenuOptionsComponents />
       </Col>
-      <Col md={10} className="h-100 d-flex flex-column">
+      <Col className="p-0">
         <Row>
           <Col>
             <h1>Configurações de Administração</h1>

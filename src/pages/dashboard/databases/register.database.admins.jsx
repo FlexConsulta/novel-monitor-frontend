@@ -70,10 +70,10 @@ export default function RegisterDatabase() {
   }
   return (
     <Row className="h-100 w-100">
-      <Col className="col-2 ps-0">
+      <Col className="p-0" style={{ maxWidth: "250px" }}>
         <MenuOptionsComponents />
       </Col>
-      <Col className="col-10">
+      <Col className="p-0">
         <Row className="my-2">
           <h1>Banco de Dados</h1>
         </Row>
@@ -81,7 +81,7 @@ export default function RegisterDatabase() {
           <Col>
             <Breadcrump
               way={[
-                { label: "Pagina Incial", rota: "./../dashboard" },
+                { label: "Pagina Inicial", rota: "./../dashboard" },
                 { label: "Banco de dados", rota: "/banco-dados" },
                 { label: "Cadastro", rota: "" },
               ]}

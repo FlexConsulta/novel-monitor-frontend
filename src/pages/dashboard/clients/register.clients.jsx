@@ -65,15 +65,15 @@ export default function EditClients() {
   }
   return (
     <Row className="h-100 w-100">
-      <Col className="col-2 ps-0">
+      <Col className="p-0" style={{ maxWidth: "250px" }}>
         <MenuOptionsComponents />
       </Col>
-      <Col className="col-10">
+      <Col className="p-0">
         <Row className="mb-3">
           <Col className="col-12">
             <Breadcrump
               way={[
-                { label: "Pagina Incial", rota: "./../dashboard" },
+                { label: "Pagina Inicial", rota: "./../dashboard" },
                 { label: "Lista de Clientes", rota: "../empresas" },
                 { label: "Edição de Cliente", rota: "" },
               ]}
