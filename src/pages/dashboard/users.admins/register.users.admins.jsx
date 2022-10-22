@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../shared/AuthContext";
 import FormGroup from "../../shared/FormGroup";
 import Roles from "../../shared/Roles";
+import { getLoggedUserInfo } from "../../../utils/profile";
 
 export default function RegisterDatabase() {
   const [ativarUser, setAtivarUser] = useState(true);
@@ -18,12 +19,6 @@ export default function RegisterDatabase() {
   const [user, setUser] = useState({});
   const navigator = useNavigate();
   const location = useLocation();
-
-  const { authenticateUser } = useContext(AuthContext);
-
-  useEffect(() => {
-    console.log("authenticateUser", authenticateUser);
-  }, [authenticateUser]);
 
   const fetchData = async (user_id) => {
     const response = await Api.get(`users/${user_id}`);
@@ -142,7 +137,7 @@ export default function RegisterDatabase() {
           <Col className="col-12 mt-2">
             <FormGroup
               action={Roles.Actions.activeUser}
-              profile={authenticateUser?.role}
+              profile={getLoggedUserInfo().profile}
               className="col-12"
             >
               <Form.Check

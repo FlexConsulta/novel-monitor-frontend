@@ -1,8 +1,10 @@
 import axios from "axios";
+// import { getLoggedUserInfo } from "./profile";
 
 const Api = axios.create({
   baseURL: `${process.env.REACT_APP_API_HOST}/api/`,
   headers: {
+    Authorization: `Bearer ${localStorage.getItem("jwt-monitor-banco")}`,
     "Content-Type": "application/json",
   },
 });

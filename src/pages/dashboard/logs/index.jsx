@@ -12,10 +12,11 @@ import ReactLoading from "react-loading";
 import { dropSeconds } from "../../../utils/dateTimeFormat";
 import { useNavigate } from "react-router-dom";
 import { compareDate } from "../../../utils/compareDate";
+import { getLoggedUserInfo } from "../../../utils/profile";
 
 export default function LogsDatabasesComponent() {
-  const { authenticateUser } = useContext(AuthContext);
-  const { client_id } = authenticateUser;
+  const { client_id } = getLoggedUserInfo();
+
   const location = useLocation();
   const server_id = location?.state?.server_id;
   const [logList, setLogList] = useState([]);
@@ -33,7 +34,7 @@ export default function LogsDatabasesComponent() {
       Api.get(`logs/server?id_server=${server_id}`)
         .then(({ data }) => {
           setLogList(data);
-          console.log(JSON.parse(data[1].description));
+          // console.log(JSON.parse(data[1].description));
         })
         .catch((error) => {
           console.log(error);
@@ -43,7 +44,7 @@ export default function LogsDatabasesComponent() {
         Api.get(`logs/customer?id_customer=${client_id}`)
           .then(({ data }) => {
             setLogList(data);
-            console.log("->", data);
+            // console.log("->", data);
           })
           .catch((error) => {
             console.log(error);

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Col } from "react-bootstrap";
 import "./menu.options.style.css";
 import MenuItem from "./components/menuItem";

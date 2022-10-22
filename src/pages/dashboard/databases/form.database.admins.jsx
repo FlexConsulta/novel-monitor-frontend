@@ -9,10 +9,9 @@ import { Form, Card, Col, Badge } from "react-bootstrap";
 // import NumberFormat from "react-number-format";
 import Api from "../../../utils/axios";
 import Frm from "../../../utils/forms.validation";
+import { getLoggedUserInfo } from "../../../utils/profile";
 
 export default function FormDatabase(props) {
-  const { authenticateUser } = useContext(AuthContext);
-
   const [servers, setServers] = useState([]);
   const [clients, setClients] = useState([]);
   const { database, setDatabase } = props;
@@ -174,7 +173,7 @@ export default function FormDatabase(props) {
               </Form.Group>
               <FormGroup
                 action={Roles.Actions.activeUser}
-                profile={authenticateUser?.role}
+                profile={getLoggedUserInfo().profile}
                 className="col-12"
               >
                 <Form.Check
