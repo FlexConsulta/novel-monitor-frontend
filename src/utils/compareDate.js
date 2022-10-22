@@ -1,7 +1,7 @@
 export const compareDate = (date1, date2) => {
   const tolerance = 3;
 
-  console.log(date1, date2);
+  // console.log(date1, date2);
 
   if (!date1.toString().includes(":") || !date2.toString().includes(":"))
     return false;

@@ -13,7 +13,6 @@ import { dropSeconds } from "../../../utils/dateTimeFormat";
 import { compareDate } from "../../../utils/compareDate";
 
 export default function LogsDatabasesHistoryComponent() {
-  const { authenticateUser } = useContext(AuthContext);
   const location = useLocation();
   const id_database = location?.state?.id_database;
   const [logList, setLogList] = useState([]);

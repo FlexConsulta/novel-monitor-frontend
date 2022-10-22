@@ -2,16 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Roles from "../../shared/Roles";
 import FormGroup from "../../shared/FormGroup";
-import { useContext } from "react";
-import { AuthContext } from "../../shared/AuthContext";
 import FormsControl from "../../shared/FormsControl";
 import { Form, Card, Col, FormControl } from "react-bootstrap";
 import Api from "../../../utils/axios";
 import Frm from "../../../utils/forms.validation";
+import { getLoggedUserInfo } from "../../../utils/profile";
 
 export default function FormUserClient(props) {
-  const { authenticateUser } = useContext(AuthContext);
-
   const [profiles, setProfiles] = useState([]);
   const { person, setPerson, user, setUser } = props;
 
@@ -42,7 +39,7 @@ export default function FormUserClient(props) {
             <Form id={"person"}>
               <FormGroup
                 action={Roles.Actions.changeClient}
-                profile={authenticateUser?.role}
+                profile={getLoggedUserInfo().profile}
                 className="col-12"
               >
                 <Form.Label>
@@ -78,7 +75,7 @@ export default function FormUserClient(props) {
               </FormGroup>
               <FormGroup
                 action={Roles.Actions.changeProfile}
-                profile={authenticateUser?.role}
+                profile={getLoggedUserInfo().profile}
                 className="col-12"
               >
                 <Form.Label>
@@ -150,10 +147,14 @@ export default function FormUserClient(props) {
                   name={"phone"}
                   label={"Telefone"}
                   required={true}
-                  format={"(##) ####-####"}
+                  format={"(##) # ####-####"}
                   onFocus={Frm.neutro}
-                  onChange={(e) =>
-                    setPerson((state) => ({ ...state, phone: e.target.value }))
+                  onValueChange={(e) =>
+                    setPerson((state) => ({ ...state, phone: e.value }))
+                  }
+                  onChange={
+                    (e) => alert(e)
+                    // setPerson((state) => ({ ...state, phone: e.value }))
                   }
                   value={person?.phone}
                   placeholder="Digite o telefone..."

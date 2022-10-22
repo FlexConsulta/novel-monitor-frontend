@@ -13,7 +13,7 @@ export default function EditClients() {
   const location = useLocation();
 
   const [clientData, setClientData] = useState({});
-  const [loading, setLoading] = useState(false);
+
   const navigator = useNavigate();
 
   const fetchData = async (client_id) => {

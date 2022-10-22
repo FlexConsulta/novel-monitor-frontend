@@ -19,8 +19,6 @@ export default function ClientsComponent() {
   });
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {}, []);
-
   const fetchDataPaged = async () => {
     setLoading(true);
     const response = await Api.get("clients", {
