@@ -19,9 +19,13 @@ export default function DatabaseComponent() {
 
   const fetchDataPaged = async () => {
     setLoading(true);
+
     const response = await Api.get("databases", {
       params: { page, paginate: process.env.REACT_APP_DEFAULT_PAGINATE },
     });
+
+    console.log("data", response.data.docs);
+
     setTotalPages(response?.data?.pages);
     setData(response?.data?.docs);
     setResume({

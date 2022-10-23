@@ -7,10 +7,6 @@ import SweetAlert from "../../../utils/sweetalert";
 import FormDatabase from "./form.database.admins";
 import { useLocation, useNavigate } from "react-router-dom";
 import Api from "../../../utils/axios";
-import { useContext } from "react";
-import { AuthContext } from "../../shared/AuthContext";
-import FormGroup from "../../shared/FormGroup";
-import Roles from "../../shared/Roles";
 
 export default function RegisterDatabase() {
   const [database, setDatabase] = useState({});

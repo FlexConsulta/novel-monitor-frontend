@@ -59,7 +59,7 @@ export default function FormDatabase(props) {
                         key={idx + 1}
                         value={server.id}
                       >
-                        {server.name}
+                        {`${server.name} - ${server.port}`}
                       </option>
                     ))}
                 </Form.Select>

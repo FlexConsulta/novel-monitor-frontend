@@ -29,13 +29,12 @@ export default function LogsDatabasesHistoryComponent() {
       Api.get(`logs/database?id_database=${id_database}`)
         .then(({ data }) => {
           setLogList(data.docs);
+          setLoading(false);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -78,8 +77,8 @@ export default function LogsDatabasesHistoryComponent() {
             <ReactLoading
               type={"bars"}
               color={"#085ED6"}
-              height={10}
-              width={50}
+              height={20}
+              width={80}
             />
           </Row>
         ) : (
