@@ -10,7 +10,7 @@ import { getLoggedUserInfo } from "../../../utils/profile";
 
 export default function FormUserClient(props) {
   const [profiles, setProfiles] = useState([]);
-  const { person, setPerson, user, setUser } = props;
+  const { person, setPerson, user, setUser, updating } = props;
 
   const [clients, setClients] = useState([]);
 
@@ -133,6 +133,7 @@ export default function FormUserClient(props) {
                   data-mformat="email"
                   autoComplete={false}
                   value={person?.email}
+                  readOnly={updating}
                   onChange={(e) =>
                     setPerson((state) => ({ ...state, email: e.target.value }))
                   }

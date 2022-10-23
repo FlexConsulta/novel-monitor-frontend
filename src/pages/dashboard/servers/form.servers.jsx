@@ -52,7 +52,7 @@ export default function FormServer(props) {
               <Form.Control
                 required
                 type="text"
-                name="porta"
+                name="port"
                 onFocus={Frm.neutro}
                 value={server?.port}
                 onChange={(e) =>

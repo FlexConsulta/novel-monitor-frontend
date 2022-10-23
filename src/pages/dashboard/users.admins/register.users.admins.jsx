@@ -131,6 +131,7 @@ export default function RegisterDatabase() {
             setPerson={setPerson}
             user={user}
             setUser={setUser}
+            updating={location?.state?.user_id}
           />
         </Row>
         <Row>

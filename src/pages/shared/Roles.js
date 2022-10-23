@@ -31,7 +31,6 @@ const userHasPermission = (profile, action) => {
 };
 
 const clientsRoutesAuthorizated = [
-  "usuarios-admin",
   "logs-customer",
   "usuarios-empresas",
   "recuperar-senha",

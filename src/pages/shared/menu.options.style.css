@@ -10,10 +10,24 @@
 .menu-left a {
   text-decoration: none;
   letter-spacing: 0px;
-
   opacity: 1;
 }
 
 .menu-left a:hover {
   color: blue;
+}
+
+.user-name {
+  margin: 0px;
+  color: white;
+  font-weight: 600;
+}
+.user-name-container {
+  color: white;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }

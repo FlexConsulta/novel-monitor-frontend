@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Col, Row, Card, Badge, Container } from "react-bootstrap";
 import "./index.style.css";
 import { useLocation } from "react-router-dom";
 import Api from "../../../utils/axios";
-import { AuthContext } from "../../shared/AuthContext";
 import MenuOptionsComponents from "../../shared/menu.options";
 import Breadcrump from "../../shared/Breadcrump/Breadcrump";
 import { useEffect } from "react";
@@ -13,6 +12,7 @@ import { dropSeconds } from "../../../utils/dateTimeFormat";
 import { useNavigate } from "react-router-dom";
 import { compareDate } from "../../../utils/compareDate";
 import { getLoggedUserInfo } from "../../../utils/profile";
+import Roles from "../../shared/Roles";
 
 export default function LogsDatabasesComponent() {
   const { client_id } = getLoggedUserInfo();
@@ -30,29 +30,44 @@ export default function LogsDatabasesComponent() {
   const fetchDataPaged = async () => {
     setLoading(true);
 
-    if (server_id) {
-      Api.get(`logs/server?id_server=${server_id}`)
+    if (getLoggedUserInfo().profile === Roles.Profiles.administracao) {
+      Api.get(`logs`)
         .then(({ data }) => {
           setLogList(data);
-          // console.log(JSON.parse(data[1].description));
+          setLoading(false);
         })
         .catch((error) => {
           console.log(error);
         });
-    } else {
-      if (client_id) {
-        Api.get(`logs/customer?id_customer=${client_id}`)
-          .then(({ data }) => {
-            setLogList(data);
-            // console.log("->", data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
+
+      return;
     }
 
-    setLoading(false);
+    if (server_id) {
+      Api.get(`logs/server?id_server=${server_id}`)
+        .then(({ data }) => {
+          setLogList(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      return;
+    }
+
+    if (client_id) {
+      Api.get(`logs/customer?id_customer=${client_id}`)
+        .then(({ data }) => {
+          setLogList(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      return;
+    }
   };
 
   useEffect(() => {
@@ -101,8 +116,8 @@ export default function LogsDatabasesComponent() {
             <ReactLoading
               type={"bars"}
               color={"#085ED6"}
-              height={10}
-              width={50}
+              height={20}
+              width={80}
             />
           </Row>
         ) : (

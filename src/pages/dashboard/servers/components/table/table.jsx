@@ -90,6 +90,26 @@ export default function TableComponent(props) {
                 </th>
                 <th>
                   {showSearch ? (
+                    <Form.Control
+                      type="text"
+                      style={{ height: "40px" }}
+                      placeholder="Porta"
+                      onChange={(e) =>
+                        setSearch((state) => [
+                          ...state.filter((item) => item.prop !== "port"),
+                          {
+                            prop: "port",
+                            value: e.target.value,
+                          },
+                        ])
+                      }
+                    />
+                  ) : (
+                    <span>Porta</span>
+                  )}
+                </th>
+                <th>
+                  {showSearch ? (
                     <Form.Select
                       type="select"
                       style={{ width: "140px", marginRight: "5px" }}
@@ -138,6 +158,7 @@ export default function TableComponent(props) {
                 <tr key={idx} className={"linhaTabela"}>
                   <td>{server.name}</td>
                   <td>{server.url}</td>
+                  <td>{server.port}</td>
                   <td>{server.ativo ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
                     <div
