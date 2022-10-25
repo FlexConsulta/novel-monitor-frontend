@@ -107,12 +107,12 @@ export default function LogsDatabasesHistoryComponent() {
                 display: "flex",
                 flexDirection: "row",
                 width: "100%",
-                height: "500px",
+                maxHeight: "500px",
                 overflowY: "auto",
                 paddingLeft: "12px",
               }}
             >
-              <table className="table table-hover bordered table-striped">
+              <table className="table table-hover bordered">
                 <thead>
                   <tr>
                     <th>CT-e Local</th>
@@ -126,10 +126,17 @@ export default function LogsDatabasesHistoryComponent() {
                 <tbody>
                   {logList?.length > 0 &&
                     logList.map((log) => (
-                      <tr key={log.id}>
+                      <tr
+                        key={log.id}
+                        style={{
+                          maxHeight: "16px",
+                          height: "16px",
+                        }}
+                      >
                         <td
                           style={{
                             width: "100px",
+                            maxHeight: "16px",
                             minWidth: "100px",
                           }}
                         >
@@ -151,6 +158,7 @@ export default function LogsDatabasesHistoryComponent() {
                         <td
                           style={{
                             width: "130px",
+                            maxHeight: "16px",
                             minWidth: "130px",
                           }}
                         >
@@ -171,6 +179,7 @@ export default function LogsDatabasesHistoryComponent() {
                         </td>
                         <td
                           style={{
+                            maxHeight: "16px",
                             width: "125px",
                             minWidth: "125px",
                           }}
@@ -199,6 +208,7 @@ export default function LogsDatabasesHistoryComponent() {
                         <td
                           style={{
                             width: "120px",
+                            maxHeight: "16px",
                             minWidth: "120px",
                           }}
                         >
@@ -226,6 +236,7 @@ export default function LogsDatabasesHistoryComponent() {
                         <td
                           style={{
                             width: "100%",
+                            maxHeight: "16px",
                             minWidth: "120px",
                           }}
                         >
@@ -246,6 +257,7 @@ export default function LogsDatabasesHistoryComponent() {
                         </td>
                         <td
                           style={{
+                            maxHeight: "16px",
                             width: "120px",
                             minWidth: "120px",
                           }}
