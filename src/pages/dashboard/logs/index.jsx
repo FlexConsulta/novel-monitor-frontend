@@ -37,7 +37,7 @@ export default function LogsDatabasesComponent() {
           setLoading(false);
         })
         .catch((error) => {
-          console.log(error);
+          console.log("error", error);
         });
 
       return;
@@ -141,7 +141,7 @@ export default function LogsDatabasesComponent() {
                 logList.map((log) => (
                   <Col
                     className="col-4"
-                    key={log.id}
+                    key={log?.id}
                     style={{ minWidth: "420px", minHeight: "160px" }}
                   >
                     <Card className="card-logs" style={{ width: "100%" }}>
@@ -212,27 +212,27 @@ export default function LogsDatabasesComponent() {
                           >
                             <Badge
                               bg={
-                                JSON.parse(log.description)?.travelsLocal ==
+                                JSON.parse(log?.description)?.travelsLocal ==
                                 "Erro"
                                   ? "danger"
                                   : "success"
                               }
                               text="white"
                             >
-                              {JSON.parse(log.description)?.travelsLocal}
+                              {JSON.parse(log?.description)?.travelsLocal}
                             </Badge>
                           </Col>
                           <Col col={4}>
                             <Badge
                               bg={
-                                JSON.parse(log.description)?.travelsCustomer ==
+                                JSON.parse(log?.description)?.travelsCustomer ==
                                 "Erro"
                                   ? "danger"
                                   : "success"
                               }
                               text="white"
                             >
-                              {JSON.parse(log.description)?.travelsCustomer}
+                              {JSON.parse(log?.description)?.travelsCustomer}
                             </Badge>
                           </Col>
                         </Row>
@@ -249,13 +249,13 @@ export default function LogsDatabasesComponent() {
                           <Col col={4}>
                             <Badge
                               bg={
-                                JSON.parse(log.description)
+                                JSON.parse(log?.description)
                                   ?.currentDateLocal === "Erro"
                                   ? "danger"
                                   : compareDate(
-                                      JSON.parse(log.description)
+                                      JSON.parse(log?.description)
                                         ?.currentDateLocal,
-                                      JSON.parse(log.description)
+                                      JSON.parse(log?.description)
                                         ?.currentDateCustomer
                                     )
                                   ? "success"
@@ -264,20 +264,20 @@ export default function LogsDatabasesComponent() {
                               text="white"
                             >
                               {dropSeconds(
-                                JSON.parse(log.description)?.currentDateLocal
+                                JSON.parse(log?.description)?.currentDateLocal
                               )}
                             </Badge>
                           </Col>
                           <Col col={4}>
                             <Badge
                               bg={
-                                JSON.parse(log.description)
+                                JSON.parse(log?.description)
                                   ?.currentDateLocal === "Erro"
                                   ? "danger"
                                   : compareDate(
-                                      JSON.parse(log.description)
+                                      JSON.parse(log?.description)
                                         ?.currentDateLocal,
-                                      JSON.parse(log.description)
+                                      JSON.parse(log?.description)
                                         ?.currentDateCustomer
                                     )
                                   ? "success"
@@ -286,7 +286,8 @@ export default function LogsDatabasesComponent() {
                               text="white"
                             >
                               {dropSeconds(
-                                JSON.parse(log.description)?.currentDateCustomer
+                                JSON.parse(log?.description)
+                                  ?.currentDateCustomer
                               )}
                             </Badge>
                           </Col>
