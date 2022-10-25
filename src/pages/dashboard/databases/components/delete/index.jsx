@@ -13,7 +13,7 @@ export default function DeleteRecord(props) {
   const handleDeleteRecord = async () => {
     try {
       setShowModalConfirm(false);
-      await Api.delete(`servers/${database.id}`).catch((error) => {
+      await Api.delete(`databases/${database.id}`).catch((error) => {
         throw new Error(error.response.data);
       });
       SweetAlert.mixin({
