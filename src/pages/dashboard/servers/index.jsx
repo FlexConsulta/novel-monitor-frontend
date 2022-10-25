@@ -23,6 +23,7 @@ export default function ClientsComponent() {
     const response = await Api.get("servers", {
       params: { page, paginate: process.env.REACT_APP_DEFAULT_PAGINATE },
     });
+
     setTotalPages(response?.data?.pages);
     setListServers(response?.data?.docs);
     setResume({
