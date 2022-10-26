@@ -35,7 +35,9 @@ export default function DashboardCompnent() {
   ).length;
 
   const syncDatabases = async () => {
-    await Api.post("logs/sync");
+    await Api.post("logs/sync").then((res) => {
+      console.log("responseLogSync", res);
+    });
     fetchData();
   };
 
