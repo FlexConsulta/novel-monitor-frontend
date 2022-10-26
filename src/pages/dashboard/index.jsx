@@ -13,7 +13,12 @@ export default function DashboardCompnent() {
         <Row className="d-flex flex-row  align-items-center w-100 dashboard__title">
           <Col className={"col-12 col-md-8 w-100 row-atualizar"}>
             <p>ÚLTIMA ATUALIZAÇÃO DO DASHBOARD: 24/10/2022 14:00</p>
-            <Badge className={"badge__dashboard"} bg={"primary"} text="white">
+            <Badge
+              className="badge__dashboard"
+              style={{ width: "180px", height: "60px" }}
+              bg={"primary"}
+              text="white"
+            >
               ATUALIZAR
             </Badge>
           </Col>
