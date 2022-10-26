@@ -1,0 +1,26 @@
+.dashboard__title {
+  height: 100px;
+}
+
+.row-atualizar {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.dashboard__items {
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 16px;
+}
+
+.badge__dashboard {
+  width: 140px;
+  height: 60px;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}

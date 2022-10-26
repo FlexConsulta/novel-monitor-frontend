@@ -11,12 +11,15 @@ import { useState } from "react";
 import ReactLoading from "react-loading";
 import { dropSeconds } from "../../../utils/dateTimeFormat";
 import { compareDate } from "../../../utils/compareDate";
+import PaginationComponent from "../../../components/pagination/pagination";
 
 export default function LogsDatabasesHistoryComponent() {
   const location = useLocation();
   const id_database = location?.state?.id_database;
   const [logList, setLogList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
 
   useEffect(() => {
     fetchDataPaged();
@@ -26,10 +29,13 @@ export default function LogsDatabasesHistoryComponent() {
     setLoading(true);
 
     if (id_database) {
-      Api.get(`logs/database?id_database=${id_database}`)
+      Api.get(`logs/database`, {
+        params: { page, paginate: 10, id_database },
+      })
         .then(({ data }) => {
-          setLogList(data.docs);
+          setLogList(data?.docs);
           setLoading(false);
+          setTotalPages(data?.pages > 22 ? 22 : data.pages);
         })
         .catch((error) => {
           console.log(error);
@@ -39,16 +45,16 @@ export default function LogsDatabasesHistoryComponent() {
 
   useEffect(() => {
     fetchDataPaged();
-  }, []);
+  }, [page]);
 
   return (
     <Row className="h-100 w-100">
       <Col className="p-0" style={{ maxWidth: "250px" }}>
         <MenuOptionsComponents />
       </Col>
-      <Col className="p-0">
+      <Col className="p-0 col-9">
         <Row className="d-flex flex-row  align-items-center ">
-          <Col className={"col-12 col-md-8"}>
+          <Col className={"col-8"}>
             <div className="title-empresa mb-2 mb-md-0">
               <h1>Log</h1>
             </div>
@@ -66,7 +72,7 @@ export default function LogsDatabasesHistoryComponent() {
           </Col>
         </Row>
         {loading ? (
-          <Row
+          <Col
             style={{
               minHeight: "160px",
               display: "flex",
@@ -80,7 +86,7 @@ export default function LogsDatabasesHistoryComponent() {
               height={20}
               width={80}
             />
-          </Row>
+          </Col>
         ) : (
           <Container fluid="md">
             <Row
@@ -279,6 +285,15 @@ export default function LogsDatabasesHistoryComponent() {
                     ))}
                 </tbody>
               </table>
+            </Row>
+            <Row>
+              <Col className="col-12 mt-2">
+                <PaginationComponent
+                  page={page}
+                  totalPages={totalPages}
+                  togglePage={setPage}
+                />
+              </Col>
             </Row>
           </Container>
         )}
