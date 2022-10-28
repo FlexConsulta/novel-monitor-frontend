@@ -19,7 +19,7 @@ export default function TestConnection() {
     const id_database = location?.state?.id_database;
     const [data, setData] = useState();
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+    var [responseError, setResponseError] = useState();
 
     useEffect(() => {
         fetchData();
@@ -27,16 +27,25 @@ export default function TestConnection() {
 
     const fetchData = async () => {
         setLoading(true);
-        const response = await Api.get(`logs/test-connection?id_database=${id_database}`)
-        console.log(response)
-        setData(response?.data);
+        try {
+            const response = await Api.get(`logs/test-connection?id_database=${id_database}`)
+            setLoading(false);
 
-        setLoading(false);
-
+            if(response?.data?.travelsLocal){
+                setData(response?.data);
+            } 
+            else{
+                setData(null);
+                setResponseError(response?.data)
+                
+            }
+        } catch (error) {
+            setLoading(false);
+            console.log(error)
+            setData(null)
+        }
     }
-
-
-
+   
     return (
         <Row className="h-100 w-100">
             <Col className="p-0" style={{ maxWidth: "250px" }}>
@@ -61,7 +70,7 @@ export default function TestConnection() {
                         />
                     </Col>
                 </Row>
-                {!data || loading ? (
+                { loading ? (
                     <Row
                         style={{
                             minHeight: "160px",
@@ -77,7 +86,12 @@ export default function TestConnection() {
                             width={80}
                         />
                     </Row>
-                ) : (
+                    
+                ) : !data ?(<>
+                <div style={{minWidth:'150px', minHeight:'100px', color:'red', fontSize:'14px', paddingLeft:"12px"}}>
+                   Error: {responseError}
+                </div>
+                </>): (
                     <Container
                         fluid="md"
                         style={{
