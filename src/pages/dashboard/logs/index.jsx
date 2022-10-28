@@ -49,7 +49,6 @@ export default function LogsDatabasesComponent() {
 
       return;
     }
-
     if (server_id) {
       Api.get(`logs/server?id_server=${server_id}`)
         .then(({ data }) => {
@@ -151,14 +150,157 @@ export default function LogsDatabasesComponent() {
               <table className="table table-hover bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Nome DB</th>
-                    <th>CT-e Local</th>
-                    <th>CT-e Cliente</th>
-                    <th>Data Local</th>
-                    <th>Data Cliente</th>
-                    <th>Últ. Nota</th>
-                    <th>Último CT-e</th>
-                    <th>Data Sync</th>
+                    <th>{showSearch ? (
+                      <Form.Control
+                        type="text"
+                        style={{ height: "40px", width:"70px" }}
+                        placeholder="Nome"
+                        onChange={(e) =>
+                          setSearch((state) => [
+                            ...state.filter(
+                              (item) => item.prop !== "namedefault"
+                            ),
+                            {
+                              prop: "namedefault",
+                              value: e.target.value,
+                            },
+                          ])
+                        }
+                      />
+                    ) : (
+                      <span>Nome BD</span>
+                    )}</th>
+                    <th>{showSearch ? (
+                      <Form.Control
+                        type="text"
+                        style={{ height: "40px"}}
+                        placeholder="CT-e Local"
+                        onChange={(e) =>
+                          setSearch((state) => [
+                            ...state.filter((item) => item.prop !== "travelsLocal"),
+                            {
+                              prop: "travelsLocal",
+                              value: e.target.value,
+                            },
+                          ])
+                        }
+                      />
+                    ) : (
+                      <span>CT-e Local</span>
+                    )}</th>
+                    <th>{showSearch ? (
+                      <Form.Control
+                        type="text"
+                        style={{ height: "40px", width:"115px" }}
+                        placeholder="CT-e Cliente"
+                        onChange={(e) =>
+                          setSearch((state) => [
+                            ...state.filter((item) => item.prop !== "travelsCustomer"),
+                            {
+                              prop: "travelsCustomer",
+                              value: e.target.value,
+                            },
+                          ])
+                        }
+                      />
+                    ) : (
+                      <span>CT-e Cliente</span>
+                    )}</th>
+                    <th>{showSearch ? (
+                      <Form.Control
+                        type="date"
+                        style={{ height: "40px", width:"125px" }}
+                        placeholder="Data Local"
+                        onChange={(e) =>
+                          setSearch((state) => [
+                            ...state.filter((item) => item.prop !== "currentDateLocal"),
+                            {
+                              prop: "currentDateLocal",
+                              value: e.target.value,
+                            },
+                          ])
+                        }
+                      />
+                    ) : (
+                      <span>Data Local</span>
+                    )}
+                    </th>
+                    <th>{showSearch ? (
+                      <Form.Control
+                        type="date"
+                        style={{ height: "40px", width:"125px" }}
+                        placeholder="Data Cliente"
+                        onChange={(e) =>
+                          setSearch((state) => [
+                            ...state.filter((item) => item.prop !== "currentDateCustomer"),
+                            {
+                              prop: "currentDateCustomer",
+                              value: e.target.value,
+                            },
+                          ])
+                        }
+                      />
+                    ) : (
+                      <span>Data Cliente</span>
+                    )}
+                    </th>
+                    <th>{showSearch ? (
+                      <Form.Control
+                        type="text"
+                        style={{ height: "40px", width:"88px" }}
+                        placeholder="Últ. Nota"
+                        onChange={(e) =>
+                          setSearch((state) => [
+                            ...state.filter((item) => item.prop !== "ultNota"),
+                            {
+                              prop: "ultNota",
+                              value: e.target.value,
+                            },
+                          ])
+                        }
+                      />
+                    ) : (
+                      <span>Últ. Nota</span>
+                    )}
+                    </th>
+                    <th>{showSearch ? (
+                      <Form.Control
+                        type="text"
+                        style={{ height: "40px", width:"88px" }}
+                        placeholder="Últ. CT-e"
+                        onChange={(e) =>
+                          setSearch((state) => [
+                            ...state.filter((item) => item.prop !== "ultCte"),
+                            {
+                              prop: "ultCte",
+                              value: e.target.value,
+                            },
+                          ])
+                        }
+                      />
+                    ) : (
+                      <span>Últ. CT-e</span>
+                    )}
+                    </th>
+                    <th>{showSearch ? (
+                      <Form.Control
+                        type="date"
+                        style={{ height: "40px", width:"125px" }}
+                        placeholder="Data Sync"
+                        onChange={(e) =>
+                          setSearch((state) => [
+                            ...state.filter((item) => item.prop !== "created_at"),
+                            {
+                              prop: "created_at",
+                              value: e.target.value,
+                            },
+                          ])
+                        }
+                      />
+                    ) : (
+                      <span>Data Sync</span>
+                    )}
+                    </th>
                     <th
                       style={{
                         display: "flex",
