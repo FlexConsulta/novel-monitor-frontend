@@ -22,6 +22,7 @@ import RegisterClients from "./pages/dashboard/clients/register.clients";
 import AuthContext from "./pages/shared/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import MenuContext from "./pages/shared/MenuContext";
+import TestConnection from "./pages/dashboard/databases/testConnection";
 
 export default function AppRoutes() {
   return (
@@ -202,7 +203,15 @@ export default function AppRoutes() {
                 </PrivateRoute>
               }
             />
-
+            <Route
+              exact
+              path="/test-connection"
+              element={
+                <PrivateRoute route={"test-connection"}>
+                  <TestConnection />
+                </PrivateRoute>
+              }
+            />
             {/* Shared */}
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<PageNotFoundComponent />} />

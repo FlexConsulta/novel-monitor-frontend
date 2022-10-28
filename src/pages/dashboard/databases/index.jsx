@@ -24,8 +24,6 @@ export default function DatabaseComponent() {
       params: { page, paginate: process.env.REACT_APP_DEFAULT_PAGINATE },
     });
 
-    console.log("data", response.data.docs);
-
     setTotalPages(response?.data?.pages);
     setData(response?.data?.docs);
     setResume({

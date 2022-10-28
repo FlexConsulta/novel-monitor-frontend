@@ -32,7 +32,7 @@ export default function LoginComponent() {
       }
     } catch (error) {
       setLoader(false);
-      SweetAlert.mixin({ icon: "error", title: error.response.data });
+      SweetAlert.mixin({ icon: "error", title: error?.response?.data || error});
     }
   }
 
