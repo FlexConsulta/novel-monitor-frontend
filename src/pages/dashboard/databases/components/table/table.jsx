@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { BsFillPencilFill } from "react-icons/bs";
 import DeleteRecord from "../delete";
 import Api from "../../../../../utils/axios";
-import { SiGraylog } from "react-icons/si";
+import { SiGraylog, SiSpeedtest } from "react-icons/si";
 
 export default function TableComponent(props) {
   const [search, setSearch] = useState([]);
@@ -167,6 +167,15 @@ export default function TableComponent(props) {
                     <div
                       style={{ width: "135px", display: "flex", gap: "3px" }}
                     >
+                      <Button
+                        onClick={() =>
+                            navigate("/test-connection", {
+                              state: { id_database: database.id },
+                            })
+                          }
+                        >
+                          <SiSpeedtest size={16} />
+                      </Button>
                       <Button
                         onClick={() =>
                           navigate("/logs-history", {
