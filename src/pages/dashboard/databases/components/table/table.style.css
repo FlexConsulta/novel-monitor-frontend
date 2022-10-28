@@ -13,3 +13,9 @@
 .linhaTabela > td {
   padding: 2px !important;
 }
+
+.linhaTabela > td > div{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

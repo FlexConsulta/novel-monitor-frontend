@@ -21,11 +21,18 @@ export default function AuthProvider({ children }) {
     if (response?.data?.token) {
       Api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
 
-      const { active, profile } = jwt_decode(response.data.token).data;
+      const { active, profile, client_id } = jwt_decode(response.data.token).data;
 
+      const client = await Api.get(`clients/${client_id}`);
+  
       if (!active) {
         console.log("Usuário inativo.");
         throw new Error("Usuário inativo!");
+      }
+
+      if(client.data.sincronizacao == false){
+        console.log("Cliente inativo.");
+        throw new Error("Cliente inativo!");
       }
 
       localStorage.setItem("jwt-monitor-banco", response.data.token);

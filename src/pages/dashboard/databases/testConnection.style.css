@@ -1,0 +1,22 @@
+.card-logs {
+    width: 300px;
+    margin-bottom: 16px;
+  }
+  .table-container {
+    max-height: 340px;
+    overflow-y: auto;
+    border-collapse: collapse;
+  }
+  .table-container thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+  }
+
+.card-body{
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}  
