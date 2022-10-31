@@ -104,14 +104,14 @@ export default function LogsDatabasesComponent() {
       </Col>
       <Col className="p-0">
         <Row className="d-flex flex-row  align-items-center ">
-          <Col className={"col-12 col-md-8"}>
+          <Col>
             <div className="title-empresa mb-2 mb-md-0">
               <h1>Log</h1>
             </div>
           </Col>
         </Row>
         <Row>
-          <Col className="col-12">
+          <Col>
             <Breadcrump
               way={[
                 { label: "Pagina Inicial", rota: "./dashboard" },
@@ -148,11 +148,11 @@ export default function LogsDatabasesComponent() {
             <Row
               style={{
                 padding: "0px",
-                margin: "0px",
+                margin: "auto",
                 paddingTop: "30px",
                 display: "flex",
                 flexDirection: "row",
-                width: "100%",
+                maxWidth: "100%",
                 maxHeight: "500px",
                 overflowY: "auto",
                 paddingLeft: "12px",
@@ -335,17 +335,6 @@ export default function LogsDatabasesComponent() {
                         <span>Data Sync</span>
                       )}
                     </th>
-                    {/* <th
-                      style={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        marginRight: "5px",
-                      }}
-                    >
-                      <Button onClick={() => setShowSearch(!showSearch)}>
-                        {IconSearch()}
-                      </Button>
-                    </th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -370,9 +359,8 @@ export default function LogsDatabasesComponent() {
                         </td>
                         <td
                           style={{
-                            width: "100px",
                             maxHeight: "16px",
-                            minWidth: "100px",
+                            minWidth: "70px",
                           }}
                         >
                           <Badge
@@ -392,9 +380,8 @@ export default function LogsDatabasesComponent() {
                         </td>
                         <td
                           style={{
-                            width: "130px",
                             maxHeight: "16px",
-                            minWidth: "130px",
+                            minWidth: "70px",
                           }}
                         >
                           <Badge
@@ -480,8 +467,7 @@ export default function LogsDatabasesComponent() {
                         <td
                           style={{
                             maxHeight: "16px",
-                            width: "120px",
-                            minWidth: "120px",
+                            minWidth: "90px",
                           }}
                         >
                           {JSON.parse(log.description)?.max_cte_today}
@@ -489,8 +475,7 @@ export default function LogsDatabasesComponent() {
                         <td
                           style={{
                             maxHeight: "16px",
-                            width: "120px",
-                            minWidth: "120px",
+                            minWidth: "90px",
                           }}
                         >
                           <Badge
@@ -506,13 +491,6 @@ export default function LogsDatabasesComponent() {
                             )}
                           </Badge>
                         </td>
-                        <td
-                          style={{
-                            maxHeight: "16px",
-                            width: "120px",
-                            minWidth: "120px",
-                          }}
-                        ></td>
                       </tr>
                     ))}
                 </tbody>
