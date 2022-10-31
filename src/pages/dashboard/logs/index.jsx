@@ -76,6 +76,7 @@ export default function LogsDatabasesComponent() {
     if (client_id) {
       Api.get(`logs/customer?id_customer=${client_id}`)
         .then(({ data }) => {
+          console.log(data);
           setLogList(data);
           setLoading(false);
         })
@@ -355,7 +356,7 @@ export default function LogsDatabasesComponent() {
                             minWidth: "100px",
                           }}
                         >
-                          {log?.name_default}
+                          {log?.name_default || log?.databasis?.name_default}
                         </td>
                         <td
                           style={{
