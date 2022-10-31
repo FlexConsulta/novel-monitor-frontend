@@ -1,18 +1,27 @@
 import React from "react";
-import { Col, Row, Card, Badge, Container } from "react-bootstrap";
+import {
+  Col,
+  Row,
+  Card,
+  Badge,
+  Container,
+  Form,
+  Button,
+} from "react-bootstrap";
 import "./index.style.css";
 import { useLocation } from "react-router-dom";
 import Api from "../../../utils/axios";
 import MenuOptionsComponents from "../../shared/menu.options";
 import Breadcrump from "../../shared/Breadcrump/Breadcrump";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { IconSearch } from "../../../assets/Icons";
 import ReactLoading from "react-loading";
 import { dropSeconds } from "../../../utils/dateTimeFormat";
 import { useNavigate } from "react-router-dom";
 import { compareDate } from "../../../utils/compareDate";
 import { getLoggedUserInfo } from "../../../utils/profile";
 import Roles from "../../shared/Roles";
+import PaginationComponent from "../../../components/pagination/pagination";
 
 export default function LogsDatabasesComponent() {
   const { client_id } = getLoggedUserInfo();
@@ -21,6 +30,11 @@ export default function LogsDatabasesComponent() {
   const server_id = location?.state?.server_id;
   const [logList, setLogList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
+  const [search, setSearch] = useState([]);
+  const [showSearch, setShowSearch] = useState(false);
+  const [filterData, setFilterData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,10 +45,13 @@ export default function LogsDatabasesComponent() {
     setLoading(true);
 
     if (getLoggedUserInfo().profile === Roles.Profiles.administracao) {
-      Api.get(`logs`)
+      Api.get(`logs`, {
+        params: { page, paginate: 10 },
+      })
         .then(({ data }) => {
-          setLogList(data);
+          setLogList(data?.docs);
           setLoading(false);
+          setTotalPages(data?.pages > 22 ? 22 : data.pages);
         })
         .catch((error) => {
           console.log("error", error);
@@ -42,7 +59,6 @@ export default function LogsDatabasesComponent() {
 
       return;
     }
-
     if (server_id) {
       Api.get(`logs/server?id_server=${server_id}`)
         .then(({ data }) => {
@@ -72,7 +88,7 @@ export default function LogsDatabasesComponent() {
 
   useEffect(() => {
     fetchDataPaged();
-  }, []);
+  }, [page]);
 
   const handleLogDetail = (log) => {
     navigate("/logs-history", {
@@ -129,173 +145,387 @@ export default function LogsDatabasesComponent() {
             }}
           >
             <Row
-              className="mt-4 flex-grow-2"
               style={{
-                maxHeight: "550px",
-                overflowY: "auto",
-                margin: "0px",
                 padding: "0px",
+                margin: "0px",
+                paddingTop: "30px",
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                maxHeight: "500px",
+                overflowY: "auto",
+                paddingLeft: "12px",
               }}
             >
-              {logList?.length > 0 &&
-                logList.map((log) => (
-                  <Col
-                    className="col-4"
-                    key={log?.id}
-                    style={{ minWidth: "420px", minHeight: "160px" }}
-                  >
-                    <Card className="card-logs" style={{ width: "100%" }}>
-                      <Card.Header
-                        style={{ paddingBottom: "0px", cursor: "pointer" }}
+              <table className="table table-hover bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="text"
+                          style={{ height: "40px", width: "70px" }}
+                          placeholder="Nome"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "name_default"
+                              ),
+                              {
+                                prop: "name_default",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Nome BD</span>
+                      )}
+                    </th>
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="text"
+                          style={{ height: "40px" }}
+                          placeholder="CT-e Local"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "travelsLocal"
+                              ),
+                              {
+                                prop: "travelsLocal",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>CT-e Local</span>
+                      )}
+                    </th>
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="text"
+                          style={{ height: "40px", width: "115px" }}
+                          placeholder="CT-e Cliente"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "travelsCustomer"
+                              ),
+                              {
+                                prop: "travelsCustomer",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>CT-e Cliente</span>
+                      )}
+                    </th>
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="date"
+                          style={{ height: "40px", width: "125px" }}
+                          placeholder="Data Local"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "currentDateLocal"
+                              ),
+                              {
+                                prop: "currentDateLocal",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Data Local</span>
+                      )}
+                    </th>
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="date"
+                          style={{ height: "40px", width: "125px" }}
+                          placeholder="Data Cliente"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "currentDateCustomer"
+                              ),
+                              {
+                                prop: "currentDateCustomer",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Data Cliente</span>
+                      )}
+                    </th>
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="text"
+                          style={{ height: "40px", width: "88px" }}
+                          placeholder="Últ. Nota"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "ultNota"
+                              ),
+                              {
+                                prop: "ultNota",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Últ. Nota</span>
+                      )}
+                    </th>
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="text"
+                          style={{ height: "40px", width: "88px" }}
+                          placeholder="Últ. CT-e"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter((item) => item.prop !== "ultCte"),
+                              {
+                                prop: "ultCte",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Últ. CT-e</span>
+                      )}
+                    </th>
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="date"
+                          style={{ height: "40px", width: "125px" }}
+                          placeholder="Data Sync"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "created_at"
+                              ),
+                              {
+                                prop: "created_at",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Data Sync</span>
+                      )}
+                    </th>
+                    {/* <th
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        marginRight: "5px",
+                      }}
+                    >
+                      <Button onClick={() => setShowSearch(!showSearch)}>
+                        {IconSearch()}
+                      </Button>
+                    </th> */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {logList?.length > 0 &&
+                    logList.map((log) => (
+                      <tr
+                        key={log.id}
                         onClick={() => handleLogDetail(log)}
+                        style={{
+                          maxHeight: "16px",
+                          height: "16px",
+                        }}
                       >
-                        <Row>
-                          <Col
-                            className="col-6"
-                            style={{ justifyContent: "flex-start" }}
+                        <td
+                          style={{
+                            width: "100px",
+                            maxHeight: "16px",
+                            minWidth: "100px",
+                          }}
+                        >
+                          {log?.name_default}
+                        </td>
+                        <td
+                          style={{
+                            width: "100px",
+                            maxHeight: "16px",
+                            minWidth: "100px",
+                          }}
+                        >
+                          <Badge
+                            bg={
+                              JSON.parse(log?.description)?.travelsLocal ==
+                              "Erro"
+                                ? "danger"
+                                : JSON.parse(log.description)?.travelsLocal !=
+                                  JSON.parse(log.description)?.travelsCustomer
+                                ? "warning"
+                                : "success"
+                            }
+                            text="white"
                           >
-                            <span
-                              style={{
-                                fontSize: "20px",
-                                fontWeight: "700",
-                                justifyContent: "flex-start",
-                              }}
-                            >
-                              {log?.databasis?.name_default}
-                            </span>
-                          </Col>
-                          <Col
-                            className="col-6"
-                            style={{
-                              display: "flex",
-                              justifyContent: "flex-end",
-                              alignItems: "center",
-                            }}
+                            {JSON.parse(log?.description)?.travelsLocal}
+                          </Badge>
+                        </td>
+                        <td
+                          style={{
+                            width: "130px",
+                            maxHeight: "16px",
+                            minWidth: "130px",
+                          }}
+                        >
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.travelsLocal ==
+                              "Erro"
+                                ? "danger"
+                                : JSON.parse(log.description)?.travelsLocal !=
+                                  JSON.parse(log.description)?.travelsCustomer
+                                ? "warning"
+                                : "success"
+                            }
+                            text="white"
                           >
-                            <Badge
-                              bg={
-                                log?.status_connection == 200
-                                  ? "success"
-                                  : "danger"
-                              }
-                              text="white"
-                            >
-                              {dropSeconds(
-                                new Date(log?.created_at).toLocaleString()
-                              )}
-                            </Badge>
-                          </Col>
-                        </Row>
-                        <Row style={{ paddingTop: "10px" }}>
-                          <Col
-                            col={4}
-                            style={{
-                              maxWidth: "90px",
-                            }}
-                          ></Col>
-                          <Col col={4}>Local</Col>
-                          <Col col={4}>Cliente </Col>
-                        </Row>
-                      </Card.Header>
-                      <Card.Body className="pb-1 px-1">
-                        <Row>
-                          <Col col={4} style={{ maxWidth: "100px" }}>
-                            Viagens:
-                          </Col>
-                          <Col
-                            col={4}
-                            style={{
-                              display: "flex",
-                              justifyContent: "flex-s",
-                              alignItems: "center",
-                            }}
+                            {JSON.parse(log.description)?.travelsCustomer}
+                          </Badge>
+                        </td>
+                        <td
+                          style={{
+                            maxHeight: "16px",
+                            width: "125px",
+                            minWidth: "125px",
+                          }}
+                        >
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.currentDateLocal ===
+                              "Erro"
+                                ? "danger"
+                                : compareDate(
+                                    JSON.parse(log.description)
+                                      ?.currentDateLocal,
+                                    JSON.parse(log.description)
+                                      ?.currentDateCustomer
+                                  )
+                                ? "success"
+                                : "warning"
+                            }
+                            text="white"
                           >
-                            <Badge
-                              bg={
-                                JSON.parse(log?.description)?.travelsLocal ==
-                                "Erro"
-                                  ? "danger"
-                                  : "success"
-                              }
-                              text="white"
-                            >
-                              {JSON.parse(log?.description)?.travelsLocal}
-                            </Badge>
-                          </Col>
-                          <Col col={4}>
-                            <Badge
-                              bg={
-                                JSON.parse(log?.description)?.travelsCustomer ==
-                                "Erro"
-                                  ? "danger"
-                                  : "success"
-                              }
-                              text="white"
-                            >
-                              {JSON.parse(log?.description)?.travelsCustomer}
-                            </Badge>
-                          </Col>
-                        </Row>
-                        <Row col={3}>
-                          <Col
-                            col={4}
-                            style={{
-                              maxWidth: "100px",
-                              paddingRight: "0px",
-                            }}
+                            {dropSeconds(
+                              JSON.parse(log.description)?.currentDateLocal
+                            )}
+                          </Badge>
+                        </td>
+                        <td
+                          style={{
+                            width: "120px",
+                            maxHeight: "16px",
+                            minWidth: "120px",
+                          }}
+                        >
+                          <Badge
+                            bg={
+                              JSON.parse(log.description)?.currentDateLocal ===
+                              "Erro"
+                                ? "danger"
+                                : compareDate(
+                                    JSON.parse(log.description)
+                                      ?.currentDateLocal,
+                                    JSON.parse(log.description)
+                                      ?.currentDateCustomer
+                                  )
+                                ? "success"
+                                : "warning"
+                            }
+                            text="white"
                           >
-                            Data Hora:
-                          </Col>
-                          <Col col={4}>
-                            <Badge
-                              bg={
-                                JSON.parse(log?.description)
-                                  ?.currentDateLocal === "Erro"
-                                  ? "danger"
-                                  : compareDate(
-                                      JSON.parse(log?.description)
-                                        ?.currentDateLocal,
-                                      JSON.parse(log?.description)
-                                        ?.currentDateCustomer
-                                    )
-                                  ? "success"
-                                  : "warning"
-                              }
-                              text="white"
-                            >
-                              {dropSeconds(
-                                JSON.parse(log?.description)?.currentDateLocal
-                              )}
-                            </Badge>
-                          </Col>
-                          <Col col={4}>
-                            <Badge
-                              bg={
-                                JSON.parse(log?.description)
-                                  ?.currentDateLocal === "Erro"
-                                  ? "danger"
-                                  : compareDate(
-                                      JSON.parse(log?.description)
-                                        ?.currentDateLocal,
-                                      JSON.parse(log?.description)
-                                        ?.currentDateCustomer
-                                    )
-                                  ? "success"
-                                  : "warning"
-                              }
-                              text="white"
-                            >
-                              {dropSeconds(
-                                JSON.parse(log?.description)
-                                  ?.currentDateCustomer
-                              )}
-                            </Badge>
-                          </Col>
-                        </Row>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                ))}
+                            {dropSeconds(
+                              JSON.parse(log.description)?.currentDateCustomer
+                            )}
+                          </Badge>
+                        </td>
+                        <td
+                          style={{
+                            maxHeight: "16px",
+                            width: "120px",
+                            minWidth: "120px",
+                          }}
+                        >
+                          {log?.max_invoice_today}
+                        </td>
+                        <td
+                          style={{
+                            maxHeight: "16px",
+                            width: "120px",
+                            minWidth: "120px",
+                          }}
+                        >
+                          {log?.max_cte_today}
+                        </td>
+                        <td
+                          style={{
+                            maxHeight: "16px",
+                            width: "120px",
+                            minWidth: "120px",
+                          }}
+                        >
+                          <Badge
+                            bg={
+                              log?.status_connection == 200
+                                ? "success"
+                                : "danger"
+                            }
+                            text="white"
+                          >
+                            {dropSeconds(
+                              new Date(log?.created_at).toLocaleString()
+                            )}
+                          </Badge>
+                        </td>
+                        <td
+                          style={{
+                            maxHeight: "16px",
+                            width: "120px",
+                            minWidth: "120px",
+                          }}
+                        ></td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </Row>
+
+            <Row>
+              <Col className="col-12 mt-2">
+                <PaginationComponent
+                  page={page}
+                  totalPages={totalPages}
+                  togglePage={setPage}
+                />
+              </Col>
             </Row>
           </Container>
         )}
