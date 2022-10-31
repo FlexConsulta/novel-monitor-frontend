@@ -52,7 +52,7 @@ export default function LogsDatabasesComponent() {
           setLogList(data?.docs);
           console.log(data?.docs);
           setLoading(false);
-          setTotalPages(data?.pages > 22 ? 22 : data.pages);
+          setTotalPages(data?.pages);
         })
         .catch((error) => {
           console.log("error", error);
@@ -475,7 +475,7 @@ export default function LogsDatabasesComponent() {
                             minWidth: "120px",
                           }}
                         >
-                          {log?.max_invoice_today}
+                          {JSON.parse(log.description)?.max_invoice_today}
                         </td>
                         <td
                           style={{
@@ -484,7 +484,7 @@ export default function LogsDatabasesComponent() {
                             minWidth: "120px",
                           }}
                         >
-                          {log?.max_cte_today}
+                          {JSON.parse(log.description)?.max_cte_today}
                         </td>
                         <td
                           style={{
