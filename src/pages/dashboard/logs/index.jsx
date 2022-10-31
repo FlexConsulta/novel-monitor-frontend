@@ -1,5 +1,13 @@
 import React from "react";
-import { Col, Row, Card, Badge, Container, Form, Button } from "react-bootstrap";
+import {
+  Col,
+  Row,
+  Card,
+  Badge,
+  Container,
+  Form,
+  Button,
+} from "react-bootstrap";
 import "./index.style.css";
 import { useLocation } from "react-router-dom";
 import Api from "../../../utils/axios";
@@ -37,9 +45,11 @@ export default function LogsDatabasesComponent() {
     setLoading(true);
 
     if (getLoggedUserInfo().profile === Roles.Profiles.administracao) {
-      Api.get(`logs`)
+      Api.get(`logs`, {
+        params: { page, paginate: 10 },
+      })
         .then(({ data }) => {
-          setLogList(data);
+          setLogList(data?.docs);
           setLoading(false);
           setTotalPages(data?.pages > 22 ? 22 : data.pages);
         })
@@ -150,158 +160,181 @@ export default function LogsDatabasesComponent() {
               <table className="table table-hover bordered table-striped">
                 <thead>
                   <tr>
-                    <th>{showSearch ? (
-                      <Form.Control
-                        type="text"
-                        style={{ height: "40px", width:"70px" }}
-                        placeholder="Nome"
-                        onChange={(e) =>
-                          setSearch((state) => [
-                            ...state.filter(
-                              (item) => item.prop !== "namedefault"
-                            ),
-                            {
-                              prop: "namedefault",
-                              value: e.target.value,
-                            },
-                          ])
-                        }
-                      />
-                    ) : (
-                      <span>Nome BD</span>
-                    )}</th>
-                    <th>{showSearch ? (
-                      <Form.Control
-                        type="text"
-                        style={{ height: "40px"}}
-                        placeholder="CT-e Local"
-                        onChange={(e) =>
-                          setSearch((state) => [
-                            ...state.filter((item) => item.prop !== "travelsLocal"),
-                            {
-                              prop: "travelsLocal",
-                              value: e.target.value,
-                            },
-                          ])
-                        }
-                      />
-                    ) : (
-                      <span>CT-e Local</span>
-                    )}</th>
-                    <th>{showSearch ? (
-                      <Form.Control
-                        type="text"
-                        style={{ height: "40px", width:"115px" }}
-                        placeholder="CT-e Cliente"
-                        onChange={(e) =>
-                          setSearch((state) => [
-                            ...state.filter((item) => item.prop !== "travelsCustomer"),
-                            {
-                              prop: "travelsCustomer",
-                              value: e.target.value,
-                            },
-                          ])
-                        }
-                      />
-                    ) : (
-                      <span>CT-e Cliente</span>
-                    )}</th>
-                    <th>{showSearch ? (
-                      <Form.Control
-                        type="date"
-                        style={{ height: "40px", width:"125px" }}
-                        placeholder="Data Local"
-                        onChange={(e) =>
-                          setSearch((state) => [
-                            ...state.filter((item) => item.prop !== "currentDateLocal"),
-                            {
-                              prop: "currentDateLocal",
-                              value: e.target.value,
-                            },
-                          ])
-                        }
-                      />
-                    ) : (
-                      <span>Data Local</span>
-                    )}
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="text"
+                          style={{ height: "40px", width: "70px" }}
+                          placeholder="Nome"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "name_default"
+                              ),
+                              {
+                                prop: "name_default",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Nome BD</span>
+                      )}
                     </th>
-                    <th>{showSearch ? (
-                      <Form.Control
-                        type="date"
-                        style={{ height: "40px", width:"125px" }}
-                        placeholder="Data Cliente"
-                        onChange={(e) =>
-                          setSearch((state) => [
-                            ...state.filter((item) => item.prop !== "currentDateCustomer"),
-                            {
-                              prop: "currentDateCustomer",
-                              value: e.target.value,
-                            },
-                          ])
-                        }
-                      />
-                    ) : (
-                      <span>Data Cliente</span>
-                    )}
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="text"
+                          style={{ height: "40px" }}
+                          placeholder="CT-e Local"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "travelsLocal"
+                              ),
+                              {
+                                prop: "travelsLocal",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>CT-e Local</span>
+                      )}
                     </th>
-                    <th>{showSearch ? (
-                      <Form.Control
-                        type="text"
-                        style={{ height: "40px", width:"88px" }}
-                        placeholder="Últ. Nota"
-                        onChange={(e) =>
-                          setSearch((state) => [
-                            ...state.filter((item) => item.prop !== "ultNota"),
-                            {
-                              prop: "ultNota",
-                              value: e.target.value,
-                            },
-                          ])
-                        }
-                      />
-                    ) : (
-                      <span>Últ. Nota</span>
-                    )}
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="text"
+                          style={{ height: "40px", width: "115px" }}
+                          placeholder="CT-e Cliente"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "travelsCustomer"
+                              ),
+                              {
+                                prop: "travelsCustomer",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>CT-e Cliente</span>
+                      )}
                     </th>
-                    <th>{showSearch ? (
-                      <Form.Control
-                        type="text"
-                        style={{ height: "40px", width:"88px" }}
-                        placeholder="Últ. CT-e"
-                        onChange={(e) =>
-                          setSearch((state) => [
-                            ...state.filter((item) => item.prop !== "ultCte"),
-                            {
-                              prop: "ultCte",
-                              value: e.target.value,
-                            },
-                          ])
-                        }
-                      />
-                    ) : (
-                      <span>Últ. CT-e</span>
-                    )}
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="date"
+                          style={{ height: "40px", width: "125px" }}
+                          placeholder="Data Local"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "currentDateLocal"
+                              ),
+                              {
+                                prop: "currentDateLocal",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Data Local</span>
+                      )}
                     </th>
-                    <th>{showSearch ? (
-                      <Form.Control
-                        type="date"
-                        style={{ height: "40px", width:"125px" }}
-                        placeholder="Data Sync"
-                        onChange={(e) =>
-                          setSearch((state) => [
-                            ...state.filter((item) => item.prop !== "created_at"),
-                            {
-                              prop: "created_at",
-                              value: e.target.value,
-                            },
-                          ])
-                        }
-                      />
-                    ) : (
-                      <span>Data Sync</span>
-                    )}
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="date"
+                          style={{ height: "40px", width: "125px" }}
+                          placeholder="Data Cliente"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "currentDateCustomer"
+                              ),
+                              {
+                                prop: "currentDateCustomer",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Data Cliente</span>
+                      )}
                     </th>
-                    <th
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="text"
+                          style={{ height: "40px", width: "88px" }}
+                          placeholder="Últ. Nota"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "ultNota"
+                              ),
+                              {
+                                prop: "ultNota",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Últ. Nota</span>
+                      )}
+                    </th>
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="text"
+                          style={{ height: "40px", width: "88px" }}
+                          placeholder="Últ. CT-e"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter((item) => item.prop !== "ultCte"),
+                              {
+                                prop: "ultCte",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Últ. CT-e</span>
+                      )}
+                    </th>
+                    <th>
+                      {showSearch ? (
+                        <Form.Control
+                          type="date"
+                          style={{ height: "40px", width: "125px" }}
+                          placeholder="Data Sync"
+                          onChange={(e) =>
+                            setSearch((state) => [
+                              ...state.filter(
+                                (item) => item.prop !== "created_at"
+                              ),
+                              {
+                                prop: "created_at",
+                                value: e.target.value,
+                              },
+                            ])
+                          }
+                        />
+                      ) : (
+                        <span>Data Sync</span>
+                      )}
+                    </th>
+                    {/* <th
                       style={{
                         display: "flex",
                         justifyContent: "flex-end",
@@ -311,7 +344,7 @@ export default function LogsDatabasesComponent() {
                       <Button onClick={() => setShowSearch(!showSearch)}>
                         {IconSearch()}
                       </Button>
-                    </th>
+                    </th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -325,12 +358,14 @@ export default function LogsDatabasesComponent() {
                           height: "16px",
                         }}
                       >
-                        <td style={{
-                          width: "100px",
-                          maxHeight: "16px",
-                          minWidth: "100px",
-                        }}>
-                          {log?.databasis?.name_default}
+                        <td
+                          style={{
+                            width: "100px",
+                            maxHeight: "16px",
+                            minWidth: "100px",
+                          }}
+                        >
+                          {log?.name_default}
                         </td>
                         <td
                           style={{
@@ -342,12 +377,12 @@ export default function LogsDatabasesComponent() {
                           <Badge
                             bg={
                               JSON.parse(log?.description)?.travelsLocal ==
-                                "Erro"
+                              "Erro"
                                 ? "danger"
                                 : JSON.parse(log.description)?.travelsLocal !=
                                   JSON.parse(log.description)?.travelsCustomer
-                                  ? "warning"
-                                  : "success"
+                                ? "warning"
+                                : "success"
                             }
                             text="white"
                           >
@@ -364,12 +399,12 @@ export default function LogsDatabasesComponent() {
                           <Badge
                             bg={
                               JSON.parse(log.description)?.travelsLocal ==
-                                "Erro"
+                              "Erro"
                                 ? "danger"
                                 : JSON.parse(log.description)?.travelsLocal !=
                                   JSON.parse(log.description)?.travelsCustomer
-                                  ? "warning"
-                                  : "success"
+                                ? "warning"
+                                : "success"
                             }
                             text="white"
                           >
@@ -386,16 +421,16 @@ export default function LogsDatabasesComponent() {
                           <Badge
                             bg={
                               JSON.parse(log.description)?.currentDateLocal ===
-                                "Erro"
+                              "Erro"
                                 ? "danger"
                                 : compareDate(
-                                  JSON.parse(log.description)
-                                    ?.currentDateLocal,
-                                  JSON.parse(log.description)
-                                    ?.currentDateCustomer
-                                )
-                                  ? "success"
-                                  : "warning"
+                                    JSON.parse(log.description)
+                                      ?.currentDateLocal,
+                                    JSON.parse(log.description)
+                                      ?.currentDateCustomer
+                                  )
+                                ? "success"
+                                : "warning"
                             }
                             text="white"
                           >
@@ -414,16 +449,16 @@ export default function LogsDatabasesComponent() {
                           <Badge
                             bg={
                               JSON.parse(log.description)?.currentDateLocal ===
-                                "Erro"
+                              "Erro"
                                 ? "danger"
                                 : compareDate(
-                                  JSON.parse(log.description)
-                                    ?.currentDateLocal,
-                                  JSON.parse(log.description)
-                                    ?.currentDateCustomer
-                                )
-                                  ? "success"
-                                  : "warning"
+                                    JSON.parse(log.description)
+                                      ?.currentDateLocal,
+                                    JSON.parse(log.description)
+                                      ?.currentDateCustomer
+                                  )
+                                ? "success"
+                                : "warning"
                             }
                             text="white"
                           >
@@ -439,7 +474,7 @@ export default function LogsDatabasesComponent() {
                             minWidth: "120px",
                           }}
                         >
-                          {log?.ultNota}
+                          {log?.max_invoice_today}
                         </td>
                         <td
                           style={{
@@ -448,7 +483,7 @@ export default function LogsDatabasesComponent() {
                             minWidth: "120px",
                           }}
                         >
-                          {log?.ultCte}
+                          {log?.max_cte_today}
                         </td>
                         <td
                           style={{
@@ -476,8 +511,7 @@ export default function LogsDatabasesComponent() {
                             width: "120px",
                             minWidth: "120px",
                           }}
-                        >
-                        </td>
+                        ></td>
                       </tr>
                     ))}
                 </tbody>
