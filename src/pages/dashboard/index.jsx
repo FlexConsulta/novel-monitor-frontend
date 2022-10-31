@@ -14,7 +14,7 @@ export default function DashboardCompnent() {
   const [logList, setLogList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const qtdLogWithError = logList.filter(
+  const qtdLogWithError = logList?.filter(
     (log) => log?.status_connection == 500
   ).length;
 
@@ -49,7 +49,7 @@ export default function DashboardCompnent() {
       setCurrentTime(new Date());
       const response = await Api.get("resume");
       await Api.get(`logs`).then(({ data }) => {
-        setLogList(data);
+        setLogList(data.docs);
       });
 
       setData(response.data);

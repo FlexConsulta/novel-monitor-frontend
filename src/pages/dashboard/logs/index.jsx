@@ -50,6 +50,7 @@ export default function LogsDatabasesComponent() {
       })
         .then(({ data }) => {
           setLogList(data?.docs);
+          console.log(data?.docs);
           setLoading(false);
           setTotalPages(data?.pages > 22 ? 22 : data.pages);
         })
