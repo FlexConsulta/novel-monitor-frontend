@@ -8,17 +8,18 @@ import Api from "../../utils/axios";
 import { compareDate } from "../../utils/compareDate";
 import Countdown from "react-countdown";
 import ReactLoading from "react-loading";
+import Loading from "react-loading";
 
 export default function DashboardCompnent() {
   const [data, setData] = useState();
   const [logList, setLogList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const qtdLogWithError = logList?.filter(
+  const qtdLogWithError = logList.filter(
     (log) => log?.status_connection == 500
   ).length;
 
-  const qtdLogSuccess = logList?.filter(
+  const qtdLogSuccess = logList.filter(
     (log) =>
       log?.status_connection == 200 &&
       compareDate(
@@ -27,7 +28,7 @@ export default function DashboardCompnent() {
       )
   ).length;
 
-  const qtdLogWithWarning = logList?.filter(
+  const qtdLogWithWarning = logList.filter(
     (log) =>
       log?.status_connection == 200 &&
       !compareDate(
@@ -88,103 +89,87 @@ export default function DashboardCompnent() {
         <MenuOptionsComponents />
       </Col>
 
-      {loading ? (
-        <Col
-          style={{
-            minHeight: "160px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <ReactLoading
-            type={"bars"}
-            color={"#085ED6"}
-            height={10}
-            width={50}
-          />
-        </Col>
-      ) : (
-        <Col className="col-10 col-md-9 col-sm-8">
-          <Row className="d-flex align-items-center dashboard__title">
-            <Col className={"row-atualizar"}>
-              <Countdown
-                date={Date.now() + 30 * 10000}
-                zeroPadTime={2}
-                onComplete={fetchData}
-                overtime={true}
-                renderer={(props) => (
-                  <p>
-                    ÚLTIMA ATUALIZAÇÃO DO DASHBOARD:{" "}
-                    {currentTime.toLocaleString()}
-                  </p>
-                )}
-              />
-              <Badge
-                className="badge__dashboard"
-                style={{ width: "10rem", height: "4.2rem", cursor: " pointer" }}
-                bg={"primary"}
-                text="white"
-                onClick={syncDatabases}
+      <Col className="col-10 col-md-9 col-sm-8">
+        <Row className="d-flex align-items-center dashboard__title">
+          <Col className={"row-atualizar"}>
+            <Countdown
+              date={Date.now() + 30 * 10000}
+              zeroPadTime={2}
+              onComplete={fetchData}
+              overtime={true}
+              renderer={(props) => (
+                <p>
+                  ÚLTIMA ATUALIZAÇÃO DO DASHBOARD:{" "}
+                  {currentTime.toLocaleString()}
+                </p>
+              )}
+            />
+            <Badge
+              className="badge__dashboard"
+              style={{ width: "10rem", height: "4.2rem", cursor: " pointer" }}
+              bg={"primary"}
+              text="white"
+              onClick={syncDatabases}
+            >
+              ATUALIZAR
+            </Badge>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="dashboard__items">
+            <Badge className={"badge__dashboard"} bg={"danger"} text="white">
+              <span>{qtdLogWithError}</span>
+              BD COM ERRO
+            </Badge>
+            <Badge className={"badge__dashboard"} bg={"warning"} text="gray">
+              <span style={{ color: "gray" }}>{qtdLogWithWarning}</span>
+              <span
+                style={{
+                  color: "gray",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                }}
               >
-                ATUALIZAR
-              </Badge>
-            </Col>
-          </Row>
-          <Row>
-            <Col className="dashboard__items">
-              <Badge className={"badge__dashboard"} bg={"danger"} text="white">
-                <span>{qtdLogWithError}</span>
-                BD COM ERRO
-              </Badge>
-              <Badge className={"badge__dashboard"} bg={"warning"} text="gray">
-                <span style={{ color: "gray" }}>{qtdLogWithWarning}</span>
-                <span
-                  style={{
-                    color: "gray",
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  BD INCONSISTENTE
-                </span>
-              </Badge>
-              <Badge className={"badge__dashboard"} bg={"success"} text="white">
-                <span>{qtdLogSuccess}</span>
-                BD OK
-              </Badge>
+                BD INCONSISTENTE
+              </span>
+            </Badge>
+            <Badge className={"badge__dashboard"} bg={"success"} text="white">
+              <span>{qtdLogSuccess}</span>
+              BD OK
+            </Badge>
 
-              <Badge
-                className={"badge__dashboard"}
-                bg={"secondary"}
-                text="white"
-              >
-                <span>{data?.servers}</span>
-                SERVIDOR
-              </Badge>
-              <Badge
-                className={"badge__dashboard"}
-                bg={"secondary"}
-                text="white"
-              >
-                <span>{data?.databases}</span>
-                TOTAL BD
-              </Badge>
-            </Col>
+            <Badge className={"badge__dashboard"} bg={"secondary"} text="white">
+              <span>{data?.servers}</span>
+              SERVIDOR
+            </Badge>
+            <Badge className={"badge__dashboard"} bg={"secondary"} text="white">
+              <span>{data?.databases}</span>
+              TOTAL BD
+            </Badge>
+          </Col>
+        </Row>
+        {loading && (
+          <Row style={{ height: "50px", justifyContent: "center" }}>
+            <ReactLoading
+              type={"bars"}
+              color={"#085ED6"}
+              height={20}
+              width={80}
+            />
           </Row>
-          <Row>
-            <Col className="col-12">
-              <Chart
-                chartType="PieChart"
-                data={dataPieChart}
-                options={options}
-                width="100%"
-                height="400px"
-              />
-            </Col>
-          </Row>
-        </Col>
-      )}
+        )}
+        <Row>
+          <Col className="col-12">
+            <Chart
+              chartType="PieChart"
+              data={dataPieChart}
+              options={options}
+              width="100%"
+              height="400px"
+            />
+          </Col>
+        </Row>
+      </Col>
     </Row>
   );
 }
