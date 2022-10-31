@@ -6,17 +6,20 @@ import { Chart } from "react-google-charts";
 import { useState, useEffect } from "react";
 import Api from "../../utils/axios";
 import { compareDate } from "../../utils/compareDate";
-import Countdown, { zeroPad } from "react-countdown";
+import Countdown from "react-countdown";
+import ReactLoading from "react-loading";
+import Loading from "react-loading";
 
 export default function DashboardCompnent() {
   const [data, setData] = useState();
   const [logList, setLogList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const qtdLogWithError = logList.filter(
     (log) => log?.status_connection == 500
   ).length;
 
-  const qtdLogSuccess = logList?.filter(
+  const qtdLogSuccess = logList.filter(
     (log) =>
       log?.status_connection == 200 &&
       compareDate(
@@ -25,7 +28,7 @@ export default function DashboardCompnent() {
       )
   ).length;
 
-  const qtdLogWithWarning = logList?.filter(
+  const qtdLogWithWarning = logList.filter(
     (log) =>
       log?.status_connection == 200 &&
       !compareDate(
@@ -42,13 +45,19 @@ export default function DashboardCompnent() {
   };
 
   const fetchData = async () => {
-    setCurrentTime(new Date());
-    const response = await Api.get("resume");
-    const responseLog = await Api.get(`logs`).then(({ data }) => {
-      setLogList(data);
-    });
+    try {
+      setLoading(true);
+      setCurrentTime(new Date());
+      const response = await Api.get("resume");
+      await Api.get(`logs`).then(({ data }) => {
+        setLogList(data.docs);
+      });
 
-    setData(response.data);
+      setData(response.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -79,6 +88,7 @@ export default function DashboardCompnent() {
       >
         <MenuOptionsComponents />
       </Col>
+
       <Col className="col-10 col-md-9 col-sm-8">
         <Row className="d-flex align-items-center dashboard__title">
           <Col className={"row-atualizar"}>
@@ -114,7 +124,11 @@ export default function DashboardCompnent() {
             <Badge className={"badge__dashboard"} bg={"warning"} text="gray">
               <span style={{ color: "gray" }}>{qtdLogWithWarning}</span>
               <span
-                style={{ color: "gray", fontSize: "12px", fontWeight: "bold" }}
+                style={{
+                  color: "gray",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                }}
               >
                 BD INCONSISTENTE
               </span>
@@ -134,6 +148,16 @@ export default function DashboardCompnent() {
             </Badge>
           </Col>
         </Row>
+        {loading && (
+          <Row style={{ height: "50px", justifyContent: "center" }}>
+            <ReactLoading
+              type={"bars"}
+              color={"#085ED6"}
+              height={20}
+              width={80}
+            />
+          </Row>
+        )}
         <Row>
           <Col className="col-12">
             <Chart
