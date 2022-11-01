@@ -160,16 +160,16 @@ export default function TableComponent(props) {
                   <td>{user.profile.name}</td>
                   <td>{user.active ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ width: "90px" }}>
+                    <div style={{ width: "90px", height:"32px", gap:"3px" }}>
                       <Button
-                        style={{ marginRight: "3px" }}
+                        style={{ display:"flex", alignItems:"center", justifyContent:"center" }}
                         onClick={() =>
                           navigate("/usuarios-empresas", {
                             state: { user_id: user.id },
                           })
                         }
                       >
-                        <BsFillPencilFill size={16} />
+                        <BsFillPencilFill size={12} />
                       </Button>
                       <DeleteRecord user={user} fetchData={fetchData} />
                     </div>

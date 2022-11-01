@@ -46,7 +46,7 @@ export default function TableComponent(props) {
         <Col className="table-container" style={{ minHeight: "455px" }}>
           <table className="table table-hover bordered table-striped">
             <thead>
-              <tr style={{fontSize:"16px"}}>
+              <tr style={{ fontSize: "16px" }}>
                 <th>
                   {showSearch ? (
                     <Form.Control
@@ -125,8 +125,8 @@ export default function TableComponent(props) {
                               e.target.value === "ativo"
                                 ? true
                                 : e.target.value === "inativo"
-                                ? false
-                                : "",
+                                  ? false
+                                  : "",
                           },
                         ])
                       }
@@ -158,42 +158,44 @@ export default function TableComponent(props) {
             </thead>
             <tbody>
               {filterData.map((database, idx) => (
-                <tr key={idx} className={"linhaTabela"} style={{fontSize:"14px", cursor:"pointer"}}>
+                <tr key={idx} className={"linhaTabela"} style={{ fontSize: "14px", cursor: "pointer" }}>
                   <td>{database?.name_default}</td>
                   <td>{database?.client?.name}</td>
                   <td>{database?.server?.name}</td>
                   <td>{database?.sincronizacao ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
                     <div
-                      style={{ width: "135px", display: "flex", gap: "3px" }}
+                      style={{ width: "135px", display: "flex", gap: "3px", height: "32px" }}
                     >
                       <Button
+                        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
                         onClick={() =>
-                            navigate("/test-connection", {
-                              state: { id_database: database.id },
-                            })
-                          }
-                        >
-                          <SiSpeedtest size={16} />
+                          navigate("/test-connection", {
+                            state: { id_database: database.id },
+                          })
+                        }
+                      >
+                        <SiSpeedtest size={14} />
                       </Button>
                       <Button
+                        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
                         onClick={() =>
                           navigate("/logs-history", {
                             state: { id_database: database.id },
                           })
                         }
                       >
-                        <SiGraylog size={16} />
+                        <SiGraylog size={12} />
                       </Button>
                       <Button
-                        style={{ marginRight: "3px" }}
+                        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
                         onClick={() =>
                           navigate("/edit-banco-dados", {
                             state: { database_id: database.id },
                           })
                         }
                       >
-                        <BsFillPencilFill size={16} />
+                        <BsFillPencilFill size={12} />
                       </Button>
                       <DeleteRecord database={database} fetchData={fetchData} />
                     </div>

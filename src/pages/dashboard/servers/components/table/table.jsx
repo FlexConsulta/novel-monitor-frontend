@@ -162,25 +162,27 @@ export default function TableComponent(props) {
                   <td>{server.ativo ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
                     <div
-                      style={{ width: "135px", display: "flex", gap: "3px" }}
+                      style={{ width: "135px", display: "flex", gap: "3px", height:"32px"  }}
                     >
                       <Button
+                      style={{ display:"flex", alignItems:"center", justifyContent:"center" }}
                         onClick={() =>
                           navigate("/logs-server", {
                             state: { server_id: server.id },
                           })
                         }
                       >
-                        <SiGraylog size={16} />
+                        <SiGraylog size={12} />
                       </Button>
                       <Button
+                      style={{ display:"flex", alignItems:"center", justifyContent:"center" }}
                         onClick={() =>
                           navigate("/edit-servidores", {
                             state: { server_id: server.id },
                           })
                         }
                       >
-                        <BsFillPencilFill size={16} />
+                        <BsFillPencilFill size={12} />
                       </Button>
                       <DeleteRecord server={server} fetchData={fetchData} />
                     </div>

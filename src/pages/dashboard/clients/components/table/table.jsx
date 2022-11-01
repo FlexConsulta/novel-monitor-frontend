@@ -43,7 +43,7 @@ export default function TableComponent(props) {
   return (
     <>
       <Row>
-        <Col className="table-container" style={{ minHeight: "494px" }}>
+        <Col className="table-container" style={{ minHeight: "460px" }}>
           <table className="table table-hover bordered table-striped tableClients">
             <thead>
               <tr style={{fontSize:"16px"}} className="linhaTitulo">
@@ -165,16 +165,16 @@ export default function TableComponent(props) {
                   <td>{client.cnpj}</td>
                   <td>{client.sincronizacao ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ width: "90px" }}>
+                    <div style={{ width: "90px", height:"32px", gap:"3px" }}>
                       <Button
-                        style={{ marginRight: "3px" }}
+                        style={{ display:"flex", alignItems:"center", justifyContent:"center" }}
                         onClick={() =>
                           navigate("/edit-empresas", {
                             state: { client_id: client.id },
                           })
                         }
                       >
-                        <BsFillPencilFill size={16} />
+                        <BsFillPencilFill size={12}/>
                       </Button>
                       <DeleteRecord client={client} fetchData={fetchData} />
                     </div>
