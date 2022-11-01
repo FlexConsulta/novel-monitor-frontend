@@ -56,7 +56,7 @@ export default function LogsDatabasesHistoryComponent() {
         <Row className="d-flex flex-row  align-items-center ">
           <Col className={"col-8"}>
             <div className="title-empresa mb-2 mb-md-0">
-              <h1>Log</h1>
+              <h1 style={{fontSize:"28px"}}>Log</h1>
             </div>
           </Col>
         </Row>
@@ -93,8 +93,8 @@ export default function LogsDatabasesHistoryComponent() {
               style={{
                 padding: "0px",
                 margin: "0px",
-                paddingTop: "30px",
-                paddingBottom: "10px",
+                paddingTop: "10px",
+                paddingBottom: "0px",
                 display: "flex",
                 flexDirection: "row",
                 width: "100%",
@@ -109,7 +109,7 @@ export default function LogsDatabasesHistoryComponent() {
               style={{
                 padding: "0px",
                 margin: "0px",
-                paddingTop: "30px",
+                paddingTop: "0px",
                 display: "flex",
                 flexDirection: "row",
                 width: "100%",
@@ -118,9 +118,9 @@ export default function LogsDatabasesHistoryComponent() {
                 paddingLeft: "12px",
               }}
             >
-              <table className="table table-hover bordered">
+              <table className="table table-hover bordered" style={{marginBottom:"12px"}}>
                 <thead>
-                  <tr>
+                  <tr style={{fontSize:"16px"}}>
                     <th>CT-e Local</th>
                     <th>CT-e Cliente</th>
                     <th>Data Local</th>
@@ -137,6 +137,8 @@ export default function LogsDatabasesHistoryComponent() {
                         style={{
                           maxHeight: "16px",
                           height: "16px",
+                          fontSize:"14px", 
+                          cursor:"pointer"
                         }}
                       >
                         <td

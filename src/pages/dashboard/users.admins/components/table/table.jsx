@@ -43,10 +43,10 @@ export default function TableComponent(props) {
   return (
     <>
       <Row>
-        <Col className="table-container" style={{ minHeight: "460px" }}>
+        <Col className="table-container" style={{ minHeight: "420px" }}>
           <table className="table table-hover bordered table-striped">
             <thead>
-              <tr>
+              <tr style={{fontSize:"16px"}}>
                 <th>
                   {showSearch ? (
                     <Form.Control
@@ -154,7 +154,7 @@ export default function TableComponent(props) {
             </thead>
             <tbody>
               {filterData.map((user, idx) => (
-                <tr key={idx} className={"linhaTabela"}>
+                <tr key={idx} className={"linhaTabela"} style={{fontSize:"14px", cursor:"pointer"}}>
                   <td>{user.person.name}</td>
                   <td>{user.person.email}</td>
                   <td>{user.profile.name}</td>

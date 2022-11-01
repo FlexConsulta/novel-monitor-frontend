@@ -43,10 +43,10 @@ export default function TableComponent(props) {
   return (
     <>
       <Row>
-        <Col className="table-container" style={{ minHeight: "460px" }}>
+        <Col className="table-container" style={{ minHeight: "455px" }}>
           <table className="table table-hover bordered table-striped">
             <thead>
-              <tr>
+              <tr style={{fontSize:"16px"}}>
                 <th>
                   {showSearch ? (
                     <Form.Control
@@ -158,7 +158,7 @@ export default function TableComponent(props) {
             </thead>
             <tbody>
               {filterData.map((database, idx) => (
-                <tr key={idx} className={"linhaTabela"}>
+                <tr key={idx} className={"linhaTabela"} style={{fontSize:"14px", cursor:"pointer"}}>
                   <td>{database?.name_default}</td>
                   <td>{database?.client?.name}</td>
                   <td>{database?.server?.name}</td>

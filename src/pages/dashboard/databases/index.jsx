@@ -46,10 +46,11 @@ export default function DatabaseComponent() {
         <Col className="p-0">
           <Row>
             <Col className="mt-3 col-12 d-flex align-items-center">
-              <h1>Banco de Dados</h1>
+              <h1 style={{fontSize:"28px"}}>Banco de Dados</h1>
               <Link
                 to={"/new-banco-dados"}
                 className="ms-3 ps-5 pe-5 btn-criar-empresa"
+                style={{height:"30px"}}
               >
                 <i className={"fa fa-plus me-2"}></i>
                 Adicionar{" "}
@@ -57,7 +58,7 @@ export default function DatabaseComponent() {
             </Col>
           </Row>
 
-          <Row className="mb-3 col-12">
+          <Row className="mb-3 col-12" style={{marginBottom:"0px"}}>
             <Col>
               <Breadcrump
                 way={[

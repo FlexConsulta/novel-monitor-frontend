@@ -43,11 +43,11 @@ export default function TableComponent(props) {
   return (
     <>
       <Row>
-        <Col className="table-container" style={{ minHeight: "510px" }}>
-          <table className="table table-hover bordered table-striped">
+        <Col className="table-container" style={{ minHeight: "494px" }}>
+          <table className="table table-hover bordered table-striped tableClients">
             <thead>
-              <tr>
-                <th>
+              <tr style={{fontSize:"16px"}} className="linhaTitulo">
+                <th style={{padding:"0px", paddingBottom:"4px"}}>
                   {showSearch ? (
                     <Form.Control
                       type="text"
@@ -67,7 +67,7 @@ export default function TableComponent(props) {
                     <span>N. Fantasia</span>
                   )}
                 </th>
-                <th>
+                <th style={{padding:"0px", paddingBottom:"4px"}}>
                   {showSearch ? (
                     <Form.Control
                       type="text"
@@ -89,7 +89,7 @@ export default function TableComponent(props) {
                     <span>R. Social</span>
                   )}
                 </th>
-                <th>
+                <th style={{padding:"0px", paddingBottom:"4px"}}>
                   {showSearch ? (
                     <Form.Control
                       type="text"
@@ -109,7 +109,7 @@ export default function TableComponent(props) {
                     <span>CNPJ</span>
                   )}
                 </th>
-                <th>
+                <th style={{padding:"0px", paddingBottom:"4px"}}>
                   {showSearch ? (
                     <Form.Select
                       type="select"
@@ -143,11 +143,12 @@ export default function TableComponent(props) {
                   )}
                 </th>
 
-                <th
+                <th 
                   style={{
                     display: "flex",
                     justifyContent: "flex-end",
                     marginRight: "5px",
+                    paddingBottom:"4px"
                   }}
                 >
                   <Button onClick={() => setShowSearch(!showSearch)}>
@@ -158,7 +159,7 @@ export default function TableComponent(props) {
             </thead>
             <tbody>
               {filterData.map((client, idx) => (
-                <tr key={idx} className={"linhaTabela"}>
+                <tr key={idx} className={"linhaTabela"} style={{fontSize:"14px", cursor:"pointer"}}>
                   <td>{client.name}</td>
                   <td>{client.razaosocial}</td>
                   <td>{client.cnpj}</td>

@@ -46,10 +46,11 @@ export default function ClientsComponent() {
         <Row className="d-flex flex-row  align-items-center ">
           <Col className={"col-12 col-md-8"}>
             <div className="title-empresa mb-2 mb-md-0">
-              <h1>Servidores</h1>
+              <h1 style={{fontSize:"28px"}}>Servidores</h1>
               <Link
                 to={"/new-servidores"}
                 className="ms-3 ps-5 pe-5 btn-criar-empresa"
+                style={{height:"30px"}}
               >
                 <i className={"fa fa-plus me-2"}></i>
                 Adicionar{" "}
