@@ -105,7 +105,7 @@ export default function LogsDatabasesComponent() {
       </Col>
       <Col className="p-0">
         <Row className="d-flex flex-row  align-items-center ">
-          <Col>
+          <Col className="mt-3 col-12 d-flex align-items-center">
             <div className="title-empresa mb-2 mb-md-0">
               <h1 style={{fontSize:"28px"}}>Log</h1>
             </div>
