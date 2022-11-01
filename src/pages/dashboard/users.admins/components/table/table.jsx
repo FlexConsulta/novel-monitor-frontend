@@ -43,10 +43,10 @@ export default function TableComponent(props) {
   return (
     <>
       <Row>
-        <Col className="table-container" style={{ minHeight: "460px" }}>
+        <Col className="table-container" style={{ minHeight: "420px" }}>
           <table className="table table-hover bordered table-striped">
             <thead>
-              <tr>
+              <tr style={{fontSize:"16px"}}>
                 <th>
                   {showSearch ? (
                     <Form.Control
@@ -154,22 +154,22 @@ export default function TableComponent(props) {
             </thead>
             <tbody>
               {filterData.map((user, idx) => (
-                <tr key={idx} className={"linhaTabela"}>
+                <tr key={idx} className={"linhaTabela"} style={{fontSize:"14px", cursor:"pointer"}}>
                   <td>{user.person.name}</td>
                   <td>{user.person.email}</td>
                   <td>{user.profile.name}</td>
                   <td>{user.active ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ width: "90px" }}>
+                    <div style={{ width: "90px", height:"32px", gap:"3px" }}>
                       <Button
-                        style={{ marginRight: "3px" }}
+                        style={{ display:"flex", alignItems:"center", justifyContent:"center" }}
                         onClick={() =>
                           navigate("/usuarios-empresas", {
                             state: { user_id: user.id },
                           })
                         }
                       >
-                        <BsFillPencilFill size={16} />
+                        <BsFillPencilFill size={12} />
                       </Button>
                       <DeleteRecord user={user} fetchData={fetchData} />
                     </div>

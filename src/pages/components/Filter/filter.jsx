@@ -94,7 +94,7 @@ export default function TableFiltered(props) {
 
     return (
         <Row className="h-100 w-100">
-            <Col className="p-0">
+            <Col className="table-container" style={{ minHeight: "420px" }}>
                 {loading ? (
                     <Row
                         style={{
@@ -134,7 +134,7 @@ export default function TableFiltered(props) {
                         >
                             <table className="table table-hover bordered table-striped">
                                 <thead>
-                                    <tr>
+                                    <tr style={{fontSize:"16px"}}>
                                         <th><span>Nome BD</span></th>
                                         <th><span>CT-e Local</span></th>
                                         <th><span>CT-e Cliente</span></th>
@@ -154,6 +154,8 @@ export default function TableFiltered(props) {
                                                 style={{
                                                     maxHeight: "16px",
                                                     height: "16px",
+                                                    cursor:"pointer",
+                                                    fontSize: "14px"
                                                 }}
                                             >
                                                 <td

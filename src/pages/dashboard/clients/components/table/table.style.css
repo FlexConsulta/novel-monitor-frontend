@@ -2,6 +2,7 @@
   max-height: 340px;
   overflow-y: auto;
   border-collapse: collapse;
+  padding: 6px;
 }
 .table-container thead {
   position: sticky;
@@ -12,4 +13,8 @@
 
 .linhaTabela > td {
   padding: 2px !important;
+}
+
+.table-container > table{
+  margin: 0px;
 }
