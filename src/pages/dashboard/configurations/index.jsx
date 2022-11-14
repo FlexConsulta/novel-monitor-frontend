@@ -86,7 +86,7 @@ export default function ConfiguracoesComponent() {
       </Col>
       <Col className="p-0">
         <Row>
-          <Col>
+          <Col className="mt-3 col-12 d-flex align-items-center">
             <h1>Configurações de Administração</h1>
           </Col>
         </Row>

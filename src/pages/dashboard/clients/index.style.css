@@ -96,3 +96,7 @@ input::-webkit-inner-spin-button {
   background-color: #dde0e3;
   cursor: pointer;
 }
+
+.bradcrumb{
+  padding: 8px !important;
+}
