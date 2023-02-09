@@ -31,10 +31,12 @@ export default function DashboardCompnent() {
   const qtdLogWithWarning = logList.filter(
     (log) =>
       log?.status_connection == 200 &&
-      !compareDate(
+      (!compareDate(
         JSON.parse(log?.description)?.currentDateLocal,
         JSON.parse(log?.description)?.currentDateCustomer
-      )
+      ) ||
+        JSON.parse(log.description)?.travelsLocal !=
+          JSON.parse(log.description)?.travelsCustomer)
   ).length;
 
   const syncDatabases = async () => {
