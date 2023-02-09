@@ -20,9 +20,8 @@ export default function DashboardCompnent() {
   const [chart, setChart] = useState(true);
   const navigate = useNavigate();
   const [typeFilter, setTypeFilter] = useState();
-  const [loadingRefresh, setLoadingRefresh] = useState(false)
+  const [loadingRefresh, setLoadingRefresh] = useState(false);
 
-  
   const qtdLogWithError = logList.filter(
     (log) => log?.status_connection == 500
   ).length;
@@ -51,17 +50,15 @@ export default function DashboardCompnent() {
     setLoadingRefresh(true);
 
     setTimeout(() => {
-      setLoadingRefresh(false)
+      setLoadingRefresh(false);
       fetchData();
-    },  6 * 10000);
+    }, 6 * 10000);
 
-    console.log("syc")
+    console.log("syc");
     await Api.post("logs/sync").then((res) => {
       console.log("responseLogSync", res);
     });
-    
   };
-
 
   const fetchData = async () => {
     try {
@@ -124,25 +121,24 @@ export default function DashboardCompnent() {
               )}
             />
             {loadingRefresh ? (
-          <Row style={{ height: "50px", justifyContent: "center" }}>
-            <ReactLoading
-              type={"spin"}
-              color={"#085ED6"}
-              height={15}
-              width={70}
-            />
-          </Row>
-        ) : (
-            <Badge
-              className="badge__dashboard"
-              style={{ width: "10rem", height: "4.2rem", cursor: " pointer" }}
-              bg={"primary"}
-              text="white"
-              onClick={syncDatabases}
-            >
-              ATUALIZAR
-
-            </Badge>
+              <Row style={{ height: "50px", justifyContent: "center" }}>
+                <ReactLoading
+                  type={"spin"}
+                  color={"#085ED6"}
+                  height={15}
+                  width={70}
+                />
+              </Row>
+            ) : (
+              <Badge
+                className="badge__dashboard"
+                style={{ width: "10rem", height: "4.2rem", cursor: " pointer" }}
+                bg={"primary"}
+                text="white"
+                onClick={syncDatabases}
+              >
+                ATUALIZAR
+              </Badge>
             )}
           </Col>
         </Row>
@@ -153,9 +149,9 @@ export default function DashboardCompnent() {
               bg={"danger"}
               text="white"
               onClick={() => {
-                setTypeFilter("Error"),
-                  setChart(false);
-              }}>
+                setTypeFilter("Error"), setChart(false);
+              }}
+            >
               <span>{qtdLogWithError}</span>
               BD COM ERRO
             </Badge>
@@ -164,9 +160,9 @@ export default function DashboardCompnent() {
               bg={"warning"}
               text="gray"
               onClick={() => {
-                setTypeFilter("Warning"),
-                  setChart(false);
-              }}>
+                setTypeFilter("Warning"), setChart(false);
+              }}
+            >
               <span style={{ color: "gray" }}>{qtdLogWithWarning}</span>
               <span
                 style={{
@@ -183,9 +179,9 @@ export default function DashboardCompnent() {
               bg={"success"}
               text="white"
               onClick={() => {
-                setTypeFilter("Success"),
-                  setChart(false);
-              }}>
+                setTypeFilter("Success"), setChart(false);
+              }}
+            >
               <span>{qtdLogSuccess}</span>
               BD OK
             </Badge>
@@ -200,7 +196,8 @@ export default function DashboardCompnent() {
               text="white"
               onClick={() => {
                 setChart(true);
-              }}>
+              }}
+            >
               <span>{data?.databases}</span>
               TOTAL BD
             </Badge>
@@ -226,12 +223,8 @@ export default function DashboardCompnent() {
                 width="100%"
                 height="400px"
               />
-            )
-
-            }
-            {!chart && (
-              <TableFiltered typeFilter={typeFilter} />
             )}
+            {!chart && <TableFiltered typeFilter={typeFilter} />}
           </Col>
         </Row>
       </Col>
