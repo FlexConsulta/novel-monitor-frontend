@@ -38,8 +38,10 @@ export default function DeleteRecord(props) {
         textConfirmation={`Confirma exclusão do usuário: ${user.person.name}?`}
         handleConfirm={handleDeleteRecord}
       />
-      <Button onClick={() => setShowModalConfirm(true)}>
-        <BsTrash size={16} />
+      <Button 
+      style={{ display:"flex", alignItems:"center", justifyContent:"center" }}
+      onClick={() => setShowModalConfirm(true)}>
+        <BsTrash size={15} />
       </Button>
     </>
   );

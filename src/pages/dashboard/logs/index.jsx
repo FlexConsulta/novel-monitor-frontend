@@ -105,9 +105,9 @@ export default function LogsDatabasesComponent() {
       </Col>
       <Col className="p-0">
         <Row className="d-flex flex-row  align-items-center ">
-          <Col>
+          <Col className="mt-3 col-12 d-flex align-items-center">
             <div className="title-empresa mb-2 mb-md-0">
-              <h1>Log</h1>
+              <h1 style={{fontSize:"28px"}}>Log</h1>
             </div>
           </Col>
         </Row>
@@ -161,7 +161,7 @@ export default function LogsDatabasesComponent() {
             >
               <table className="table table-hover bordered table-striped">
                 <thead>
-                  <tr>
+                  <tr style={{fontSize:"16px"}}>
                     <th>
                       {showSearch ? (
                         <Form.Control
@@ -347,6 +347,8 @@ export default function LogsDatabasesComponent() {
                         style={{
                           maxHeight: "16px",
                           height: "16px",
+                          fontSize:"14px", 
+                          cursor:"pointer"
                         }}
                       >
                         <td

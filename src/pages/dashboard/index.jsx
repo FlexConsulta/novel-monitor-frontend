@@ -6,15 +6,23 @@ import { Chart } from "react-google-charts";
 import { useState, useEffect } from "react";
 import Api from "../../utils/axios";
 import { compareDate } from "../../utils/compareDate";
-import Countdown from "react-countdown";
+import Countdown, { zeroPad } from "react-countdown";
 import ReactLoading from "react-loading";
 import Loading from "react-loading";
+import { useNavigate } from "react-router-dom";
+import TableFiltered from "../components/Filter/filter";
 
 export default function DashboardCompnent() {
   const [data, setData] = useState();
   const [logList, setLogList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [chart, setChart] = useState(true);
+  const navigate = useNavigate();
+  const [typeFilter, setTypeFilter] = useState();
+  const [loadingRefresh, setLoadingRefresh] = useState(false)
+
+  
   const qtdLogWithError = logList.filter(
     (log) => log?.status_connection == 500
   ).length;
@@ -40,11 +48,20 @@ export default function DashboardCompnent() {
   ).length;
 
   const syncDatabases = async () => {
+    setLoadingRefresh(true);
+
+    setTimeout(() => {
+      setLoadingRefresh(false)
+      fetchData();
+    },  6 * 10000);
+
+    console.log("syc")
     await Api.post("logs/sync").then((res) => {
       console.log("responseLogSync", res);
     });
-    fetchData();
+    
   };
+
 
   const fetchData = async () => {
     try {
@@ -106,6 +123,16 @@ export default function DashboardCompnent() {
                 </p>
               )}
             />
+            {loadingRefresh ? (
+          <Row style={{ height: "50px", justifyContent: "center" }}>
+            <ReactLoading
+              type={"spin"}
+              color={"#085ED6"}
+              height={15}
+              width={70}
+            />
+          </Row>
+        ) : (
             <Badge
               className="badge__dashboard"
               style={{ width: "10rem", height: "4.2rem", cursor: " pointer" }}
@@ -114,16 +141,32 @@ export default function DashboardCompnent() {
               onClick={syncDatabases}
             >
               ATUALIZAR
+
             </Badge>
+            )}
           </Col>
         </Row>
         <Row>
           <Col className="dashboard__items">
-            <Badge className={"badge__dashboard"} bg={"danger"} text="white">
+            <Badge
+              className={"badge__dashboard"}
+              bg={"danger"}
+              text="white"
+              onClick={() => {
+                setTypeFilter("Error"),
+                  setChart(false);
+              }}>
               <span>{qtdLogWithError}</span>
               BD COM ERRO
             </Badge>
-            <Badge className={"badge__dashboard"} bg={"warning"} text="gray">
+            <Badge
+              className={"badge__dashboard"}
+              bg={"warning"}
+              text="gray"
+              onClick={() => {
+                setTypeFilter("Warning"),
+                  setChart(false);
+              }}>
               <span style={{ color: "gray" }}>{qtdLogWithWarning}</span>
               <span
                 style={{
@@ -135,7 +178,14 @@ export default function DashboardCompnent() {
                 BD INCONSISTENTE
               </span>
             </Badge>
-            <Badge className={"badge__dashboard"} bg={"success"} text="white">
+            <Badge
+              className={"badge__dashboard"}
+              bg={"success"}
+              text="white"
+              onClick={() => {
+                setTypeFilter("Success"),
+                  setChart(false);
+              }}>
               <span>{qtdLogSuccess}</span>
               BD OK
             </Badge>
@@ -144,7 +194,13 @@ export default function DashboardCompnent() {
               <span>{data?.servers}</span>
               SERVIDOR
             </Badge>
-            <Badge className={"badge__dashboard"} bg={"secondary"} text="white">
+            <Badge
+              className={"badge__dashboard"}
+              bg={"secondary"}
+              text="white"
+              onClick={() => {
+                setChart(true);
+              }}>
               <span>{data?.databases}</span>
               TOTAL BD
             </Badge>
@@ -162,13 +218,20 @@ export default function DashboardCompnent() {
         )}
         <Row>
           <Col className="col-12">
-            <Chart
-              chartType="PieChart"
-              data={dataPieChart}
-              options={options}
-              width="100%"
-              height="400px"
-            />
+            {chart && (
+              <Chart
+                chartType="PieChart"
+                data={dataPieChart}
+                options={options}
+                width="100%"
+                height="400px"
+              />
+            )
+
+            }
+            {!chart && (
+              <TableFiltered typeFilter={typeFilter} />
+            )}
           </Col>
         </Row>
       </Col>
