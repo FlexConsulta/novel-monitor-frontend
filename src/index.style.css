@@ -1,14 +1,20 @@
-.container-init{
-    margin: 0 !important;
-    padding: 0px !important;
+.container-init {
+  margin: 0 !important;
+  padding: 0px !important;
 }
 html,
 body,
 #root,
-.container-fluid{
+.container-fluid {
   margin: 0 !important;
   padding: 0 !important;
   font-family: "Roboto", sans-serif;
   background-color: #fff;
   height: 100vh;
+}
+
+.bg-warning {
+  background-color: magenta;
+  color: #ffffff;
+  background: magenta;
 }

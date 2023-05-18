@@ -1,0 +1,6 @@
+:root {
+  --warning: #ff5f1f;
+}
+.bg-warning-custom {
+  background: #ff5f1f;
+}

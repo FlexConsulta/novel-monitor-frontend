@@ -90,7 +90,7 @@ export default function DashboardCompnent() {
   const options = {
     slices: {
       0: { color: "#DC3545" },
-      1: { color: "#FFC107" },
+      1: { color: "#ff5f1f" },
       2: { color: "#198754" },
     },
     legend: { position: "none" },
@@ -163,10 +163,10 @@ export default function DashboardCompnent() {
                 setTypeFilter("Warning"), setChart(false);
               }}
             >
-              <span style={{ color: "gray" }}>{qtdLogWithWarning}</span>
+              <span style={{ color: "white" }}>{qtdLogWithWarning}</span>
               <span
                 style={{
-                  color: "gray",
+                  color: "white",
                   fontSize: "12px",
                   fontWeight: "bold",
                 }}
