@@ -31,7 +31,7 @@ export default function FormDatabase(props) {
     <>
       <Col>
         <Card style={{ height: "auto", overflow: "auto", width: "400px" }}>
-          <Card.Header>Banco Novel</Card.Header>
+          <Card.Header>Banco DLC</Card.Header>
           <Card.Body>
             <Form id={"database"}>
               <Form.Group className="col-12">
