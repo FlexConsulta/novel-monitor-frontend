@@ -27,6 +27,7 @@ export default function RegisterDatabase() {
 
     const formsControls = document.querySelectorAll(".form-control");
     const formsSelect = document.querySelectorAll(".form-select");
+    console.log("data", database);
 
     try {
       if (Frm.FormValidation([...formsControls, ...formsSelect])) {
@@ -62,7 +63,7 @@ export default function RegisterDatabase() {
         SweetAlert.mixin({ icon: "error", title: "Ocorreu um erro!" });
       }
     }
-    // navigator("/usuarios-admin");
+    navigator("/usuarios-admin");
   }
   return (
     <Row className="h-100 w-100">
