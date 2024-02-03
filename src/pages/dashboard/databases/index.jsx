@@ -63,7 +63,7 @@ export default function DatabaseComponent() {
               <Breadcrump
                 way={[
                   { label: "Pagina Inicial", rota: "./../dashboard" },
-                  { label: "Usuários", rota: "./usuarios-admin" },
+                  { label: "Banco de dados", rota: "/banco-dados" },
                 ]}
               />
             </Col>
