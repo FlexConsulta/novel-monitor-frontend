@@ -174,7 +174,9 @@ export default function TableFiltered(props) {
                             minWidth: "100px",
                           }}
                         >
-                          {log?.name_default || log?.databasis?.name_default}
+                          {log?.schema_db ||
+                            log?.name_default ||
+                            log?.databasis?.name_default}
                         </td>
                         <td
                           style={{
