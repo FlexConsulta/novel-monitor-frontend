@@ -28,22 +28,15 @@ export default function DashboardCompnent() {
 
   const qtdLogSuccess = logList.filter(
     (log) =>
-      log?.status_connection == 200 &&
-      compareDate(
-        JSON.parse(log?.description)?.currentDateLocal,
-        JSON.parse(log?.description)?.currentDateCustomer
-      )
+      log?.status_connection == 200 
   ).length;
 
   const qtdLogWithWarning = logList.filter(
     (log) =>
       log?.status_connection == 200 &&
-      (!compareDate(
-        JSON.parse(log?.description)?.currentDateLocal,
-        JSON.parse(log?.description)?.currentDateCustomer
-      ) ||
+      (
         JSON.parse(log.description)?.travelsLocal !=
-          JSON.parse(log.description)?.travelsCustomer)
+        JSON.parse(log.description)?.travelsCustomer)
   ).length;
 
   const syncDatabases = async () => {
@@ -65,12 +58,14 @@ export default function DashboardCompnent() {
       setLoading(true);
       setCurrentTime(new Date());
       const response = await Api.get("resume");
-      await Api.get(`logs`).then(({ data }) => {
+
+      const dataLogs = await Api.get(`logs`).then(({ data }) => {
         setLogList(data.docs);
       });
 
       setData(response.data);
       setLoading(false);
+
     } catch (error) {
       setLoading(false);
     }

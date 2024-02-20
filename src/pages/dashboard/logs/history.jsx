@@ -197,14 +197,7 @@ export default function LogsDatabasesHistoryComponent() {
                               JSON.parse(log.description)?.currentDateLocal ===
                               "Erro"
                                 ? "danger"
-                                : compareDate(
-                                    JSON.parse(log.description)
-                                      ?.currentDateLocal,
-                                    JSON.parse(log.description)
-                                      ?.currentDateCustomer
-                                  )
-                                ? "success"
-                                : "warning"
+                                : "success"
                             }
                             text="white"
                           >
@@ -225,14 +218,7 @@ export default function LogsDatabasesHistoryComponent() {
                               JSON.parse(log.description)?.currentDateLocal ===
                               "Erro"
                                 ? "danger"
-                                : compareDate(
-                                    JSON.parse(log.description)
-                                      ?.currentDateLocal,
-                                    JSON.parse(log.description)
-                                      ?.currentDateCustomer
-                                  )
-                                ? "success"
-                                : "warning"
+                                : "success"
                             }
                             text="white"
                           >

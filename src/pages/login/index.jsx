@@ -6,6 +6,7 @@ import "./index.style.css";
 import Frm from "../../utils/forms.validation";
 import SweetAlert from "../../utils/sweetalert";
 import { AuthContext } from "../shared/AuthContext";
+import LogoDCBrasil from "../../assets/logo.png";
 
 export default function LoginComponent() {
   const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ export default function LoginComponent() {
       }
     } catch (error) {
       setLoader(false);
-      SweetAlert.mixin({ icon: "error", title: error?.response?.data || error});
+      SweetAlert.mixin({ icon: "error", title: error?.response?.data || error });
     }
   }
 
@@ -44,7 +45,7 @@ export default function LoginComponent() {
           style={{ display: "flex", flexDirection: "column" }}
         >
           <img
-            src="/logoNovel.png"
+            src={LogoDCBrasil}
             alt="Logomarca"
             style={{ width: "150px", height: "auto" }}
           />
