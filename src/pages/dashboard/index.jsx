@@ -22,11 +22,11 @@ export default function DashboardCompnent() {
   const [typeFilter, setTypeFilter] = useState();
   const [loadingRefresh, setLoadingRefresh] = useState(false);
 
-  const qtdLogWithError = logList.filter(
-    (log) => log?.status_connection == 500
+  const qtdLogWithError = data?.logs?.docs?.filter(
+    (log) => log.status_connection == 500
   ).length;
 
-  const qtdLogSuccess = logList.filter(
+  const qtdLogSuccess = data?.logs?.docs?.filter(
     (log) =>
       log?.status_connection == 200 &&
       compareDate(
@@ -35,7 +35,7 @@ export default function DashboardCompnent() {
       )
   ).length;
 
-  const qtdLogWithWarning = logList.filter(
+  const qtdLogWithWarning = data?.logs?.docs?.filter(
     (log) =>
       log?.status_connection == 200 &&
       (!compareDate(
@@ -61,24 +61,35 @@ export default function DashboardCompnent() {
   };
 
   const fetchData = async () => {
-    try {
-      setLoading(true);
-      setCurrentTime(new Date());
-      const response = await Api.get("resume");
-      await Api.get(`logs`).then(({ data }) => {
-        setLogList(data.docs);
+    setLoading(true);
+    Api.get("resume")
+      .then(({ data }) => {
+        setData(data);
+        setLoading(false);
+        setCurrentTime(new Date());
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
       });
 
-      setData(response.data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
+    // await Api.get(`logs`).then(({ data }) => {
+    //   setLogList(data.docs);
+    // });
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log(
+      "logs",
+      data?.logs?.docs?.map((e) => {
+        return { ...e, description: JSON.parse(e.description) };
+      })
+    );
+  }, [data]);
 
   const dataPieChart = [
     ["description", "total"],
@@ -187,7 +198,7 @@ export default function DashboardCompnent() {
             </Badge>
 
             <Badge className={"badge__dashboard"} bg={"secondary"} text="white">
-              <span>{data?.servers}</span>
+              <span>{data?.servers?.total}</span>
               SERVIDOR
             </Badge>
             <Badge
@@ -198,7 +209,7 @@ export default function DashboardCompnent() {
                 setChart(true);
               }}
             >
-              <span>{data?.databases}</span>
+              <span>{data?.databases?.total}</span>
               TOTAL BD
             </Badge>
           </Col>
