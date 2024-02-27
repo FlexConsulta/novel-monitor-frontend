@@ -32,8 +32,8 @@ export default function TableFiltered(props) {
   const fetchData = async () => {
     try {
       setLoading(true);
-      await Api.get(`logs`).then(({ data }) => {
-        setLogList(filterData(data.docs));
+      await Api.get(`resume`).then(({ data }) => {
+        setLogList(filterData(data?.logs?.docs));
       });
 
       setLoading(false);
