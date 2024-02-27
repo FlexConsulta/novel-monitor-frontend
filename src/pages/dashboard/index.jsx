@@ -11,22 +11,23 @@ import ReactLoading from "react-loading";
 import Loading from "react-loading";
 import { useNavigate } from "react-router-dom";
 import TableFiltered from "../components/Filter/filter";
+import moment from "moment";
 
 export default function DashboardCompnent() {
   const [data, setData] = useState();
   const [logList, setLogList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState(null);
   const [chart, setChart] = useState(true);
   const navigate = useNavigate();
   const [typeFilter, setTypeFilter] = useState();
   const [loadingRefresh, setLoadingRefresh] = useState(false);
 
-  const qtdLogWithError = data?.logs?.docs?.filter(
+  const qtdLogWithError = data?.logs?.filter(
     (log) => log.status_connection == 500
   ).length;
 
-  const qtdLogSuccess = data?.logs?.docs?.filter(
+  const qtdLogSuccess = data?.logs?.filter(
     (log) =>
       log?.status_connection == 200 &&
       compareDate(
@@ -35,7 +36,7 @@ export default function DashboardCompnent() {
       )
   ).length;
 
-  const qtdLogWithWarning = data?.logs?.docs?.filter(
+  const qtdLogWithWarning = data?.logs?.filter(
     (log) =>
       log?.status_connection == 200 &&
       (!compareDate(
@@ -66,7 +67,9 @@ export default function DashboardCompnent() {
       .then(({ data }) => {
         setData(data);
         setLoading(false);
-        setCurrentTime(new Date());
+        setCurrentTime(
+          moment(Number(data?.logs[0]?.group)).format("DD/MM/YYYY HH:mm")
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -82,14 +85,7 @@ export default function DashboardCompnent() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(
-      "logs",
-      data?.logs?.docs?.map((e) => {
-        return { ...e, description: JSON.parse(e.description) };
-      })
-    );
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   const dataPieChart = [
     ["description", "total"],
@@ -125,32 +121,9 @@ export default function DashboardCompnent() {
               onComplete={fetchData}
               overtime={true}
               renderer={(props) => (
-                <p>
-                  ÚLTIMA ATUALIZAÇÃO DO DASHBOARD:{" "}
-                  {currentTime.toLocaleString()}
-                </p>
+                <p>ÚLTIMA ATUALIZAÇÃO DO DASHBOARD: {currentTime}</p>
               )}
             />
-            {loadingRefresh ? (
-              <Row style={{ height: "50px", justifyContent: "center" }}>
-                <ReactLoading
-                  type={"spin"}
-                  color={"#085ED6"}
-                  height={15}
-                  width={70}
-                />
-              </Row>
-            ) : (
-              <Badge
-                className="badge__dashboard"
-                style={{ width: "10rem", height: "4.2rem", cursor: " pointer" }}
-                bg={"primary"}
-                text="white"
-                onClick={syncDatabases}
-              >
-                ATUALIZAR
-              </Badge>
-            )}
           </Col>
         </Row>
         <Row>

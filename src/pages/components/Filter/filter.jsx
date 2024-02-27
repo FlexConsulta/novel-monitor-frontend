@@ -24,6 +24,7 @@ import PaginationComponent from "../../../components/pagination/pagination";
 
 export default function TableFiltered(props) {
   const [logList, setLogList] = useState([]);
+  const [databases, setDatabases] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
@@ -33,7 +34,8 @@ export default function TableFiltered(props) {
     try {
       setLoading(true);
       await Api.get(`resume`).then(({ data }) => {
-        setLogList(filterData(data?.logs?.docs));
+        setLogList(filterData(data?.logs));
+        setDatabases(data?.databases?.docs);
       });
 
       setLoading(false);
@@ -83,6 +85,12 @@ export default function TableFiltered(props) {
     navigate("/logs-history", {
       state: { id_database: log.id_database },
     });
+  };
+
+  const getDBname = (id_database) => {
+    const db = databases.find(({ id }) => id === id_database);
+    // console.log("getdbname", id_database, db)
+    return db?.name_default;
   };
 
   return (
@@ -174,7 +182,7 @@ export default function TableFiltered(props) {
                             minWidth: "100px",
                           }}
                         >
-                          {log?.name_default || log?.databasis?.name_default}
+                          {log?.name_default || getDBname(log.id_database)}
                         </td>
                         <td
                           style={{
