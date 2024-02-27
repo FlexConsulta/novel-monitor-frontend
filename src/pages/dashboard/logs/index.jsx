@@ -371,9 +371,6 @@ export default function LogsDatabasesComponent() {
                               JSON.parse(log?.description)?.travelsLocal ==
                               "Erro"
                                 ? "danger"
-                                : JSON.parse(log.description)?.travelsLocal !=
-                                  JSON.parse(log.description)?.travelsCustomer
-                                ? "warning"
                                 : "success"
                             }
                             text="white"
@@ -392,9 +389,6 @@ export default function LogsDatabasesComponent() {
                               JSON.parse(log.description)?.travelsLocal ==
                               "Erro"
                                 ? "danger"
-                                : JSON.parse(log.description)?.travelsLocal !=
-                                  JSON.parse(log.description)?.travelsCustomer
-                                ? "warning"
                                 : "success"
                             }
                             text="white"
@@ -414,14 +408,7 @@ export default function LogsDatabasesComponent() {
                               JSON.parse(log.description)?.currentDateLocal ===
                               "Erro"
                                 ? "danger"
-                                : compareDate(
-                                    JSON.parse(log.description)
-                                      ?.currentDateLocal,
-                                    JSON.parse(log.description)
-                                      ?.currentDateCustomer
-                                  )
-                                ? "success"
-                                : "warning"
+                                : "success"
                             }
                             style={{ background: "orange" }}
                             text="white"
@@ -443,14 +430,7 @@ export default function LogsDatabasesComponent() {
                               JSON.parse(log.description)?.currentDateLocal ===
                               "Erro"
                                 ? "danger"
-                                : compareDate(
-                                    JSON.parse(log.description)
-                                      ?.currentDateLocal,
-                                    JSON.parse(log.description)
-                                      ?.currentDateCustomer
-                                  )
-                                ? "success"
-                                : "warning"
+                                : "success"
                             }
                             text="white"
                           >

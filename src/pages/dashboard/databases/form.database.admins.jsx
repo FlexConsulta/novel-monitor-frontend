@@ -17,8 +17,12 @@ export default function FormDatabase(props) {
   const { database, setDatabase } = props;
 
   const loadLists = async () => {
-    const response_servers = await Api.get("servers");
-    const respponse_clients = await Api.get("clients");
+    const response_servers = await Api.get("servers", {
+      params: { page: 1, paginate: 100 },
+    });
+    const respponse_clients = await Api.get("clients", {
+      params: { page: 1, paginate: 100 },
+    });
     setServers(response_servers?.data.docs);
     setClients(respponse_clients?.data.docs);
   };
@@ -48,11 +52,15 @@ export default function FormDatabase(props) {
                       id_server: e.target.value,
                     }))
                   }
+                  disabled={!servers || servers.length === 0}
                 >
                   <option key={0} value={""}>
-                    {"Selecione um servidor..."}
+                    {!servers || servers.length === 0
+                      ? "Servidores não encontrados"
+                      : "Selecione um servidor..."}
                   </option>
                   {servers &&
+                    servers.length > 0 &&
                     servers.map((server, idx) => (
                       <option
                         selected={database?.id_server === server.id}
@@ -80,11 +88,15 @@ export default function FormDatabase(props) {
                       id_client: e.target.value,
                     }))
                   }
+                  disabled={!clients || clients.length === 0}
                 >
                   <option key={0} value={""}>
-                    {"Selecione um cliente..."}
+                    {!clients || clients.length === 0
+                      ? "Clientes não encontrados"
+                      : "Selecione um cliente..."}
                   </option>
                   {clients &&
+                    clients.length > 0 &&
                     clients.map((client, idx) => (
                       <option
                         selected={database?.id_client === client.id}
@@ -97,6 +109,7 @@ export default function FormDatabase(props) {
                 </Form.Select>
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
+
               <Form.Group className="col-12 mt-2">
                 <Form.Label>
                   Nome Banco de Dados<span className="text-danger">*</span>
@@ -116,6 +129,23 @@ export default function FormDatabase(props) {
                 />
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
+
+              <Form.Group className="col-12 mt-2">
+                <Form.Label>Schema DB</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="schema_database"
+                  onFocus={Frm.neutro}
+                  value={database?.schema_db}
+                  onChange={(e) =>
+                    setDatabase((state) => ({
+                      ...state,
+                      schema_db: e.target.value,
+                    }))
+                  }
+                />
+              </Form.Group>
+
               <Form.Group className="col-12 mt-2">
                 <Form.Label>
                   Usuário Banco de Dados<span className="text-danger">*</span>
@@ -135,6 +165,7 @@ export default function FormDatabase(props) {
                 />
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
+
               <Form.Group className="col-12 mt-2">
                 <Form.Label>
                   Senha Banco de Dados<span className="text-danger">*</span>
@@ -251,6 +282,21 @@ export default function FormDatabase(props) {
                   }
                 />
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group className="col-12 mt-2">
+                <Form.Label>Schema DB</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="schema_database"
+                  onFocus={Frm.neutro}
+                  value={database?.schema_db_client}
+                  onChange={(e) =>
+                    setDatabase((state) => ({
+                      ...state,
+                      schema_db_client: e.target.value,
+                    }))
+                  }
+                />
               </Form.Group>
               <Form.Group className="col-12 mt-2">
                 <Form.Label>
