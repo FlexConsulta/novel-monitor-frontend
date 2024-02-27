@@ -28,23 +28,14 @@ export default function DashboardCompnent() {
   ).length;
 
   const qtdLogSuccess = data?.logs?.filter(
-    (log) =>
-      log?.status_connection == 200 &&
-      compareDate(
-        JSON.parse(log?.description)?.currentDateLocal,
-        JSON.parse(log?.description)?.currentDateCustomer
-      )
+    (log) => log?.status_connection == 200
   ).length;
 
   const qtdLogWithWarning = data?.logs?.filter(
     (log) =>
       log?.status_connection == 200 &&
-      (!compareDate(
-        JSON.parse(log?.description)?.currentDateLocal,
-        JSON.parse(log?.description)?.currentDateCustomer
-      ) ||
-        JSON.parse(log.description)?.travelsLocal !=
-          JSON.parse(log.description)?.travelsCustomer)
+      JSON.parse(log.description)?.travelsLocal !=
+        JSON.parse(log.description)?.travelsCustomer
   ).length;
 
   const syncDatabases = async () => {
@@ -85,7 +76,14 @@ export default function DashboardCompnent() {
     fetchData();
   }, []);
 
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    console.log(
+      "logs",
+      data?.logs?.map((e) => {
+        return { ...e, description: JSON.parse(e.description) };
+      })
+    );
+  }, [data]);
 
   const dataPieChart = [
     ["description", "total"],

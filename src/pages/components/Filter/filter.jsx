@@ -54,26 +54,15 @@ export default function TableFiltered(props) {
     }
 
     if (props?.typeFilter?.toString() === "Success") {
-      return data.filter(
-        (log) =>
-          log?.status_connection == 200 &&
-          compareDate(
-            JSON.parse(log?.description)?.currentDateLocal,
-            JSON.parse(log?.description)?.currentDateCustomer
-          )
-      );
+      return data.filter((log) => log?.status_connection == 200);
     }
 
     if (props?.typeFilter?.toString() === "Warning") {
       return data.filter(
         (log) =>
           log?.status_connection == 200 &&
-          (!compareDate(
-            JSON.parse(log?.description)?.currentDateLocal,
-            JSON.parse(log?.description)?.currentDateCustomer
-          ) ||
-            JSON.parse(log.description)?.travelsLocal !=
-              JSON.parse(log.description)?.travelsCustomer)
+          JSON.parse(log.description)?.travelsLocal !=
+            JSON.parse(log.description)?.travelsCustomer
       );
     }
   }
