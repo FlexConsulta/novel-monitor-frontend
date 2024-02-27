@@ -123,7 +123,7 @@ export default function TableFiltered(props) {
               }}
             >
               <table className="table table-hover bordered table-striped">
-                <thead>
+                <thead style={{top: '-3vh'}}>
                   <tr style={{ fontSize: "16px" }}>
                     <th>
                       <span>Nome BD</span>
