@@ -44,7 +44,7 @@ export default function ConfiguracoesComponent() {
     },
     {
       title: "Clientes",
-      quantity: data?.clients,
+      quantity: data?.clients?.total,
       icon: <FaUserTie size={60} color={"#085ED6"} />,
       descricao: "Cadastro de clientes",
       button: function () {
@@ -54,7 +54,7 @@ export default function ConfiguracoesComponent() {
     {
       title: "Servidores",
       descricao: "Cadastro de Servidores",
-      quantity: data?.servers,
+      quantity: data?.servers?.total,
       icon: <FaServer size={60} color={"#085ED6"} />,
       button: function () {
         navigate("/servidores");
@@ -63,7 +63,7 @@ export default function ConfiguracoesComponent() {
     {
       title: "Logs",
       descricao: "Logs de sincronização",
-      quantity: data?.logs,
+      quantity: data?.logs?.length,
       icon: <FaRegFileAlt size={60} color={"#085ED6"} />,
       button: function () {
         navigate("/logs-customer");
@@ -72,7 +72,7 @@ export default function ConfiguracoesComponent() {
     {
       title: "Banco de dados",
       descricao: "Cadastro de banco de dados",
-      quantity: data?.databases,
+      quantity: data?.databases?.total,
       icon: <FaDatabase size={60} color={"#085ED6"} />,
       button: function () {
         navigate("/banco-dados");
