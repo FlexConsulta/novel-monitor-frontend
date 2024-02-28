@@ -51,7 +51,7 @@ export default function LoginComponent() {
           />
           <div className="card-login">
             <div className="form">
-              <h2>Login 2</h2>
+              <h2>Login</h2>
               <Form
                 className="col"
                 autoComplete="off"
