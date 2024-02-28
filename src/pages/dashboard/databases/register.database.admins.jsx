@@ -63,7 +63,7 @@ export default function RegisterDatabase() {
         SweetAlert.mixin({ icon: "error", title: "Ocorreu um erro!" });
       }
     }
-    navigator("/usuarios-admin");
+    // navigator("/usuarios-admin");
   }
   return (
     <Row className="h-100 w-100">

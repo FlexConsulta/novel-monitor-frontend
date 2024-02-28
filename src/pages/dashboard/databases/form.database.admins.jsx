@@ -136,11 +136,11 @@ export default function FormDatabase(props) {
                   type="text"
                   name="schema_database"
                   onFocus={Frm.neutro}
-                  value={database?.schema_db}
+                  value={database?.schemabd_default}
                   onChange={(e) =>
                     setDatabase((state) => ({
                       ...state,
-                      schema_db: e.target.value,
+                      schemabd_default: e.target.value,
                     }))
                   }
                 />
@@ -289,11 +289,11 @@ export default function FormDatabase(props) {
                   type="text"
                   name="schema_database"
                   onFocus={Frm.neutro}
-                  value={database?.schema_db_client}
+                  value={database?.schemabd}
                   onChange={(e) =>
                     setDatabase((state) => ({
                       ...state,
-                      schema_db_client: e.target.value,
+                      schemabd: e.target.value,
                     }))
                   }
                 />
