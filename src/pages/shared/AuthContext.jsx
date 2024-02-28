@@ -18,6 +18,9 @@ export default function AuthProvider({ children }) {
 
   async function signIn({ email, password }) {
     const response = await Api.post("authenticate", { email, password });
+
+    if (!response?.data?.token) return
+    
     if (response?.data?.token) {
       Api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
 
