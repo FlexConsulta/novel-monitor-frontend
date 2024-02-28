@@ -30,15 +30,15 @@ export default function DashboardCompnent() {
   const qtdLogSuccess = data?.logs?.filter(
     (log) =>
       log?.status_connection == 200 &&
-      JSON.parse(log.description)?.travelsLocal ==
-        JSON.parse(log.description)?.travelsCustomer
+      (Number(JSON.parse(log.description)?.travelsLocal) ===
+        Number(JSON.parse(log.description)?.travelsCustomer))
   ).length;
 
   const qtdLogWithWarning = data?.logs?.filter(
     (log) =>
       log?.status_connection == 200 &&
-      JSON.parse(log.description)?.travelsLocal !=
-        JSON.parse(log.description)?.travelsCustomer
+      (Number(JSON.parse(log.description)?.travelsLocal) !==
+        Number(JSON.parse(log.description)?.travelsCustomer))
   ).length;
 
   const syncDatabases = async () => {
