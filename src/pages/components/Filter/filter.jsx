@@ -105,7 +105,7 @@ export default function TableFiltered(props) {
           <Container
             fluid="md"
             style={{
-              margin: "0px",
+              margin: "30px 0px 0px",
               padding: "0px",
             }}
           >
@@ -113,7 +113,6 @@ export default function TableFiltered(props) {
               style={{
                 padding: "0px",
                 margin: "auto",
-                paddingTop: "30px",
                 display: "flex",
                 flexDirection: "row",
                 maxWidth: "100%",
@@ -123,7 +122,7 @@ export default function TableFiltered(props) {
               }}
             >
               <table className="table table-hover bordered table-striped">
-                <thead style={{top: '-3vh'}}>
+                <thead>
                   <tr style={{ fontSize: "16px" }}>
                     <th>
                       <span>Nome BD</span>
