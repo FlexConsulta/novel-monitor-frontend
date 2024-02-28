@@ -28,7 +28,10 @@ export default function DashboardCompnent() {
   ).length;
 
   const qtdLogSuccess = data?.logs?.filter(
-    (log) => log?.status_connection == 200
+    (log) =>
+      log?.status_connection == 200 &&
+      JSON.parse(log.description)?.travelsLocal ==
+        JSON.parse(log.description)?.travelsCustomer
   ).length;
 
   const qtdLogWithWarning = data?.logs?.filter(

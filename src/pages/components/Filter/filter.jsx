@@ -54,7 +54,12 @@ export default function TableFiltered(props) {
     }
 
     if (props?.typeFilter?.toString() === "Success") {
-      return data.filter((log) => log?.status_connection == 200);
+      return data.filter(
+        (log) =>
+          log?.status_connection == 200 &&
+          JSON.parse(log.description)?.travelsLocal ==
+            JSON.parse(log.description)?.travelsCustomer
+      );
     }
 
     if (props?.typeFilter?.toString() === "Warning") {
@@ -232,12 +237,8 @@ export default function TableFiltered(props) {
                               JSON.parse(log.description)
                                 ?.currentDateCustomer === "Erro"
                                 ? "danger"
-                                : compareDate(
-                                    JSON.parse(log.description)
-                                      ?.currentDateLocal,
-                                    JSON.parse(log.description)
-                                      ?.currentDateCustomer
-                                  )
+                                : JSON.parse(log.description)?.travelsLocal ==
+                                  JSON.parse(log.description)?.travelsCustomer
                                 ? "success"
                                 : "warning"
                             }
@@ -262,12 +263,8 @@ export default function TableFiltered(props) {
                               JSON.parse(log.description)
                                 ?.currentDateCustomer === "Erro"
                                 ? "danger"
-                                : compareDate(
-                                    JSON.parse(log.description)
-                                      ?.currentDateLocal,
-                                    JSON.parse(log.description)
-                                      ?.currentDateCustomer
-                                  )
+                                : JSON.parse(log.description)?.travelsLocal ==
+                                  JSON.parse(log.description)?.travelsCustomer
                                 ? "success"
                                 : "warning"
                             }
