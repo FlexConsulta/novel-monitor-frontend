@@ -100,7 +100,7 @@ export default function RecoveryPasswordComponent() {
         </Col>
         <Col className="half-login col-12 col-sm-6">
           <footer>
-            <small className="text-white">Versão 1.0.0</small>
+            <small className="text-white">Versão 2.0.0</small>
           </footer>
         </Col>
       </Row>

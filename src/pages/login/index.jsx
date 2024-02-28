@@ -91,14 +91,14 @@ export default function LoginComponent() {
                 </Form.Group>
 
                 <div className="footer-form-login mb-2">
-                  <Form.Group>
+                  {/* <Form.Group>
                     <Form.Check
                       checked={checked}
                       onChange={(e) => setChecked(!checked)}
                       type="checkbox"
                       label="Lembrar-me"
                     />
-                  </Form.Group>
+                  </Form.Group> */}
 
                   <Form.Group>
                     <Link className="link" to="/recuperar-senha">
@@ -141,7 +141,7 @@ export default function LoginComponent() {
             }}
           ></div>
           <footer style={{ display: "flex", justifyContent: "end" }}>
-            <small className="text-white">Versão 1.0.0</small>
+            <small className="text-white">Versão 2.0.0</small>
           </footer>
         </Col>
       </Row>
