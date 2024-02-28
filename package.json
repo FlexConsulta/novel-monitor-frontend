@@ -1,5 +1,6 @@
 {
   "name": "monitor-banco",
+  "homepage": "https://sync.grupodlcbrasil.com.br/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
