@@ -197,7 +197,7 @@ export default function ChangePasswordComponent() {
         </Col>
         <Col className="half-login col-12 col-md-6">
           <footer>
-            <small className="text-white">Versão 2.0.0</small>
+            <small className="text-white">Versão 3.0.0</small>
           </footer>
         </Col>
       </Row>

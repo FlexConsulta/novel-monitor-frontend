@@ -141,7 +141,7 @@ export default function LoginComponent() {
             }}
           ></div>
           <footer style={{ display: "flex", justifyContent: "end" }}>
-            <small className="text-white">Versão 2.0.0</small>
+            <small className="text-white">Versão 3.0.0</small>
           </footer>
         </Col>
       </Row>
