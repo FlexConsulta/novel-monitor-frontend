@@ -9,7 +9,22 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Api from "../../../utils/axios";
 
 export default function RegisterDatabase() {
-  const [database, setDatabase] = useState({});
+  const [database, setDatabase] = useState({
+    user_default: "",
+    password_default: "",
+    user_client: "",
+    password_client: "",
+    id_server: "",
+    id_client: "",
+    name_default: "",
+    description: "",
+    hostname_client: "",
+    alternative_hostname_client: "",
+    name_client: "",
+    port_client: "",
+    schemabd_default: "",
+    schemabd: "",
+  });
   const navigator = useNavigate();
   const location = useLocation();
 
@@ -27,14 +42,18 @@ export default function RegisterDatabase() {
 
     const formsControls = document.querySelectorAll(".form-control");
     const formsSelect = document.querySelectorAll(".form-select");
-    console.log("data", database);
+    let body = { ...database };
+    if (database.schemabd === "") body.schemabd = "public";
+    if (database.schemabd_default === "") body.schemabd_default = "public";
+
+    // console.log("data", body);
 
     try {
       if (Frm.FormValidation([...formsControls, ...formsSelect])) {
         let response;
 
         if (location?.state?.database_id) {
-          response = await Api.put(`databases/${database.id}`, database).catch(
+          response = await Api.put(`databases/${database.id}`, body).catch(
             (error) => {
               if (error) {
                 throw new Error(error?.response?.data);
@@ -42,7 +61,7 @@ export default function RegisterDatabase() {
             }
           );
         } else {
-          response = await Api.post("databases", database).catch((error) => {
+          response = await Api.post("databases", body).catch((error) => {
             if (error) {
               throw new Error(error?.response?.data);
             }
