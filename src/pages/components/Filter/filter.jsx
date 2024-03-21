@@ -21,6 +21,7 @@ import { compareDate } from "../../../utils/compareDate";
 import { getLoggedUserInfo } from "../../../utils/profile";
 import Roles from "../../shared/Roles";
 import PaginationComponent from "../../../components/pagination/pagination";
+import { FaRegFolderOpen } from "react-icons/fa";
 
 export default function TableFiltered(props) {
   const [logList, setLogList] = useState([]);
@@ -126,38 +127,38 @@ export default function TableFiltered(props) {
                 paddingLeft: "12px",
               }}
             >
-              <table className="table table-hover bordered table-striped">
-                <thead>
-                  <tr style={{ fontSize: "16px" }}>
-                    <th>
-                      <span>Nome BD</span>
-                    </th>
-                    <th>
-                      <span>CT-e Local</span>
-                    </th>
-                    <th>
-                      <span>CT-e Cliente</span>
-                    </th>
-                    <th>
-                      <span>Data Local</span>
-                    </th>
-                    <th>
-                      <span>Data Cliente</span>
-                    </th>
-                    <th>
-                      <span>Últ. Nota</span>
-                    </th>
-                    <th>
-                      <span>Últ. CT-e</span>
-                    </th>
-                    <th>
-                      <span>Data Sync</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {logList?.length > 0 &&
-                    logList.map((log) => (
+              {logList.length > 0 ? (
+                <table className="table table-hover bordered table-striped">
+                  <thead>
+                    <tr style={{ fontSize: "16px" }}>
+                      <th>
+                        <span>Nome BD</span>
+                      </th>
+                      <th>
+                        <span>CT-e Local</span>
+                      </th>
+                      <th>
+                        <span>CT-e Cliente</span>
+                      </th>
+                      <th>
+                        <span>Data Local</span>
+                      </th>
+                      <th>
+                        <span>Data Cliente</span>
+                      </th>
+                      <th>
+                        <span>Últ. Nota</span>
+                      </th>
+                      <th>
+                        <span>Últ. CT-e</span>
+                      </th>
+                      <th>
+                        <span>Data Sync</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {logList.map((log) => (
                       <tr
                         key={log.id}
                         onClick={() => handleLogDetail(log)}
@@ -313,8 +314,22 @@ export default function TableFiltered(props) {
                         </td>
                       </tr>
                     ))}
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              ) : (
+                <div className="text-secondary d-flex align-items-center gap-2">
+                  <FaRegFolderOpen size={24} />
+                  <h5 className="m-0">
+                    Nenhum log{" "}
+                    {props?.typeFilter?.toString() === "Error"
+                      ? "com erro"
+                      : props?.typeFilter?.toString() === "Warning"
+                      ? "com inconsistência"
+                      : "'OK'"}{" "}
+                    encontrado
+                  </h5>
+                </div>
+              )}
             </Row>
           </Container>
         )}
