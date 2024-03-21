@@ -46,7 +46,7 @@ export default function LogsDatabasesComponent() {
 
     if (getLoggedUserInfo().profile === Roles.Profiles.administracao) {
       Api.get(`logs`, {
-        params: { page, paginate: 10 },
+        params: { page, paginate: process.env.REACT_APP_DEFAULT_PAGINATE },
       })
         .then(({ data }) => {
           setLogList(data?.docs);
@@ -150,16 +150,16 @@ export default function LogsDatabasesComponent() {
               style={{
                 padding: "0px",
                 margin: "auto",
-                paddingTop: "30px",
+                paddingTop: "0px",
                 display: "flex",
                 flexDirection: "row",
                 maxWidth: "100%",
-                maxHeight: "500px",
+                height: "70vh",
                 overflowY: "auto",
                 paddingLeft: "12px",
               }}
             >
-              <table className="table table-hover bordered table-striped">
+              <table className="table table-hover bordered table-striped table-container">
                 <thead>
                   <tr style={{ fontSize: "16px" }}>
                     <th>
@@ -481,15 +481,17 @@ export default function LogsDatabasesComponent() {
               </table>
             </Row>
 
-            <Row>
-              <Col className="col-12 mt-2">
-                <PaginationComponent
-                  page={page}
-                  totalPages={totalPages}
-                  togglePage={setPage}
-                />
-              </Col>
-            </Row>
+            {Number(totalPages) > 1 && (
+              <Row>
+                <Col className="col-12 mt-2">
+                  <PaginationComponent
+                    page={page}
+                    totalPages={totalPages}
+                    togglePage={setPage}
+                  />
+                </Col>
+              </Row>
+            )}
           </Container>
         )}
       </Col>

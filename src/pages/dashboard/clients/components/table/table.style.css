@@ -2,7 +2,7 @@
   max-height: 340px;
   overflow-y: auto;
   border-collapse: collapse;
-  padding: 6px;
+  padding: 0px 6px 6px;
 }
 .table-container thead {
   position: sticky;
@@ -15,6 +15,6 @@
   padding: 2px !important;
 }
 
-.table-container > table{
+.table-container > table {
   margin: 0px;
 }

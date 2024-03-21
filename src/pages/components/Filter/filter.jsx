@@ -49,7 +49,6 @@ export default function TableFiltered(props) {
   }, []);
 
   function filterData(data) {
-
     if (props?.typeFilter?.toString() === "Error") {
       return data.filter((log) => log?.status_connection == 500);
     }
@@ -58,8 +57,8 @@ export default function TableFiltered(props) {
       return data.filter(
         (log) =>
           log?.status_connection == 200 &&
-          (Number(JSON.parse(log.description)?.travelsLocal) ===
-          Number(JSON.parse(log.description)?.travelsCustomer))
+          Number(JSON.parse(log.description)?.travelsLocal) ===
+            Number(JSON.parse(log.description)?.travelsCustomer)
       );
     }
 
@@ -67,8 +66,8 @@ export default function TableFiltered(props) {
       return data.filter(
         (log) =>
           log?.status_connection == 200 &&
-          (Number(JSON.parse(log.description)?.travelsLocal) !==
-          Number(JSON.parse(log.description)?.travelsCustomer))
+          Number(JSON.parse(log.description)?.travelsLocal) !==
+            Number(JSON.parse(log.description)?.travelsCustomer)
       );
     }
   }
@@ -188,13 +187,13 @@ export default function TableFiltered(props) {
                             bg={
                               JSON.parse(log?.description)?.travelsCustomer ==
                                 "Erro" ||
-                                JSON.parse(log?.description)?.travelsLocal ==
+                              JSON.parse(log?.description)?.travelsLocal ==
                                 "Erro"
                                 ? "danger"
                                 : JSON.parse(log.description)?.travelsLocal !=
                                   JSON.parse(log.description)?.travelsCustomer
-                                  ? "warning"
-                                  : "success"
+                                ? "warning"
+                                : "success"
                             }
                             text="white"
                           >
@@ -211,13 +210,13 @@ export default function TableFiltered(props) {
                             bg={
                               JSON.parse(log.description)?.travelsLocal ==
                                 "Erro" ||
-                                JSON.parse(log.description)?.travelsCustomer ==
+                              JSON.parse(log.description)?.travelsCustomer ==
                                 "Erro"
                                 ? "danger"
                                 : JSON.parse(log.description)?.travelsLocal !=
                                   JSON.parse(log.description)?.travelsCustomer
-                                  ? "warning"
-                                  : "success"
+                                ? "warning"
+                                : "success"
                             }
                             text="white"
                           >
@@ -235,13 +234,13 @@ export default function TableFiltered(props) {
                             bg={
                               JSON.parse(log.description)?.currentDateLocal ===
                                 "Erro" ||
-                                JSON.parse(log.description)
-                                  ?.currentDateCustomer === "Erro"
+                              JSON.parse(log.description)
+                                ?.currentDateCustomer === "Erro"
                                 ? "danger"
                                 : JSON.parse(log.description)?.travelsLocal ==
                                   JSON.parse(log.description)?.travelsCustomer
-                                  ? "success"
-                                  : "warning"
+                                ? "success"
+                                : "warning"
                             }
                             text="white"
                           >
@@ -261,13 +260,13 @@ export default function TableFiltered(props) {
                             bg={
                               JSON.parse(log.description)?.currentDateLocal ===
                                 "Erro" ||
-                                JSON.parse(log.description)
-                                  ?.currentDateCustomer === "Erro"
+                              JSON.parse(log.description)
+                                ?.currentDateCustomer === "Erro"
                                 ? "danger"
                                 : JSON.parse(log.description)?.travelsLocal ==
                                   JSON.parse(log.description)?.travelsCustomer
-                                  ? "success"
-                                  : "warning"
+                                ? "success"
+                                : "warning"
                             }
                             text="white"
                           >
@@ -316,16 +315,6 @@ export default function TableFiltered(props) {
                     ))}
                 </tbody>
               </table>
-            </Row>
-
-            <Row>
-              <Col className="col-12 mt-2">
-                <PaginationComponent
-                  page={page}
-                  totalPages={totalPages}
-                  togglePage={setPage}
-                />
-              </Col>
             </Row>
           </Container>
         )}

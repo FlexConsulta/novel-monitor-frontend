@@ -2,6 +2,7 @@
   max-height: 340px;
   overflow-y: auto;
   border-collapse: collapse;
+  padding-top: 0px;
 }
 .table-container thead {
   position: sticky;

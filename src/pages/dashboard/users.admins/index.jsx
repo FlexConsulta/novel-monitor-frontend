@@ -44,11 +44,11 @@ export default function UsersAdminComponent() {
         <Col className="p-0">
           <Row>
             <Col className="mt-3 col-12 d-flex align-items-center">
-              <h1 style={{fontSize:"28px"}}>Usuários</h1>
+              <h1 style={{ fontSize: "28px" }}>Usuários</h1>
               <Link
                 to={"/usuarios-empresas"}
                 className="ms-3 ps-5 pe-5 btn-criar-empresa"
-                style={{height:"30px"}}
+                style={{ height: "30px" }}
               >
                 <i className={"fa fa-plus me-2"}></i>
                 Adicionar{" "}
@@ -66,6 +66,7 @@ export default function UsersAdminComponent() {
               />
             </Col>
           </Row>
+
           <Row>
             {loading ? (
               <Col
@@ -96,7 +97,7 @@ export default function UsersAdminComponent() {
             )}
           </Row>
           <Row className="footer-card-bd flex-grow-0 overflow-auto  overflow-sm-none">
-            <Col className="p-0 ">
+            <Col className="p-0 pt-2">
               <footer
                 style={{ display: "flex" }}
                 className="font-desc-footer h-100 text-center"

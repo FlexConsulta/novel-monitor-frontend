@@ -43,10 +43,13 @@ export default function TableComponent(props) {
   return (
     <>
       <Row>
-        <Col className="table-container" style={{ minHeight: "420px" }}>
+        <Col
+          className="table-container"
+          style={{ minHeight: "420px", height: "70vh" }}
+        >
           <table className="table table-hover bordered table-striped">
             <thead>
-              <tr style={{fontSize:"16px"}}>
+              <tr style={{ fontSize: "16px" }}>
                 <th>
                   {showSearch ? (
                     <Form.Control
@@ -154,15 +157,23 @@ export default function TableComponent(props) {
             </thead>
             <tbody>
               {filterData.map((user, idx) => (
-                <tr key={idx} className={"linhaTabela"} style={{fontSize:"14px", cursor:"pointer"}}>
+                <tr
+                  key={idx}
+                  className={"linhaTabela"}
+                  style={{ fontSize: "14px", cursor: "pointer" }}
+                >
                   <td>{user.person.name}</td>
                   <td>{user.person.email}</td>
                   <td>{user.profile.name}</td>
                   <td>{user.active ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ width: "90px", height:"32px", gap:"3px" }}>
+                    <div style={{ width: "90px", height: "32px", gap: "3px" }}>
                       <Button
-                        style={{ display:"flex", alignItems:"center", justifyContent:"center" }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
                         onClick={() =>
                           navigate("/usuarios-empresas", {
                             state: { user_id: user.id },
@@ -179,7 +190,8 @@ export default function TableComponent(props) {
             </tbody>
           </table>
         </Col>
-        {!showSearch && (
+
+        {!showSearch && Number(totalPages) > 1 && (
           <Col className="col-12 mt-2">
             <PaginationComponent
               page={page}

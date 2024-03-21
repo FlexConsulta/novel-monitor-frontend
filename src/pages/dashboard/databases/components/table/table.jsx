@@ -43,7 +43,10 @@ export default function TableComponent(props) {
   return (
     <>
       <Row>
-        <Col className="table-container" style={{ minHeight: "455px" }}>
+        <Col
+          className="table-container"
+          style={{ minHeight: "455px", height: "70vh" }}
+        >
           <table className="table table-hover bordered table-striped">
             <thead>
               <tr style={{ fontSize: "16px" }}>
@@ -125,8 +128,8 @@ export default function TableComponent(props) {
                               e.target.value === "ativo"
                                 ? true
                                 : e.target.value === "inativo"
-                                  ? false
-                                  : "",
+                                ? false
+                                : "",
                           },
                         ])
                       }
@@ -158,17 +161,30 @@ export default function TableComponent(props) {
             </thead>
             <tbody>
               {filterData.map((database, idx) => (
-                <tr key={idx} className={"linhaTabela"} style={{ fontSize: "14px", cursor: "pointer" }}>
+                <tr
+                  key={idx}
+                  className={"linhaTabela"}
+                  style={{ fontSize: "14px", cursor: "pointer" }}
+                >
                   <td>{database?.name_default}</td>
                   <td>{database?.client?.name}</td>
                   <td>{database?.server?.name}</td>
                   <td>{database?.sincronizacao ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
                     <div
-                      style={{ width: "135px", display: "flex", gap: "3px", height: "32px" }}
+                      style={{
+                        width: "135px",
+                        display: "flex",
+                        gap: "3px",
+                        height: "32px",
+                      }}
                     >
                       <Button
-                        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
                         onClick={() =>
                           navigate("/test-connection", {
                             state: { id_database: database.id },
@@ -178,7 +194,11 @@ export default function TableComponent(props) {
                         <SiSpeedtest size={14} />
                       </Button>
                       <Button
-                        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
                         onClick={() =>
                           navigate("/logs-history", {
                             state: { id_database: database.id },
@@ -188,7 +208,11 @@ export default function TableComponent(props) {
                         <SiGraylog size={12} />
                       </Button>
                       <Button
-                        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
                         onClick={() =>
                           navigate("/edit-banco-dados", {
                             state: { database_id: database.id },
@@ -205,13 +229,15 @@ export default function TableComponent(props) {
             </tbody>
           </table>
         </Col>
-        <Col className="col-12 mt-2">
-          <PaginationComponent
-            page={page}
-            totalPages={totalPages}
-            togglePage={togglePage}
-          />
-        </Col>
+        {Number(totalPages) > 1 && (
+          <Col className="col-12 mt-2">
+            <PaginationComponent
+              page={page}
+              totalPages={totalPages}
+              togglePage={togglePage}
+            />
+          </Col>
+        )}
       </Row>
     </>
   );

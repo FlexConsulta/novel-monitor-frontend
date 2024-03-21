@@ -44,10 +44,13 @@ export default function TableComponent(props) {
   return (
     <>
       <Row>
-        <Col className="table-container" style={{ minHeight: "460px" }}>
+        <Col
+          className="table-container"
+          style={{ minHeight: "460px", height: "70vh" }}
+        >
           <table className="table table-hover bordered table-striped">
             <thead>
-              <tr style={{fontSize:"16px"}}>
+              <tr style={{ fontSize: "16px" }}>
                 <th>
                   {showSearch ? (
                     <Form.Control
@@ -155,17 +158,30 @@ export default function TableComponent(props) {
             </thead>
             <tbody>
               {filterData.map((server, idx) => (
-                <tr key={idx} className={"linhaTabela"} style={{fontSize:"14px", cursor:"pointer"}}>
+                <tr
+                  key={idx}
+                  className={"linhaTabela"}
+                  style={{ fontSize: "14px", cursor: "pointer" }}
+                >
                   <td>{server.name}</td>
                   <td>{server.url}</td>
                   <td>{server.port}</td>
                   <td>{server.ativo ? "Ativo" : "Inativo"}</td>
                   <td style={{ display: "flex", justifyContent: "flex-end" }}>
                     <div
-                      style={{ width: "135px", display: "flex", gap: "3px", height:"32px"  }}
+                      style={{
+                        width: "135px",
+                        display: "flex",
+                        gap: "3px",
+                        height: "32px",
+                      }}
                     >
                       <Button
-                      style={{ display:"flex", alignItems:"center", justifyContent:"center" }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
                         onClick={() =>
                           navigate("/logs-server", {
                             state: { server_id: server.id },
@@ -175,7 +191,11 @@ export default function TableComponent(props) {
                         <SiGraylog size={12} />
                       </Button>
                       <Button
-                      style={{ display:"flex", alignItems:"center", justifyContent:"center" }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
                         onClick={() =>
                           navigate("/edit-servidores", {
                             state: { server_id: server.id },
@@ -192,7 +212,7 @@ export default function TableComponent(props) {
             </tbody>
           </table>
         </Col>
-        {!showSearch && (
+        {!showSearch && Number(totalPages) > 1 && (
           <Col className="col-12 mt-2">
             <PaginationComponent
               page={page}
