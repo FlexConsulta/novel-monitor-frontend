@@ -92,7 +92,7 @@ export default function RecoveryPasswordComponent() {
             <div className="w-100">
               <footer className="footer-login mt-5">
                 <hr className="line mr-1" />
-                <small>© 2022 Todos os direitos reservados</small>
+                <small>© {new Date().getFullYear()} Todos os direitos reservados</small>
                 <hr className="line ml-1" />
               </footer>
             </div>
