@@ -22,6 +22,7 @@ import { getLoggedUserInfo } from "../../../utils/profile";
 import Roles from "../../shared/Roles";
 import PaginationComponent from "../../../components/pagination/pagination";
 import { FaRegFolderOpen } from "react-icons/fa";
+import "./styles.css";
 
 export default function TableFiltered(props) {
   const [logList, setLogList] = useState([]);
@@ -90,7 +91,7 @@ export default function TableFiltered(props) {
 
   return (
     <Row className="h-100 w-100">
-      <Col className="table-container" style={{ minHeight: "620px" }}>
+      <Col className="" style={{ minHeight: "620px", height: "80vh" }}>
         {loading ? (
           <Row
             style={{
@@ -108,230 +109,219 @@ export default function TableFiltered(props) {
             />
           </Row>
         ) : (
-          <Container
-            fluid="md"
+          <Row
             style={{
-              margin: "30px 0px 0px",
               padding: "0px",
+              margin: "auto",
+              display: "flex",
+              flexDirection: "row",
+              maxWidth: "100%",
+              height: "100%",
+              overflowY: "auto",
+              paddingLeft: "12px",
             }}
           >
-            <Row
-              style={{
-                padding: "0px",
-                margin: "auto",
-                display: "flex",
-                flexDirection: "row",
-                maxWidth: "100%",
-                maxHeight: "500px",
-                overflowY: "auto",
-                paddingLeft: "12px",
-              }}
-            >
-              {logList.length > 0 ? (
-                <table className="table table-hover bordered table-striped">
-                  <thead>
-                    <tr style={{ fontSize: "16px" }}>
-                      <th>
-                        <span>Nome BD</span>
-                      </th>
-                      <th>
-                        <span>CT-e Local</span>
-                      </th>
-                      <th>
-                        <span>CT-e Cliente</span>
-                      </th>
-                      <th>
-                        <span>Data Local</span>
-                      </th>
-                      <th>
-                        <span>Data Cliente</span>
-                      </th>
-                      <th>
-                        <span>Últ. Nota</span>
-                      </th>
-                      <th>
-                        <span>Últ. CT-e</span>
-                      </th>
-                      <th>
-                        <span>Data Sync</span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {logList.map((log) => (
-                      <tr
-                        key={log.id}
-                        onClick={() => handleLogDetail(log)}
+            {logList.length > 0 ? (
+              <table className="tableLogs-container table table-hover bordered table-striped">
+                <thead>
+                  <tr style={{ fontSize: "16px" }}>
+                    <th>
+                      <span>Nome BD</span>
+                    </th>
+                    <th>
+                      <span>CT-e Local</span>
+                    </th>
+                    <th>
+                      <span>CT-e Cliente</span>
+                    </th>
+                    <th>
+                      <span>Data Local</span>
+                    </th>
+                    <th>
+                      <span>Data Cliente</span>
+                    </th>
+                    <th>
+                      <span>Últ. Nota</span>
+                    </th>
+                    <th>
+                      <span>Últ. CT-e</span>
+                    </th>
+                    <th>
+                      <span>Data Sync</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {logList.map((log) => (
+                    <tr
+                      key={log.id}
+                      onClick={() => handleLogDetail(log)}
+                      style={{
+                        maxHeight: "16px",
+                        height: "16px",
+                        cursor: "pointer",
+                        fontSize: "14px",
+                      }}
+                    >
+                      <td
                         style={{
+                          width: "100px",
                           maxHeight: "16px",
-                          height: "16px",
-                          cursor: "pointer",
-                          fontSize: "14px",
+                          minWidth: "100px",
                         }}
                       >
-                        <td
-                          style={{
-                            width: "100px",
-                            maxHeight: "16px",
-                            minWidth: "100px",
-                          }}
+                        {log?.name_default || getDBname(log.id_database)}
+                      </td>
+                      <td
+                        style={{
+                          maxHeight: "16px",
+                          minWidth: "70px",
+                        }}
+                      >
+                        <Badge
+                          bg={
+                            JSON.parse(log?.description)?.travelsCustomer ==
+                              "Erro" ||
+                            JSON.parse(log?.description)?.travelsLocal == "Erro"
+                              ? "danger"
+                              : JSON.parse(log.description)?.travelsLocal !=
+                                JSON.parse(log.description)?.travelsCustomer
+                              ? "warning"
+                              : "success"
+                          }
+                          text="white"
                         >
-                          {log?.name_default || getDBname(log.id_database)}
-                        </td>
-                        <td
-                          style={{
-                            maxHeight: "16px",
-                            minWidth: "70px",
-                          }}
+                          {JSON.parse(log?.description)?.travelsLocal}
+                        </Badge>
+                      </td>
+                      <td
+                        style={{
+                          maxHeight: "16px",
+                          minWidth: "70px",
+                        }}
+                      >
+                        <Badge
+                          bg={
+                            JSON.parse(log.description)?.travelsLocal ==
+                              "Erro" ||
+                            JSON.parse(log.description)?.travelsCustomer ==
+                              "Erro"
+                              ? "danger"
+                              : JSON.parse(log.description)?.travelsLocal !=
+                                JSON.parse(log.description)?.travelsCustomer
+                              ? "warning"
+                              : "success"
+                          }
+                          text="white"
                         >
-                          <Badge
-                            bg={
-                              JSON.parse(log?.description)?.travelsCustomer ==
-                                "Erro" ||
-                              JSON.parse(log?.description)?.travelsLocal ==
-                                "Erro"
-                                ? "danger"
-                                : JSON.parse(log.description)?.travelsLocal !=
-                                  JSON.parse(log.description)?.travelsCustomer
-                                ? "warning"
-                                : "success"
-                            }
-                            text="white"
-                          >
-                            {JSON.parse(log?.description)?.travelsLocal}
-                          </Badge>
-                        </td>
-                        <td
-                          style={{
-                            maxHeight: "16px",
-                            minWidth: "70px",
-                          }}
+                          {JSON.parse(log.description)?.travelsCustomer}
+                        </Badge>
+                      </td>
+                      <td
+                        style={{
+                          maxHeight: "16px",
+                          width: "125px",
+                          minWidth: "125px",
+                        }}
+                      >
+                        <Badge
+                          bg={
+                            JSON.parse(log.description)?.currentDateLocal ===
+                              "Erro" ||
+                            JSON.parse(log.description)?.currentDateCustomer ===
+                              "Erro"
+                              ? "danger"
+                              : JSON.parse(log.description)?.travelsLocal ==
+                                JSON.parse(log.description)?.travelsCustomer
+                              ? "success"
+                              : "warning"
+                          }
+                          text="white"
                         >
-                          <Badge
-                            bg={
-                              JSON.parse(log.description)?.travelsLocal ==
-                                "Erro" ||
-                              JSON.parse(log.description)?.travelsCustomer ==
-                                "Erro"
-                                ? "danger"
-                                : JSON.parse(log.description)?.travelsLocal !=
-                                  JSON.parse(log.description)?.travelsCustomer
-                                ? "warning"
-                                : "success"
-                            }
-                            text="white"
-                          >
-                            {JSON.parse(log.description)?.travelsCustomer}
-                          </Badge>
-                        </td>
-                        <td
-                          style={{
-                            maxHeight: "16px",
-                            width: "125px",
-                            minWidth: "125px",
-                          }}
+                          {dropSeconds(
+                            JSON.parse(log.description)?.currentDateLocal
+                          )}
+                        </Badge>
+                      </td>
+                      <td
+                        style={{
+                          width: "120px",
+                          maxHeight: "16px",
+                          minWidth: "120px",
+                        }}
+                      >
+                        <Badge
+                          bg={
+                            JSON.parse(log.description)?.currentDateLocal ===
+                              "Erro" ||
+                            JSON.parse(log.description)?.currentDateCustomer ===
+                              "Erro"
+                              ? "danger"
+                              : JSON.parse(log.description)?.travelsLocal ==
+                                JSON.parse(log.description)?.travelsCustomer
+                              ? "success"
+                              : "warning"
+                          }
+                          text="white"
                         >
-                          <Badge
-                            bg={
-                              JSON.parse(log.description)?.currentDateLocal ===
-                                "Erro" ||
-                              JSON.parse(log.description)
-                                ?.currentDateCustomer === "Erro"
-                                ? "danger"
-                                : JSON.parse(log.description)?.travelsLocal ==
-                                  JSON.parse(log.description)?.travelsCustomer
-                                ? "success"
-                                : "warning"
-                            }
-                            text="white"
-                          >
-                            {dropSeconds(
-                              JSON.parse(log.description)?.currentDateLocal
-                            )}
-                          </Badge>
-                        </td>
-                        <td
-                          style={{
-                            width: "120px",
-                            maxHeight: "16px",
-                            minWidth: "120px",
-                          }}
+                          {dropSeconds(
+                            JSON.parse(log.description)?.currentDateCustomer
+                          )}
+                        </Badge>
+                      </td>
+                      <td
+                        style={{
+                          maxHeight: "16px",
+                          width: "120px",
+                          minWidth: "120px",
+                        }}
+                      >
+                        {JSON.parse(log.description)?.max_invoice_today}
+                      </td>
+                      <td
+                        style={{
+                          maxHeight: "16px",
+                          minWidth: "90px",
+                        }}
+                      >
+                        {JSON.parse(log.description)?.max_cte_today}
+                      </td>
+                      <td
+                        style={{
+                          maxHeight: "16px",
+                          minWidth: "90px",
+                        }}
+                      >
+                        <Badge
+                          bg={
+                            log?.status_connection == 200 ? "success" : "danger"
+                          }
+                          text="white"
                         >
-                          <Badge
-                            bg={
-                              JSON.parse(log.description)?.currentDateLocal ===
-                                "Erro" ||
-                              JSON.parse(log.description)
-                                ?.currentDateCustomer === "Erro"
-                                ? "danger"
-                                : JSON.parse(log.description)?.travelsLocal ==
-                                  JSON.parse(log.description)?.travelsCustomer
-                                ? "success"
-                                : "warning"
-                            }
-                            text="white"
-                          >
-                            {dropSeconds(
-                              JSON.parse(log.description)?.currentDateCustomer
-                            )}
-                          </Badge>
-                        </td>
-                        <td
-                          style={{
-                            maxHeight: "16px",
-                            width: "120px",
-                            minWidth: "120px",
-                          }}
-                        >
-                          {JSON.parse(log.description)?.max_invoice_today}
-                        </td>
-                        <td
-                          style={{
-                            maxHeight: "16px",
-                            minWidth: "90px",
-                          }}
-                        >
-                          {JSON.parse(log.description)?.max_cte_today}
-                        </td>
-                        <td
-                          style={{
-                            maxHeight: "16px",
-                            minWidth: "90px",
-                          }}
-                        >
-                          <Badge
-                            bg={
-                              log?.status_connection == 200
-                                ? "success"
-                                : "danger"
-                            }
-                            text="white"
-                          >
-                            {dropSeconds(
-                              new Date(log?.created_at).toLocaleString()
-                            )}
-                          </Badge>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              ) : (
-                <div className="text-secondary d-flex align-items-center gap-2">
-                  <FaRegFolderOpen size={24} />
-                  <h5 className="m-0">
-                    Nenhum log{" "}
-                    {props?.typeFilter?.toString() === "Error"
-                      ? "com erro"
-                      : props?.typeFilter?.toString() === "Warning"
-                      ? "com inconsistência"
-                      : "'OK'"}{" "}
-                    encontrado
-                  </h5>
-                </div>
-              )}
-            </Row>
-          </Container>
+                          {dropSeconds(
+                            new Date(log?.created_at).toLocaleString()
+                          )}
+                        </Badge>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="text-secondary d-flex align-items-center gap-2">
+                <FaRegFolderOpen size={24} />
+                <h5 className="m-0">
+                  Nenhum log{" "}
+                  {props?.typeFilter?.toString() === "Error"
+                    ? "com erro"
+                    : props?.typeFilter?.toString() === "Warning"
+                    ? "com inconsistência"
+                    : "'OK'"}{" "}
+                  encontrado
+                </h5>
+              </div>
+            )}
+          </Row>
         )}
       </Col>
     </Row>
