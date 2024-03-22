@@ -34,6 +34,7 @@ export default function TableComponent(props) {
   }, [search]);
 
   useEffect(() => {
+    // console.log()
     if (!showSearch) {
       setSearch([]);
       setFilterData([...props.data]);
