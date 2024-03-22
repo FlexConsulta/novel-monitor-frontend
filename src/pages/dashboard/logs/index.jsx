@@ -154,7 +154,7 @@ export default function LogsDatabasesComponent() {
                 display: "flex",
                 flexDirection: "row",
                 maxWidth: "100%",
-                height: "70vh",
+                height: "80vh",
                 overflowY: "auto",
                 paddingLeft: "12px",
               }}

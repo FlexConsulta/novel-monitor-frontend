@@ -1,5 +1,5 @@
 .table-container {
-  max-height: 340px;
+  /* max-height: 340px; */
   overflow-y: auto;
   border-collapse: collapse;
   padding-top: 0px;
