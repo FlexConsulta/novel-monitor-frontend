@@ -119,6 +119,7 @@ export default function TableFiltered(props) {
               height: "100%",
               overflowY: "auto",
               paddingLeft: "12px",
+              alignItems: "flex-start",
             }}
           >
             {logList.length > 0 ? (
